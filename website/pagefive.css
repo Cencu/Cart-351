@@ -139,6 +139,19 @@ body {
 
 }
 
+.logo {
+	position: fixed;
+	left: 63%;
+	top: 250px;
+	width: 350px;
+	padding-top: 5px;
+	margin: 0;
+	-webkit-animation: fadein 4s;
+	opacity: .2;
+}
+.logo:hover {
+	cursor: pointer;
+}
 
 .contactinfo {
 	position: absolute;
