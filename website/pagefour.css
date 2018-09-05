@@ -44,7 +44,7 @@ body {
 	position: fixed;
 	font-size: 20px;
 	color:#7a7a7a;
-	left: 920px;
+	left: 820px;
 	top: 105px;
 	font-family: HelveticaNeueLTCom-Md;
 	letter-spacing: 1px;
@@ -107,17 +107,16 @@ body {
 	text-decoration: none;
 	position: fixed;
 	font-size: 20px;
-	color:white;
-	left: 1300px;
+	color:#7a7a7a;
+	left: 910px;
 	top: 105px;
 	font-family: HelveticaNeueLTCom-Md;
 	letter-spacing: 1px;
 }
 
-.contact:hover {
-	color:white;
-	 transition:1s;
-
+.cart351:hover {
+  color:white;
+  transition:1s;
 }
 
 
