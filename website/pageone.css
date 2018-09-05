@@ -1,0 +1,189 @@
+@font-face {
+	font-family: HelveticaNeueLTCom-Md;
+	src:url(HelveticaNeueLTCom-Md.ttf);
+}
+@font-face {
+	font-family: HelveticaNeueLTCom-Blk;
+	src:url(HelveticaNeueLTCom-Blk.ttf);
+}
+html {
+	margin:0px;
+}
+
+body {
+	margin: 0px;
+	background-color: #262626;
+}
+
+.logo {	
+	position: fixed;
+	left: 63%;
+	top: 250px;
+	width: 350px;
+	padding-top: 5px;
+	margin: 0;
+	-webkit-animation: fadein 4s;
+	opacity: .2;
+}
+.logo:hover {
+	cursor: pointer;
+}
+
+.portfolio {
+	text-decoration: none;
+	color: white;
+	position: fixed;
+	font-size: 70px;
+	left: 87.5px;
+	top: 37px;
+	font-family: HelveticaNeueLTCom-Blk;
+}
+
+.name {
+	text-decoration: none;
+	position: fixed;
+	font-size: 30.3px;
+	color:#7a7a7a;
+	left: 89.5px;
+	top: 135px;
+	font-family: HelveticaNeueLTCom-Md;
+
+}
+
+.Home {
+	text-decoration: none;
+	position: fixed;
+	font-size: 20px;
+	color:white;
+	left: 920px;
+	top: 145px;
+	font-family: HelveticaNeueLTCom-Md;
+	letter-spacing: 1px;
+
+}
+
+.Home:hover {
+	color:white;
+	 transition:1s;
+
+}
+
+.design {
+	text-decoration: none;
+	position: fixed;
+	font-size: 20px;
+	color:#7a7a7a;
+	left: 1030px;
+	top: 145px;
+	font-family: HelveticaNeueLTCom-Md;
+	letter-spacing: 1px;
+
+}
+
+.design:hover {
+	color:white;
+	 transition:1s;
+}
+
+.visualarts {
+	text-decoration: none;
+	position: fixed;
+	font-size: 20px;
+	color:#7a7a7a;
+	left: 1148px;
+	top: 145px;
+	font-family: HelveticaNeueLTCom-Md;
+	letter-spacing: 1px;
+
+}
+
+.visualarts:hover {
+	color:white;
+	 transition:1s;
+
+}
+
+.contact {
+	text-decoration: none;
+	position: fixed;
+	font-size: 20px;
+	color:#7a7a7a;
+	left: 1300px;
+	top: 145px;
+	font-family: HelveticaNeueLTCom-Md;
+	letter-spacing: 1px;
+
+}
+
+.contact:hover {
+	color:white;
+	 transition:1s;
+
+}
+
+.rectangle {
+	border: 0px;
+	margin: 0px;
+	padding: 0px;
+	position: absolute;
+	top: 200px;
+	background-color: #262626;
+	width: 87px;
+	height: 475px;
+}
+.Pic {
+
+	position: absolute;
+width: 308px;
+height: 461px;
+left: 90px;
+top: 200px;
+animation-timing-function: ease;
+
+animation-name: example;
+animation-duration: 4s;
+animation-iteration-count: infinite;
+animation-direction: alternate-reverse;    
+animation-delay: 3s;
+}
+.overlay {
+	display: block;
+	position: absolute;
+width: 308px;
+height: 461px;
+left: 90px;
+top: 200px;
+animation-timing-function: ease;
+animation-name: example;
+animation-duration: 4s;
+animation-iteration-count: infinite;
+animation-direction: alternate-reverse;    
+animation-delay: 3s;
+opacity: .4
+}
+
+
+
+
+@keyframes example {
+	from {left:-350px;}
+    to {right: 0px;}
+}
+
+.Pic2 {
+	position: absolute;
+width: 20%;
+left: 90px;
+top: 200px;
+z-index: -1;
+}
+
+.overlay2 {
+	position: absolute;
+width: 308px;
+height: 461px;
+left: 90px;
+top: 200px;
+opacity: .4;
+z-index:-1;
+}

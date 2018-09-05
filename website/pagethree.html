@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Visual Arts</title>
+		<link rel="stylesheet" href="pagethree.css">
+</head>
+<body>
+
+
+<a href="pageone.html">
+<h1 class="portfolio">Portfolio</h1>
+
+</a>
+<h2 class="Subtitle">Broken Window (2016)</h2>
+<h2 class="Subtitle2">Potato Head (2015)</h2>
+<h2 class="Subtitle3">Faucet (2015)</h2>
+
+<a href="pageone.html">
+<p class="Home">Home</p>
+</a>
+
+<a href="pagetwo.html">
+<p class="design">Design</p>
+
+</a>
+<a href="pagethree.html">
+<p class="visualarts">Visual Arts</p>
+</a>
+
+<a href="pagefour.html">
+<p class="contact">Contact</p>
+</a>
+
+<a href="pageone.html">
+<img src="images/logo.png" class="logo">
+</a>
+<div class="pictures">
+<img src="images/12-1.JPG" class="picture designpic">
+<img src="images/Copy%20of%20IMG_9299.jpg" class="picture vispic">
+<img src="images/IMG_9324.jpg" class="picture Pic3">
+</div>
+
+<div class="rectangle">_</div>
+
+<script type="text/javascript">
+var pictures = document.getElementById('pictures');
+var windowHeight = window.innerHeight;
+var windowWidth = window.innerWidth;
+
+var scrollArea = 400 - windowHeight;
+var scrollArea2 = windowHeight*.8;
+
+var square1 = document.getElementsByClassName('picture')[0];
+var square2 = document.getElementsByClassName('picture')[1];
+
+// update position of square 1 and square 2 when scroll event fires.
+window.addEventListener('scroll', function() {
+  var scrollTop = window.pageYOffset || window.scrollTop;
+    var scrollTop2 = window.pageYOffset || window.scrollTop2;
+
+  var scrollPercent = scrollTop/scrollArea || 0;
+   var scrollPercent2 = -.02+scrollTop2/scrollArea2 || 0;
+
+  square1.style.left = scrollPercent*window.innerWidth + '93px';
+  square2.style.left = scrollPercent2*window.innerWidth*.06 + '93px';
+});
+</script>
+
+</body>
+</html>
