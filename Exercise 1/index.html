@@ -5,7 +5,7 @@
   <style>
   #c {
       background-color: #3e181b;
-      border: 3px solid #db1d2d;}
+      border: 3px solid #3e181b;}
 
   #d {
       background-color: #422018;
@@ -35,10 +35,16 @@
     console.log("testing");
     let handleClick = function (event) {
       this.style.background = "#00FFFF";
-      console.log("box c changes color");
+      this.style.background = "#0000FF";
+
+      //console.log("box c changes color");
     };
     let cBox = document.getElementById('c');
     cBox.addEventListener('click', handleClick);
+
+    let dBox = document.getElementById('d');
+    dBox.addEventListener('click', handleClick);
+
   }
   </script>
 </head>
