@@ -33,7 +33,13 @@
   <script>
   window.onload = function(){
     console.log("testing");
-  } //on load
+    let handleClick = function (event) {
+      this.style.background = "#00FFFF";
+      console.log("box c changes color");
+    };
+    let cBox = document.getElementById('c');
+    cBox.addEventListener('click', handleClick);
+  }
   </script>
 </head>
 <body>
