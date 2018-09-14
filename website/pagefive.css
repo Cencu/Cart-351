@@ -153,6 +153,126 @@ body {
 	cursor: pointer;
 }
 
+.assign2 {
+	text-decoration: none;
+	position: fixed;
+	font-size: 20px;
+	color:#7a7a7a;
+	left: 87.5px;
+	top: 205px;
+	font-family: HelveticaNeueLTCom-Md;
+	letter-spacing: 1px;
+}
+
+.assign2:hover {
+	cursor: pointer;
+	color:white;
+	 transition:1s;
+}
+
+.assign3 {
+	text-decoration: none;
+	position: fixed;
+	font-size: 20px;
+	color:#7a7a7a;
+	left: 277.5px;
+	top: 205px;
+	font-family: HelveticaNeueLTCom-Md;
+	letter-spacing: 1px;
+}
+
+.assign3:hover {
+	cursor: pointer;
+	color:white;
+	 transition:1s;
+}
+
+.proposal {
+	text-decoration: none;
+	position: fixed;
+	font-size: 20px;
+	color:#7a7a7a;
+	left: 467.5px;
+	top: 205px;
+	font-family: HelveticaNeueLTCom-Md;
+	letter-spacing: 1px;
+}
+
+.proposal:hover {
+	cursor: pointer;
+	color:white;
+	 transition:1s;
+}
+
+.prototype {
+	text-decoration: none;
+	position: fixed;
+	font-size: 20px;
+	color:#7a7a7a;
+	left: 607.5px;
+	top: 205px;
+	font-family: HelveticaNeueLTCom-Md;
+	letter-spacing: 1px;
+}
+
+.prototype:hover {
+	cursor: pointer;
+	color:white;
+	 transition:1s;
+}
+
+.projectFinal {
+	text-decoration: none;
+	position: fixed;
+	font-size: 20px;
+	color:#7a7a7a;
+	left: 837.5px;
+	top: 205px;
+	font-family: HelveticaNeueLTCom-Md;
+	letter-spacing: 1px;
+}
+
+.projectFinal:hover {
+	cursor: pointer;
+	color:white;
+	 transition:1s;
+}
+
+.refelctions {
+	text-decoration: none;
+	position: fixed;
+	font-size: 20px;
+	color:#7a7a7a;
+	left: 1017.5px;
+	top: 205px;
+	font-family: HelveticaNeueLTCom-Md;
+	letter-spacing: 1px;
+}
+
+.refelctions:hover {
+	cursor: pointer;
+	color:white;
+	 transition:1s;
+}
+
+.presentation {
+	text-decoration: none;
+	position: fixed;
+	font-size: 20px;
+	color:#7a7a7a;
+	left: 1197.5px;
+	top: 205px;
+	font-family: HelveticaNeueLTCom-Md;
+	letter-spacing: 1px;
+}
+
+.presentation:hover {
+	cursor: pointer;
+	color:white;
+	 transition:1s;
+}
+
+
 .contactinfo {
 	position: absolute;
 	text-decoration: none;
