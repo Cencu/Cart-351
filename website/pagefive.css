@@ -272,6 +272,24 @@ body {
 	 transition:1s;
 }
 
+.gitLink {
+	text-decoration: none;
+	position: fixed;
+	font-size: 20px;
+	color:#7a7a7a;
+	left: 87.5px;
+	top: 255px;
+	font-family: HelveticaNeueLTCom-Md;
+	letter-spacing: 1px;
+}
+
+.gitLink:hover {
+	cursor: pointer;
+	color:white;
+	 transition:1s;
+}
+
+
 
 .contactinfo {
 	position: absolute;
