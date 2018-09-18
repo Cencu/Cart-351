@@ -68,6 +68,19 @@ let handleTextE = function(event) {
    dText.style.display = "inline-block";
 }
 
+let removeText = function(event) {
+  let texts = document.getElementById('texts');
+  let textC = document.getElementById('displayText');
+
+  if(textC!=null){
+    texts.removeChild(textC);
+  }
+}
+
+  let cText = document.getElementById('displayText');
+  cText.addEventListener('click',removeText);
+
+
     let cBox = document.getElementById('c');
     cBox.addEventListener('click', handleClick);
     cBox.addEventListener('click', handleText);
@@ -90,10 +103,11 @@ let handleTextE = function(event) {
   <div id="e" class="box"></div>
   <br>
 </div>
+<div id="texts">
 <p style="display:none;" id="displayText" class="para">This is For Box C</p>
 <p style="display:none;" id="displayTextD" class="paraD">This is For Box D</p>
 <p style="display:none;" id="displayTextE" class="paraE">This is For Box E</p>
-
+</div>
 
 </body>
 </html>
