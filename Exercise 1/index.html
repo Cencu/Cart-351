@@ -25,6 +25,22 @@
       margin-top: 1%;
       display:inline-block;
     }
+    .paraD {color:white;font-size:22pt; background:red;margin-left: 30%;margin-top: 10%; padding:1%;}
+        .box {
+        width: 10vw; /*(1/10th) viewport width */
+        height: 10vw;
+        margin-left: 1%;
+        margin-top: 1%;
+        display:inline-block;
+      }
+      .paraE {color:white;font-size:22pt; background:blue;margin-left: 30%;margin-top: 10%; padding:1%;}
+          .box {
+          width: 10vw; /*(1/10th) viewport width */
+          height: 10vw;
+          margin-left: 1%;
+          margin-top: 1%;
+          display:inline-block;
+        }
   .wrapper{
     margin-left:30%;
     margin-top:15%;
@@ -36,21 +52,33 @@
     console.log("testing");
     let handleClick = function (event) {
       this.style.background = "#00FFFF";
-      this.style.background = "#0000FF";
+    };
+    let handleText = function(event) {
       let cText = document.getElementById('displayText');
       cText.style.display = "inline-block";
-      //console.log("box c changes color");
-    };
+    }
+
+let handleTextD = function(event) {
+  let dText = document.getElementById('displayTextD');
+   dText.style.display = "inline-block";
+}
+
+let handleTextE = function(event) {
+  let dText = document.getElementById('displayTextE');
+   dText.style.display = "inline-block";
+}
+
     let cBox = document.getElementById('c');
- cBox.addEventListener('click', handleClick);
+    cBox.addEventListener('click', handleClick);
+    cBox.addEventListener('click', handleText);
 
    let dBox = document.getElementById('d');
     dBox.addEventListener('click', handleClick);
+    dBox.addEventListener('click', handleTextD);
+
     let eBox = document.getElementById('e');
     eBox.addEventListener('click', handleClick);
-
-
-
+    eBox.addEventListener('click', handleTextE);
   }
   </script>
 
@@ -62,7 +90,10 @@
   <div id="e" class="box"></div>
   <br>
 </div>
-<p style="display:none;" id="displayText" class="para">This is Text For Box C</p>
+<p style="display:none;" id="displayText" class="para">This is For Box C</p>
+<p style="display:none;" id="displayTextD" class="paraD">This is For Box D</p>
+<p style="display:none;" id="displayTextE" class="paraE">This is For Box E</p>
+
 
 </body>
 </html>
