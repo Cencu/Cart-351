@@ -53,33 +53,51 @@
     let handleClick = function (event) {
       this.style.background = "#00FFFF";
     };
+
     let handleText = function(event) {
       let cText = document.getElementById('displayText');
       cText.style.display = "inline-block";
-    }
+    };
 
-let handleTextD = function(event) {
-  let dText = document.getElementById('displayTextD');
-   dText.style.display = "inline-block";
+    let handleTextD = function(event) {
+      let dText = document.getElementById('displayTextD');
+      dText.style.display = "inline-block";
 }
 
 let handleTextE = function(event) {
-  let dText = document.getElementById('displayTextE');
-   dText.style.display = "inline-block";
+  let eText = document.getElementById('displayTextE');
+  eText.style.display = "inline-block";
 }
 
-let removeText = function(event) {
-  let texts = document.getElementById('texts');
+let removeText = function(event){
   let textC = document.getElementById('displayText');
-
   if(textC!=null){
     texts.removeChild(textC);
   }
 }
 
-  let cText = document.getElementById('displayText');
-  cText.addEventListener('click',removeText);
+let removeTextD = function(event){
+  let textD = document.getElementById('displayTextD');
+  if(textD!=null){
+    texts.removeChild(textD);
+  }
+}
 
+let removeTextE = function(event){
+  let textE = document.getElementById('displayTextE');
+  if(textE!=null){
+    texts.removeChild(textE);
+  }
+}
+
+let textBoxC = document.getElementById('displayText');
+textBoxC.addEventListener('click',removeText);
+
+let textBoxD = document.getElementById('displayTextD');
+textBoxD.addEventListener('click',removeTextD);
+
+let textBoxE = document.getElementById('displayTextE');
+textBoxE.addEventListener('click',removeTextE);
 
     let cBox = document.getElementById('c');
     cBox.addEventListener('click', handleClick);
@@ -92,6 +110,7 @@ let removeText = function(event) {
     let eBox = document.getElementById('e');
     eBox.addEventListener('click', handleClick);
     eBox.addEventListener('click', handleTextE);
+
   }
   </script>
 
