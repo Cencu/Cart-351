@@ -1,0 +1,48 @@
+<html>
+<head>
+  <title> Canvas Tutorial </title>
+  <style>
+  body{
+    margin:0;
+    padding:0;
+  }
+  canvas
+  {
+    background:black;
+    margin:0;
+    padding:0;
+  }
+  </style>
+  <script>
+  /*** THIS EX SHOWS THE BASIC SETUP ****/
+  //only run this once the window loads
+  window.onload = function(){
+// step 1 access the canvas element && the graphics context....
+let canvas = document.getElementById('testCanvas');
+let canvasContext = canvas.getContext('2d');
+
+//call an array of lines with a max of 5.
+const MAX_LINES = 5;
+let myLines = [];
+//Call colors of lines
+let lineColors = ["#003300, #663300, #990000, #660033, #660066"]
+
+for(let i=0; i<5;i++){
+  rectangles.push(new lines(i*60+100,canvas.height/2,50,50,colors[i%colors.length],i));
+}
+
+function movingLines(x,,y,w,h,c) {
+  this.xPos = x;
+  this.yPos = y;
+
+}
+
+  }//end window onload
+  </script>
+</head>
+<body>
+<canvas id="testCanvas" width="900" height="800">
+
+</canvas>
+</body>
+</html>
