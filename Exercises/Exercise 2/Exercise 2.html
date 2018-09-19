@@ -21,20 +21,32 @@
 let canvas = document.getElementById('testCanvas');
 let canvasContext = canvas.getContext('2d');
 
-//call an array of lines with a max of 5.
-const MAX_LINES = 5;
-let myLines = [];
-//Call colors of lines
-let lineColors = ["#003300, #663300, #990000, #660033, #660066"]
+const MAX_RECTANGLES = 5;
+let myRect = [];
+let colors = ["#8ED6FF","#c379e5","#e22626","#61f495","#4953c1","#ffb807","#ffc907"];
 
-for(let i=0; i<5;i++){
-  rectangles.push(new lines(i*60+100,canvas.height/2,50,50,colors[i%colors.length],i));
-}
 
-function movingLines(x,,y,w,h,c) {
+function myRect(x,y,w,h,speed,c) {
+  //member variables
   this.xPos = x;
   this.yPos = y;
+  this.width = w;
+  this.height = h;
+  this.lineColor = c;
 
+  // new for updating
+  this.speed = speed;
+
+  this.maxLength = 500;
+
+  this.render = function(){
+    canvasContext.beginPath();
+    canvasContext.moveTo(this.xPos,this.yPos);
+    canvasContext.strokeStyle = this.lineColor;// change the color we are using
+    canvasContext.lineWidth=5; //change stroke weight
+    canvasContext.stroke(); // set the fill
+    canvasContext.closePath(); //close a path ...
+  }
 }
 
   }//end window onload
