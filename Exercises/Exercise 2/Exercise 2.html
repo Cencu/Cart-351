@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title> Examples </title>
+  <style>
+  body{
+    margin:0;
+    padding:0;
+  }
+  canvas{
+    background:black;
+}
+  </style>
+
+  <script>
+  //ensures that the canvas starts drawing when the window is loaded
+  window.onload = function(){
+//I want 5 squares that grow on click and shrink
+
+// get the canvas
+let canvas = document.getElementById("testCanvas");
+
+//get the context
+let context = canvas.getContext("2d");
+//create an array of shapes
+let shapeList = [];
+const NUM_SHAPES = 5;
+
+for (let i =0;i<NUM_SHAPES;i++){
+let r = Math.floor((Math.random()*255)+1);
+let g = Math.floor((Math.random()*255)+1);
+let b = Math.floor((Math.random()*255)+1);
+
+shapeList.push(new CustomShape(i*75+100,canvas.height/2,50,50,r,g,b,1,i))
+
+}
+ requestAnimationFrame(run);
+function run(){
+  context.clearRect(0,0,canvas.width,canvas.height)
+
+  for(let i =0;i<NUM_SHAPES; i++){
+    shapeList[i].display();
+  }
+  requestAnimationFrame(run);
+}
+
+function CustomShape(x,y,w,h,r,g,b,a,eID) {
+  this.x = x;
+  this.y = y;
+  this.w = w;
+  this.h = h;
+  this.r = r;
+  this.g = g;
+  this.b = b;
+  this.a = a;
+  this.eID = eID;
+
+this.display = function(){
+  this.col = "rgba("+this.r+","+this.g+","+this.b+","+this.a+")";
+  context.fillStyle = this.col;
+
+context.save();
+context.fillRect(this.x,this.y,this.w,this.h);
+context.clearRect(canvas.width/2+12.5,canvas.height/2+12.5,25,25);
+
+context.restore();
+}
+
+}
+
+
+}
+  </script>
+</head>
+<body>
+  <canvas id = "testCanvas" width = 500 height =500></canvas>
+</body>
+</html>
