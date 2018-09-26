@@ -22,33 +22,79 @@ let canvas = document.getElementById('testCanvas');
 let canvasContext = canvas.getContext('2d');
 
 const MAX_RECTANGLES = 5;
-let myRect = [];
+let myLineList = [];
 let colors = ["#8ED6FF","#c379e5","#e22626","#61f495","#4953c1","#ffb807","#ffc907"];
 
+myLineList.push(new myRect(canvas.width/2,canvas.height/2,1,0,colors[1],1,0));
 
-function myRect(x,y,w,h,speed,c) {
-  //member variables
+myLineList.push(new myRect(canvas.width/2,canvas.height/2,0,1,colors[2],0,1));
+
+myLineList.push(new myRect(canvas.width/2,canvas.height/2,1,1,colors[3],5,1));
+
+requestAnimationFrame(runAni);
+//Run animation frames
+function runAni(){
+  //Clear the canvas, as a refresh
+  canvasContext.clearRect(0, 0, canvas.width, canvas.height);
+  //Go through the array of objects we are calling, update each frame.
+  for (let i =0; i< myLineList.length;i++){
+    myLineList[i].updateX();
+    myLineList[i].updateY();
+    myLineList[i].render();
+
+  }
+  // recursive call ...
+  requestAnimationFrame(runAni);
+}
+
+
+
+//The function which creates the rectangles
+function myRect(x,y,w,h,c,xSpeed,ySpeed) {
+  //variables
   this.xPos = x;
   this.yPos = y;
-  this.width = w;
-  this.height = h;
+  this.changeInX = Math.floor(Math.random() * w);
+  this.changeInY = Math.floor(Math.random() * h);
   this.lineColor = c;
 
   // new for updating
-  this.speed = speed;
+  this.xSpeed = xSpeed;
+  this.ySpeed = ySpeed;
 
-  this.maxLength = 500;
+  this.maxXLength = 200;
+  this.maxYLength = 200;
+
+
 
   this.render = function(){
     canvasContext.beginPath();
     canvasContext.moveTo(this.xPos,this.yPos);
+    canvasContext.lineTo(this.xPos+this.changeInX,this.yPos+this.changeInY); //where are we going
+
     canvasContext.strokeStyle = this.lineColor;// change the color we are using
     canvasContext.lineWidth=5; //change stroke weight
     canvasContext.stroke(); // set the fill
     canvasContext.closePath(); //close a path ...
   }
-}
 
+//member function for updating
+this.updateX = function(){
+  if(this.xSpeed>0){
+   if(this.changeInX<this.maxXLength){
+     this.changeInX+=this.xSpeed;
+   }
+  }
+}
+ //member function for updating
+ this.updateY= function(){
+      if(this.ySpeed>0){
+        if(this.changeInY<this.maxYLength){
+          this.changeInY+=this.ySpeed;
+        }
+      }
+  }
+}
   }//end window onload
   </script>
 </head>
