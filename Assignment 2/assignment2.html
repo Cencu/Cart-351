@@ -43,11 +43,14 @@
           //.add("images/anotherImage.png")
           .load(setup);
 
+
+        let globalId;
         //initialize sprite on set up
         function setup() {
-
           //remember the order of things, if they do not exist first they won't be found
           let id = PIXI.loader.resources["images/gameSprites.json"].textures;
+
+          globalId = id;
 
           let yellowBall = new Sprite(
             id["yellowball.png"]
@@ -102,7 +105,15 @@
           app.stage.addChild(blueBall);
           app.stage.addChild(redBall);
 
+          targetFunction();
 
+
+        }
+        //IMPORTANT
+        //if you want to change the texture the sprite is displaying, use the texture property. Set it to any Texture object, like this:
+        //anySprite.texture = PIXI.utils.TextureCache["anyTexture.png"];
+
+        let targetFunction = function(){
           /*-- TARGETS HANDLING STARTS--*/
           //define global target
           let target;
@@ -121,7 +132,7 @@
             }
 
               //the target image will be random
-              target = new Sprite(id[targetImages[getRandomInt(0,3)]]);
+              target = new Sprite(globalId[targetImages[getRandomInt(0,3)]]);
 
 
 
@@ -132,13 +143,7 @@
           }
 
           /*--TARGET HANDLING ENDS--*/
-
-
         }
-        //IMPORTANT
-        //if you want to change the texture the sprite is displaying, use the texture property. Set it to any Texture object, like this:
-        //anySprite.texture = PIXI.utils.TextureCache["anyTexture.png"];
-
 
     </script>
 
