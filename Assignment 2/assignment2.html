@@ -1,20 +1,18 @@
 <!DOCTYPE html>
 <html>
-
   <head>
     <!--added PixiJS Library-->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pixi.js/4.8.2/pixi.min.js"></script>
   </head>
-
   <body>
-
+    <!--no white border-->
+    <style>* {padding: 0; margin: 0}</style>
     <script type="text/javascript">
-
         //By creating aliases to frequently used methods you save yourself some time
         //If the library is updated and something changes then you just change the definition of your aliases
-
         //aliases
         let Application = PIXI.Application,
+            Container = PIXI.Container,
             loader = PIXI.loader,
             Sprite = PIXI.Sprite,
             resources = PIXI.loader.resources;
@@ -24,6 +22,12 @@
         //instead of using # for color, use 0x---
         //antialias smoothes the edges of the letters and graphic primitives (not available in all platforms)
         let app = new Application({width: 900, height: 700, antialias: true, backgroundColor: 0x42cef4});
+
+        //Use CSS styling to make the canvas fullscreen
+        app.renderer.view.style.position = "absolute";
+        app.renderer.view.style.display = "block";
+        app.renderer.autoResize = true;
+        app.renderer.resize(window.innerWidth, window.innerHeight);
 
         //Add the canvas that Pixi automatically created for you to the HTML document
         document.body.appendChild(app.view);
@@ -43,6 +47,62 @@
           //.add("images/anotherImage.png")
           .load(setup);
 
+        let state, yBalls, gameScene, id;
+
+        //initialize sprite on set up
+        function setup() {
+          gameScene = new Container();
+          app.stage.addChild(gameScene);
+
+          //remember the order of things, if they do not exist first they won't be found
+          let id = PIXI.loader.resources["images/gameSprites.json"].textures;
+
+          //Create an array of balls
+          let noOfYellowBalls = 1,
+          speed = 2,
+          direction = 1,
+          //Create the array of yellow balls
+          yBalls = [];
+
+          //create a for loop to call the balls
+          for (let i = 0; i < noOfYellowBalls; i++) {
+            //Call the ID to use the picture
+          let yellowBall = new Sprite(id["yellowball.png"]);
+          let x = 500;
+          let y = 500;
+          let width = 50;
+          let height = 50;
+            //X and Y position
+            yellowBall.x = x;
+            yellowBall.y = y;
+            yellowBall.width = width;
+            yellowBall.height = height;
+            //Velocity
+            //yellowBall.vY = 5;
+            direction *= -1;
+
+            //Push the balls into the array
+
+            yellowBall.interactive = true;
+            yellowBall.buttonMode = true;
+
+            // events for drag start
+            yellowBall.on('mousedown', onDragStart)
+            yellowBall.on('touchstart', onDragStart)
+            // events for drag end
+            yellowBall.on('mouseup', onDragEnd)
+            yellowBall.on('mouseupoutside', onDragEnd)
+            yellowBall.on('touchend', onDragEnd)
+            yellowBall.on('touchendoutside', onDragEnd)
+            // events for drag move
+            yellowBall.on('mousemove', onDragMove)
+            yellowBall.on('touchmove', onDragMove);
+
+            yBalls.push(yellowBall);
+            //Add the ball into the gamescene
+            gameScene.addChild(yellowBall);
+          }
+
 
         let globalId;
         //initialize sprite on set up
@@ -57,17 +117,12 @@
           );
 
           let redBall = new Sprite(
-
             id["fireball.png"]
-
           );
 
           let blueBall = new Sprite(
-
             id["blueBall.png"]
-
           );
-
 
           //POSITION
           //you coudl affect the images position like this
@@ -77,14 +132,14 @@
 
           //or like this
 
-          yellowBall.position.set(renderViewW/2, renderViewH-200);
+        //  yellowBall.position.set(renderViewW/2, renderViewH-200);
           blueBall.position.set(renderViewW/3, renderViewH-200);
           redBall.position.set(renderViewW/2+150, renderViewH-200);
 
           //SCALE
           //you could change the size of the image by using .width and .height or scale.x or scale.y following aboves format
 
-          yellowBall.scale.set(0.5, 0.5);
+          //yellowBall.scale.set(0.2, 0.2);
           blueBall.scale.set(0.5, 0.5);
           redBall.scale.set(0.5, 0.5);
 
@@ -98,20 +153,93 @@
 
           //you could also change the rotation center by using .pivot however pivot uses pixel data while anchor uses ratio
 
+          //Create a container for the balls, used to create more than one ball
+          //let containerYellow = new PIXI.Container();
+          //Set it as interactive, so when the mouse hovers over, the mouse changes style to the grabber
+
+          //containerYellow.addChild(yellowBall);
           //the stage is the container of everything you want to display
           //here we add to the stage on setup the sprite we just loaded
           //you can remove any sprite from the stage by using stage.removeChild method. (another way is to set visibility of sprite to false)
+
           app.stage.addChild(yellowBall);
           app.stage.addChild(blueBall);
           app.stage.addChild(redBall);
 
-          targetFunction();
+//<<<<<<< HEAD
+          state = play;
 
+          //Start the game loop
+          app.ticker.add(delta => gameLoop(delta));
+        }
+
+        function gameLoop(delta){
+          yellowBall.y += .1;
+          state(delta);
 
         }
+
+        function play(delta) {
+          yellowBall.forEach(function(yellowBall){
+          });
+        }
+      function missed(sprite, container) {
+
+        let noTarget = undefined;
+
+        if (sprite.x < container.x+30) {
+          sprite.x = container.x;
+          noTarget = "left";
+        }
+
+        //Top
+        if (sprite.y < container.y) {
+          sprite.y = container.y;
+          noTarget = "top";
+        }
+
+        //Right
+        if (sprite.x + sprite.width > container.width) {
+          sprite.x = container.width - sprite.width;
+          noTarget = "right";
+        }
+
+        //Bottom
+        if (sprite.y + sprite.height > container.height) {
+          sprite.y = container.height - sprite.height;
+          noTarget = "bottom";
+        }
+
+        //Return the `collision` value
+        return noTarget;
+
+      }
+
+      function onDragStart(event)
+      {
+          // store a reference to the data
+          // the reason for this is because of multitouch
+          // we want to track the movement of this particular touch
+          this.data = event.data;
+          this.dragging = true;
+      }
+
+      function onDragEnd() {
+          this.dragging = false;
+      }
+
+      function onDragMove(){
+    if (this.dragging){
+        let newPosition = this.data.getLocalPosition(this.parent);
+        this.position.x = newPosition.x;
+        this.position.y = newPosition.y;
+    }
+}
+
         //IMPORTANT
         //if you want to change the texture the sprite is displaying, use the texture property. Set it to any Texture object, like this:
         //anySprite.texture = PIXI.utils.TextureCache["anyTexture.png"];
+        //targetFunction();
 
         let targetFunction = function(){
           /*-- TARGETS HANDLING STARTS--*/
@@ -145,6 +273,7 @@
 
           /*--TARGET HANDLING ENDS--*/
         }
+      }
 
     </script>
 
