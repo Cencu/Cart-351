@@ -17,6 +17,7 @@
 
         //aliases
         let Application = PIXI.Application,
+            Container = PIXI.Container,
             loader = PIXI.loader,
             Sprite = PIXI.Sprite,
             resources = PIXI.loader.resources;
@@ -46,15 +47,49 @@
           //.add("images/anotherImage.png")
           .load(setup);
 
+        let state, yBalls, gameScene;
+
         //initialize sprite on set up
         function setup() {
+          gameScene = new Container();
+          app.stage.addChild(gameScene);
 
           //remember the order of things, if they do not exist first they won't be found
           let id = PIXI.loader.resources["images/gameSprites.json"].textures;
 
-          let yellowBall = new PIXI.Sprite(
-            id["yellowball.png"]
-          );
+          //Create an array of balls
+          let noOfYellowBlobs = 10,
+          spacing = 48,
+          speed = 2,
+          direction = 1,
+          xOffset = 150;
+          //Create the array of yellow balls
+          yBalls = [];
+
+          //create a for loop to call the balls
+          for (let i = 0; i < noOfYellowBlobs; i++) {
+            //Call the ID to use the picture
+          let yellowBall = new Sprite(id["yellowball.png"]);
+          //create spacing so the balls are separated.
+          let x = spacing * i + xOffset;
+          let y = spacing * i + xOffset;
+            //X and Y position
+            yellowBall.x = x;
+            yellowBall.y = y;
+            //Velocity
+            yellowBall.vY = speed * direction;
+
+            //Reverse the direction
+            direction *= -1;
+            //Push the balls into the array
+
+            yellowBall.interactive = true;
+            yellowBall.buttonMode = true;
+
+            yBalls.push(yellowBall);
+            //Add the ball into the gamescene
+            gameScene.addChild(yellowBall);
+          }
 
           let redBall = new Sprite(
             id["fireball.png"]
@@ -72,14 +107,14 @@
 
           //or like this
 
-          yellowBall.position.set(renderViewW/2, renderViewH-200);
+        //  yellowBall.position.set(renderViewW/2, renderViewH-200);
           blueBall.position.set(renderViewW/3, renderViewH-200);
           redBall.position.set(renderViewW/2+150, renderViewH-200);
 
           //SCALE
           //you could change the size of the image by using .width and .height or scale.x or scale.y following aboves format
 
-          yellowBall.scale.set(0.5, 0.5);
+          //yellowBall.scale.set(0.2, 0.2);
           blueBall.scale.set(0.5, 0.5);
           redBall.scale.set(0.5, 0.5);
 
@@ -87,26 +122,48 @@
           //the anchor by default of any image is the top left corner
           //however you can change the sprites anchor by using .anchor.x and/or y (values 0 to 1 representing the dimension of the image)
 
-          yellowBall.anchor.set(0.5, 0.5);
+        //  yellowBall.anchor.set(0.5, 0.5);
           blueBall.anchor.set(0.5, 0.5);
           redBall.anchor.set(0.5, 0.5);
 
           //you could also change the rotation center by using .pivot however pivot uses pixel data while anchor uses ratio
 
           //Create a container for the balls, used to create more than one ball
-          let containerYellow = new PIXI.Container();
+          //let containerYellow = new PIXI.Container();
           //Set it as interactive, so when the mouse hovers over, the mouse changes style to the grabber
-          yellowBall.interactive = true;
-          yellowBall.buttonMode = true;
-          containerYellow.addChild(yellowBall);
+
+          //containerYellow.addChild(yellowBall);
           //the stage is the container of everything you want to display
           //here we add to the stage on setup the sprite we just loaded
           //you can remove any sprite from the stage by using stage.removeChild method. (another way is to set visibility of sprite to false)
-          app.stage.addChild(yellowBall);
+          //app.stage.addChild(yellowBall);
 
           app.stage.addChild(blueBall);
           app.stage.addChild(redBall);
+
+          state = play;
+
+          //Start the game loop
+          app.ticker.add(delta => gameLoop(delta));
         }
+
+        function gameLoop(delta){
+          state(delta);
+
+          yBalls.forEach(function(yellowBall) {
+            yellowBall.y += yellowBall.vY;
+
+        });
+      }
+
+      function missed(sprite, container) {
+
+        if (sprite.x < container.x) {
+          sprite.x = container.x;
+        }
+
+      }
+
         //IMPORTANT
         //if you want to change the texture the sprite is displaying, use the texture property. Set it to any Texture object, like this:
         //anySprite.texture = PIXI.utils.TextureCache["anyTexture.png"];
