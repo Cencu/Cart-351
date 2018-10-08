@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title> Assignment 2 </title>
+  <style>
+  body{
+    margin:0;
+    padding:0;
+  }
+  canvas{
+    background:black;
+}
+  </style>
+
+  <script>
+  window.onload = function(){
+
+
+// get the canvas
+let canvas = document.getElementById("testCanvas");
+
+//get the context
+let context = canvas.getContext("2d");
+//declare a shape
+let cannon = new bubbleShooter(canvas.width/2,550,30,150,255,0,0,1.0);
+
+cannon.display();
+
+function bubbleShooter(x,y,w,h,r,g,b,a){
+    //member properties
+    this.x =x;
+    this.y =y;
+    this.w = w;
+    this.h=h;
+    this.r =r;
+    this.g =g;
+    this.b=b;
+    this.a=a;
+
+    //add in when we update
+    this.speedX = 1;
+    this.speedY = 4;
+
+    //display method
+    this.display = function(){
+      //lets draw something
+    this.col = "rgba("+this.r+","+this.g+","+this.b+","+this.a+")";
+    context.fillStyle = this.col;
+    context.fillRect(this.x,this.y,this.w,this.h);
+  
+
+    }
+  }
+}
+  </script>
+</head>
+<body>
+  <canvas id = "testCanvas" width = 1530 height =730></canvas>
+</body>
+</html>
