@@ -52,7 +52,6 @@
           //.add("images/anotherImage.png")
           .load(setup);
 
-<<<<<<< HEAD
         let state, yBalls, gameScene;
 
         //initialize sprite on set up
@@ -64,39 +63,52 @@
           let id = PIXI.loader.resources["images/gameSprites.json"].textures;
 
           //Create an array of balls
-          let noOfYellowBlobs = 10,
-          spacing = 48,
+          let noOfYellowBalls = 2,
           speed = 2,
           direction = 1,
-          xOffset = 150;
           //Create the array of yellow balls
           yBalls = [];
 
           //create a for loop to call the balls
-          for (let i = 0; i < noOfYellowBlobs; i++) {
+          for (let i = 0; i < noOfYellowBalls; i++) {
             //Call the ID to use the picture
           let yellowBall = new Sprite(id["yellowball.png"]);
           //create spacing so the balls are separated.
-          let x = spacing * i + xOffset;
-          let y = spacing * i + xOffset;
+          let x = 500;
+          let y = 500;
+          let width = 50;
+          let height = 50;
             //X and Y position
             yellowBall.x = x;
             yellowBall.y = y;
+            yellowBall.width = width;
+            yellowBall.height = height;
             //Velocity
-            yellowBall.vY = speed * direction;
-
-            //Reverse the direction
+            yellowBall.vY = speed*direction;
             direction *= -1;
+
             //Push the balls into the array
 
             yellowBall.interactive = true;
             yellowBall.buttonMode = true;
 
+            // events for drag start
+       yellowBall.on('mousedown', onDragStart)
+      yellowBall.on('touchstart', onDragStart)
+       // events for drag end
+       yellowBall.on('mouseup', onDragEnd)
+       yellowBall.on('mouseupoutside', onDragEnd)
+       yellowBall.on('touchend', onDragEnd)
+       yellowBall.on('touchendoutside', onDragEnd)
+       // events for drag move
+       yellowBall.on('mousemove', onDragMove)
+       yellowBall.on('touchmove', onDragMove);
+
             yBalls.push(yellowBall);
             //Add the ball into the gamescene
             gameScene.addChild(yellowBall);
           }
-=======
+
 
         let globalId;
         //initialize sprite on set up
@@ -109,7 +121,6 @@
           let yellowBall = new Sprite(
             id["yellowball.png"]
           );
->>>>>>> 7f56df29addb5cba495d38fb5f5c2e107737ffa0
 
           let redBall = new Sprite(
             id["fireball.png"]
@@ -142,7 +153,7 @@
           //the anchor by default of any image is the top left corner
           //however you can change the sprites anchor by using .anchor.x and/or y (values 0 to 1 representing the dimension of the image)
 
-        //  yellowBall.anchor.set(0.5, 0.5);
+          yellowBall.anchor.set(0.5, 0.5);
           blueBall.anchor.set(0.5, 0.5);
           redBall.anchor.set(0.5, 0.5);
 
@@ -161,7 +172,7 @@
           app.stage.addChild(blueBall);
           app.stage.addChild(redBall);
 
-<<<<<<< HEAD
+//<<<<<<< HEAD
           state = play;
 
           //Start the game loop
@@ -171,28 +182,83 @@
         function gameLoop(delta){
           state(delta);
 
-          yBalls.forEach(function(yellowBall) {
-            yellowBall.y += yellowBall.vY;
 
-        });
+      }
+
+      function play(delta) {
+        yBalls.forEach(function(yellowBall) {
+          yellowBall.y += yellowBall.vY;
+
+      });
+
       }
 
       function missed(sprite, container) {
 
-        if (sprite.x < container.x) {
+        let noTarget = undefined;
+
+        if (sprite.x < container.x+30) {
           sprite.x = container.x;
-=======
-          targetFunction();
-
-
->>>>>>> 7f56df29addb5cba495d38fb5f5c2e107737ffa0
+          noTarget = "left";
         }
 
+        //Top
+        if (sprite.y < container.y) {
+          sprite.y = container.y;
+          noTarget = "top";
+        }
+
+        //Right
+        if (sprite.x + sprite.width > container.width) {
+          sprite.x = container.width - sprite.width;
+          noTarget = "right";
+        }
+
+        //Bottom
+        if (sprite.y + sprite.height > container.height) {
+          sprite.y = container.height - sprite.height;
+          noTarget = "bottom";
+        }
+
+        //Return the `collision` value
+        return noTarget;
+
       }
+
+      function onDragStart(event)
+      {
+          // store a reference to the data
+          // the reason for this is because of multitouch
+          // we want to track the movement of this particular touch
+          this.data = event.data;
+          this.alpha = 0.5;
+          this.dragging = true;
+      }
+
+      function onDragEnd()
+      {
+          this.alpha = 1;
+
+          this.dragging = false;
+
+          // set the interaction data to null
+          this.data = null;
+      }
+
+      function onDragMove(){
+    if (this.dragging)
+    {
+        var newPosition = this.data.getLocalPosition(this.parent);
+        this.position.x = newPosition.x;
+        this.position.y = newPosition.y;
+    }
+}
+
 
         //IMPORTANT
         //if you want to change the texture the sprite is displaying, use the texture property. Set it to any Texture object, like this:
         //anySprite.texture = PIXI.utils.TextureCache["anyTexture.png"];
+        //targetFunction();
 
         let targetFunction = function(){
           /*-- TARGETS HANDLING STARTS--*/
@@ -225,6 +291,7 @@
 
           /*--TARGET HANDLING ENDS--*/
         }
+      }
 
     </script>
 
