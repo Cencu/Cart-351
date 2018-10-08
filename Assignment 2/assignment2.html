@@ -31,6 +31,11 @@
         let renderViewW = app.renderer.view.width,
         renderViewH = app.renderer.view.height;
 
+        //define an empty array for the targets
+        let targetImages = ["redTarget.png","yellowTarget.png","blueTarget.png"],
+            numberOfTargets = 50;
+
+
         //use the loader to convert any image into a texture that webgl can render
         //you can load multiple images by adding more .add methods and array of .add images or json files
         loader
@@ -96,10 +101,44 @@
           app.stage.addChild(yellowBall);
           app.stage.addChild(blueBall);
           app.stage.addChild(redBall);
+
+
+          /*-- TARGETS HANDLING STARTS--*/
+          //define global target
+          let target;
+
+          //as long as i is less than the number of targets
+          for(let i = 0; i<numberOfTargets; i++){
+
+            //get a random integer between 0 and 2
+            function getRandomInt(min,max){
+
+              min = Math.ceil(min);
+              max = Math.floor(max);
+
+              return Math.floor(Math.random()* (max - min)) + min;
+
+            }
+
+              //the target image will be random
+              target = new Sprite(id[targetImages[getRandomInt(0,3)]]);
+
+
+
+              //position target at 50,50 and display
+              target.position.set(50,50);
+              app.stage.addChild(target);
+              console.log("this is target "+i)
+          }
+
+          /*--TARGET HANDLING ENDS--*/
+
+
         }
         //IMPORTANT
         //if you want to change the texture the sprite is displaying, use the texture property. Set it to any Texture object, like this:
         //anySprite.texture = PIXI.utils.TextureCache["anyTexture.png"];
+
 
     </script>
 
