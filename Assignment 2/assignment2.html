@@ -7,6 +7,8 @@
   </head>
 
   <body>
+    <!--no white border-->
+    <style>* {padding: 0; margin: 0}</style>
 
     <script type="text/javascript">
 
@@ -24,6 +26,12 @@
         //instead of using # for color, use 0x---
         //antialias smoothes the edges of the letters and graphic primitives (not available in all platforms)
         let app = new Application({width: 900, height: 700, antialias: true, backgroundColor: 0x42cef4});
+
+        //Use CSS styling to make the canvas fullscreen
+        app.renderer.view.style.position = "absolute";
+        app.renderer.view.style.display = "block";
+        app.renderer.autoResize = true;
+        app.renderer.resize(window.innerWidth, window.innerHeight);
 
         //Add the canvas that Pixi automatically created for you to the HTML document
         document.body.appendChild(app.view);
@@ -44,22 +52,17 @@
           //remember the order of things, if they do not exist first they won't be found
           let id = PIXI.loader.resources["images/gameSprites.json"].textures;
 
-          let yellowBall = new Sprite(
+          let yellowBall = new PIXI.Sprite(
             id["yellowball.png"]
           );
 
           let redBall = new Sprite(
-
             id["fireball.png"]
-
           );
 
           let blueBall = new Sprite(
-
             id["blueBall.png"]
-
           );
-
 
           //POSITION
           //you coudl affect the images position like this
@@ -90,10 +93,17 @@
 
           //you could also change the rotation center by using .pivot however pivot uses pixel data while anchor uses ratio
 
+          //Create a container for the balls, used to create more than one ball
+          let containerYellow = new PIXI.Container();
+          //Set it as interactive, so when the mouse hovers over, the mouse changes style to the grabber
+          yellowBall.interactive = true;
+          yellowBall.buttonMode = true;
+          containerYellow.addChild(yellowBall);
           //the stage is the container of everything you want to display
           //here we add to the stage on setup the sprite we just loaded
           //you can remove any sprite from the stage by using stage.removeChild method. (another way is to set visibility of sprite to false)
           app.stage.addChild(yellowBall);
+
           app.stage.addChild(blueBall);
           app.stage.addChild(redBall);
         }
