@@ -1,20 +1,15 @@
 <!DOCTYPE html>
 <html>
-
   <head>
     <!--added PixiJS Library-->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pixi.js/4.8.2/pixi.min.js"></script>
   </head>
-
   <body>
     <!--no white border-->
     <style>* {padding: 0; margin: 0}</style>
-
     <script type="text/javascript">
-
         //By creating aliases to frequently used methods you save yourself some time
         //If the library is updated and something changes then you just change the definition of your aliases
-
         //aliases
         let Application = PIXI.Application,
             Container = PIXI.Container,
@@ -52,7 +47,7 @@
           //.add("images/anotherImage.png")
           .load(setup);
 
-        let state, yBalls, gameScene;
+        let state, yBalls, gameScene, id;
 
         //initialize sprite on set up
         function setup() {
@@ -63,7 +58,7 @@
           let id = PIXI.loader.resources["images/gameSprites.json"].textures;
 
           //Create an array of balls
-          let noOfYellowBalls = 2,
+          let noOfYellowBalls = 1,
           speed = 2,
           direction = 1,
           //Create the array of yellow balls
@@ -73,7 +68,6 @@
           for (let i = 0; i < noOfYellowBalls; i++) {
             //Call the ID to use the picture
           let yellowBall = new Sprite(id["yellowball.png"]);
-          //create spacing so the balls are separated.
           let x = 500;
           let y = 500;
           let width = 50;
@@ -84,7 +78,7 @@
             yellowBall.width = width;
             yellowBall.height = height;
             //Velocity
-            yellowBall.vY = speed*direction;
+            //yellowBall.vY = 5;
             direction *= -1;
 
             //Push the balls into the array
@@ -93,16 +87,16 @@
             yellowBall.buttonMode = true;
 
             // events for drag start
-       yellowBall.on('mousedown', onDragStart)
-      yellowBall.on('touchstart', onDragStart)
-       // events for drag end
-       yellowBall.on('mouseup', onDragEnd)
-       yellowBall.on('mouseupoutside', onDragEnd)
-       yellowBall.on('touchend', onDragEnd)
-       yellowBall.on('touchendoutside', onDragEnd)
-       // events for drag move
-       yellowBall.on('mousemove', onDragMove)
-       yellowBall.on('touchmove', onDragMove);
+            yellowBall.on('mousedown', onDragStart)
+            yellowBall.on('touchstart', onDragStart)
+            // events for drag end
+            yellowBall.on('mouseup', onDragEnd)
+            yellowBall.on('mouseupoutside', onDragEnd)
+            yellowBall.on('touchend', onDragEnd)
+            yellowBall.on('touchendoutside', onDragEnd)
+            // events for drag move
+            yellowBall.on('mousemove', onDragMove)
+            yellowBall.on('touchmove', onDragMove);
 
             yBalls.push(yellowBall);
             //Add the ball into the gamescene
@@ -167,8 +161,8 @@
           //the stage is the container of everything you want to display
           //here we add to the stage on setup the sprite we just loaded
           //you can remove any sprite from the stage by using stage.removeChild method. (another way is to set visibility of sprite to false)
-          //app.stage.addChild(yellowBall);
 
+          app.stage.addChild(yellowBall);
           app.stage.addChild(blueBall);
           app.stage.addChild(redBall);
 
@@ -180,19 +174,15 @@
         }
 
         function gameLoop(delta){
+          yellowBall.y += .1;
           state(delta);
 
+        }
 
-      }
-
-      function play(delta) {
-        yBalls.forEach(function(yellowBall) {
-          yellowBall.y += yellowBall.vY;
-
-      });
-
-      }
-
+        function play(delta) {
+          yellowBall.forEach(function(yellowBall){
+          });
+        }
       function missed(sprite, container) {
 
         let noTarget = undefined;
@@ -231,29 +221,20 @@
           // the reason for this is because of multitouch
           // we want to track the movement of this particular touch
           this.data = event.data;
-          this.alpha = 0.5;
           this.dragging = true;
       }
 
-      function onDragEnd()
-      {
-          this.alpha = 1;
-
+      function onDragEnd() {
           this.dragging = false;
-
-          // set the interaction data to null
-          this.data = null;
       }
 
       function onDragMove(){
-    if (this.dragging)
-    {
-        var newPosition = this.data.getLocalPosition(this.parent);
+    if (this.dragging){
+        let newPosition = this.data.getLocalPosition(this.parent);
         this.position.x = newPosition.x;
         this.position.y = newPosition.y;
     }
 }
-
 
         //IMPORTANT
         //if you want to change the texture the sprite is displaying, use the texture property. Set it to any Texture object, like this:
