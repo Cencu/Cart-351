@@ -69,38 +69,16 @@
               0, 0                 //Third point
           ]);
 
-          let noOfTriangles = 5,
-          triangles = [];
-
           //Fill shape's color
           triangle.endFill();
 
           //Position the triangle after you've drawn it.
           //The triangle's x/y position is anchored to its first point in the path
-          for (let i = 0; i < noOfTriangles; i++) {
           triangle.position.set(renderViewW/2,renderViewH/2);
           triangle.pivot.set(0,250);
           triangle.scale.set(.2,.2);
-
-          //Push the balls into the array
-
-          triangle.interactive = true;
-          triangle.buttonMode = true;
-          // events for drag start
-          triangle.on('mousedown', onDragStart)
-          triangle.on('touchstart', onDragStart)
-          // events for drag end
-          triangle.on('mouseup', onDragEnd)
-          triangle.on('mouseupoutside', onDragEnd)
-          triangle.on('touchend', onDragEnd)
-          triangle.on('touchendoutside', onDragEnd)
-          // events for drag move
-          triangle.on('mousemove', onDragMove)
-          triangle.on('touchmove', onDragMove);
-
-
           gameScene.addChild(triangle);
-          }
+
           //remember the order of things, if they do not exist first they won't be found
           id = PIXI.loader.resources["images/gameSprites.json"].textures;
 
@@ -244,9 +222,9 @@
           this.data = event.data;
           this.dragging = true;
           //Append the array to add another ball
-        //  yBalls.push(yellowBall);
-        //  gameScene.addChild(yellowBall);
-        //  console.log("added child");
+          yBalls.push(yellowBall);
+          gameScene.addChild(yellowBall);
+          console.log("added child");
       }
 
       function onDragEnd() {
