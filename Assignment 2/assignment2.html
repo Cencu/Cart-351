@@ -70,13 +70,15 @@
           let yellowBall = new Sprite(id["yellowball.png"]);
           let x = 500;
           let y = 500;
-          let width = 50;
-          let height = 50;
+          yellowBall.scale.set(0.5,0.5);
+          yellowBall.anchor.set(0.5, 0.5);
+          // let width = 50;
+          // let height = 50;
             //X and Y position
             yellowBall.x = x;
             yellowBall.y = y;
-            yellowBall.width = width;
-            yellowBall.height = height;
+            // yellowBall.width = width;
+            // yellowBall.height = height;
             //Velocity
             //yellowBall.vY = 5;
             direction *= -1;
@@ -105,73 +107,73 @@
 
 
         let globalId;
-        //initialize sprite on set up
-        function setup() {
-          //remember the order of things, if they do not exist first they won't be found
-          let id = PIXI.loader.resources["images/gameSprites.json"].textures;
-
-          globalId = id;
-
-          let yellowBall = new Sprite(
-            id["yellowball.png"]
-          );
-
-          let redBall = new Sprite(
-            id["fireball.png"]
-          );
-
-          let blueBall = new Sprite(
-            id["blueBall.png"]
-          );
-
-          //POSITION
-          //you coudl affect the images position like this
-
-          // fireball.x = 420;
-          // fireball.y = 300;
-
-          //or like this
-
-        //  yellowBall.position.set(renderViewW/2, renderViewH-200);
-          blueBall.position.set(renderViewW/3, renderViewH-200);
-          redBall.position.set(renderViewW/2+150, renderViewH-200);
-
-          //SCALE
-          //you could change the size of the image by using .width and .height or scale.x or scale.y following aboves format
-
-          //yellowBall.scale.set(0.2, 0.2);
-          blueBall.scale.set(0.5, 0.5);
-          redBall.scale.set(0.5, 0.5);
-
-          //ROTATION
-          //the anchor by default of any image is the top left corner
-          //however you can change the sprites anchor by using .anchor.x and/or y (values 0 to 1 representing the dimension of the image)
-
-          yellowBall.anchor.set(0.5, 0.5);
-          blueBall.anchor.set(0.5, 0.5);
-          redBall.anchor.set(0.5, 0.5);
-
-          //you could also change the rotation center by using .pivot however pivot uses pixel data while anchor uses ratio
-
-          //Create a container for the balls, used to create more than one ball
-          //let containerYellow = new PIXI.Container();
-          //Set it as interactive, so when the mouse hovers over, the mouse changes style to the grabber
-
-          //containerYellow.addChild(yellowBall);
-          //the stage is the container of everything you want to display
-          //here we add to the stage on setup the sprite we just loaded
-          //you can remove any sprite from the stage by using stage.removeChild method. (another way is to set visibility of sprite to false)
-
-          app.stage.addChild(yellowBall);
-          app.stage.addChild(blueBall);
-          app.stage.addChild(redBall);
-
-//<<<<<<< HEAD
-          state = play;
-
-          //Start the game loop
-          app.ticker.add(delta => gameLoop(delta));
-        }
+//         //initialize sprite on set up
+//         function setup() {
+//           //remember the order of things, if they do not exist first they won't be found
+//           let id = PIXI.loader.resources["images/gameSprites.json"].textures;
+//
+//           globalId = id;
+//
+//           let yellowBall = new Sprite(
+//             id["yellowball.png"]
+//           );
+//
+//           let redBall = new Sprite(
+//             id["fireball.png"]
+//           );
+//
+//           let blueBall = new Sprite(
+//             id["blueBall.png"]
+//           );
+//
+//           //POSITION
+//           //you coudl affect the images position like this
+//
+//           // fireball.x = 420;
+//           // fireball.y = 300;
+//
+//           //or like this
+//
+//         //  yellowBall.position.set(renderViewW/2, renderViewH-200);
+//           blueBall.position.set(renderViewW/3, renderViewH-200);
+//           redBall.position.set(renderViewW/2+150, renderViewH-200);
+//
+//           //SCALE
+//           //you could change the size of the image by using .width and .height or scale.x or scale.y following aboves format
+//
+//           //yellowBall.scale.set(0.2, 0.2);
+//           blueBall.scale.set(0.5, 0.5);
+//           redBall.scale.set(0.5, 0.5);
+//
+//           //ROTATION
+//           //the anchor by default of any image is the top left corner
+//           //however you can change the sprites anchor by using .anchor.x and/or y (values 0 to 1 representing the dimension of the image)
+//
+//           yellowBall.anchor.set(0.5, 0.5);
+//           blueBall.anchor.set(0.5, 0.5);
+//           redBall.anchor.set(0.5, 0.5);
+//
+//           //you could also change the rotation center by using .pivot however pivot uses pixel data while anchor uses ratio
+//
+//           //Create a container for the balls, used to create more than one ball
+//           //let containerYellow = new PIXI.Container();
+//           //Set it as interactive, so when the mouse hovers over, the mouse changes style to the grabber
+//
+//           //containerYellow.addChild(yellowBall);
+//           //the stage is the container of everything you want to display
+//           //here we add to the stage on setup the sprite we just loaded
+//           //you can remove any sprite from the stage by using stage.removeChild method. (another way is to set visibility of sprite to false)
+//
+//           app.stage.addChild(yellowBall);
+//           app.stage.addChild(blueBall);
+//           app.stage.addChild(redBall);
+//
+// //<<<<<<< HEAD
+//           state = play;
+//
+//           //Start the game loop
+//           app.ticker.add(delta => gameLoop(delta));
+//         }
 
         function gameLoop(delta){
           yellowBall.y += .1;
@@ -183,6 +185,7 @@
           yellowBall.forEach(function(yellowBall){
           });
         }
+
       function missed(sprite, container) {
 
         let noTarget = undefined;
