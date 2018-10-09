@@ -57,7 +57,7 @@
           gameScene = new Container();
           app.stage.addChild(gameScene);
 
-          let triangle = new Graphics();
+          triangle = new Graphics();
           triangle.beginFill(0xffff00);
 
           //Use `drawPolygon` to define the triangle as
@@ -90,7 +90,7 @@
           );
 
           //Create an array of balls
-          let noOfYellowBalls = 5,
+          let noOfYellowBalls = 2,
           speed = 2,
           direction = 1;
           //Create the array of yellow balls
@@ -159,7 +159,7 @@
           yBalls.forEach(function(yellowBall) {
              yellowBall.vX = 3;
              yellowBall.x += yellowBall.vX;
-             trianlge.rotate +=.2;
+             triangle.rotation +=.2;
          });
 
 
@@ -219,6 +219,7 @@
           this.data = event.data;
           this.dragging = true;
           //Append the array to add another ball
+          yBalls.push(yellowBall);
           gameScene.addChild(yellowBall);
           console.log("added child");
       }
