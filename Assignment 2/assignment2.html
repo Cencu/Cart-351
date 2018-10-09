@@ -66,11 +66,8 @@
           app.stage.addChild(gameScene);
           triangle = new Graphics();
           triangle.beginFill(0xffff00);
-          let noOfTriangles = 5,
-          triangles = [];
           //Use `drawPolygon` to define the triangle as
           //a path array of x/y positions
-          for (let i = 0; i < noOfTriangles; i++) {
 
           triangle.drawPolygon([
               -32, 64,             //First point
@@ -94,7 +91,7 @@
           triangle.buttonMode = true;
 
           gameScene.addChild(triangle);
-          }
+
           //remember the order of things, if they do not exist first they won't be found
           id = PIXI.loader.resources["images/gameSprites.json"].textures;
 
@@ -112,8 +109,8 @@
           for (let i = 0; i < noOfYellowBalls; i++) {
             //Call the ID to use the picture
            yBalls[i] = new Sprite(id["yellowball.png"]);
-           yBalls[i].vx = 1;
-           yBalls[i].vy = 1;
+           yBalls[i].vx =1;
+           yBalls[i].vy =1;
            //ball dimension is half of its original size
            yBalls[i].scale.set(0.5,0.5);
            //ball anchor point is the center
@@ -130,7 +127,7 @@
           }
 
           redBall = new Sprite (id["fireball.png"]);
-          let noOfRedBalls = 5,
+          let noOfRedBalls = 5;
           rBalls = [];
 
           for (let i = 0; i < noOfRedBalls; i++) {
@@ -169,17 +166,18 @@
           yBalls[i].rotation +=.03;
           }
 
-          for (let i = 0; i < rBalls; i++) {
-          rBalls[i].rotation +=.03;
+          for (let i = 0; i < rBalls.length; i++) {
+          rBalls[i].rotation =.03;
           }
 
           if (launchStateRed === true) {
-            rBalls[countRed].position.x += rBalls[countRed].vx
-            rBalls[countRed].position.y += rBalls[countRed].vy
+            console.log(countRed);
+            rBalls[countRed].position.x *= rBalls[countRed].vx;
+            rBalls[countRed].position.y *= rBalls[countRed].vy;
           }
           if (launchState === true) {
-            yBalls[count].position.x += yBalls[count].vx
-            yBalls[count].position.y += yBalls[count].vy
+            yBalls[count].position.x += yBalls[count].vx;
+            yBalls[count].position.y += yBalls[count].vy;
           }
 
           targetUpdate();
@@ -223,7 +221,6 @@
 
         let launch = function() {
         launchState = true;
-        console.log(count);
         count--;
          yBalls[count].vx = Math.cos(yBalls[count].rotation);
          yBalls[count].vy = Math.sin(yBalls[count].rotation);
@@ -231,10 +228,10 @@
 
         let launchRed = function() {
           launchStateRed = true;
+          console.log(countRed);
           countRed--;
-          rBalls[countRed].vx = MathMath.cos(rBalls[countRed].rotation);
-          rBalls[countRed].vy = MathMath.cos(rBalls[countRed].rotation);
-
+          rBalls[countRed].vx = Math.cos(rBalls[countRed].rotation);
+          rBalls[countRed].vy = Math.sin(rBalls[countRed].rotation);
         }
 
         //IMPORTANT
