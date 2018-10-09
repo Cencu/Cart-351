@@ -99,9 +99,7 @@
           targetSetup();
 
 
-          yellowBall = new Sprite(
-            id["yellowball.png"]
-          );
+          //yellowBall = new Sprite(id["yellowball.png"]);
           //Create an array of balls
           let noOfYellowBalls = 5;
           //Create the array of yellow balls
@@ -127,7 +125,7 @@
             gameScene.addChild(yBalls[i]);
           }
 
-          redBall = new Sprite (id["fireball.png"]);
+          //redBall = new Sprite (id["fireball.png"]);
           let noOfRedBalls = 5;
           rBalls = [];
 
@@ -142,8 +140,8 @@
             rBalls[i].anchor.set(0.5, 0.5);
             //X and Y position
             rBalls[i].position.set(renderViewW/3,renderViewH-75);
-             rBalls[i].interactive = true;
-             rBalls[i].buttonMode = true;
+            rBalls[i].interactive = true;
+            rBalls[i].buttonMode = true;
 
              rBalls[i].on('mousedown',launchRed);
 
@@ -178,6 +176,7 @@
             console.log(countRed);
             rBalls[countRed].position.x *= rBalls[countRed].vx;
             rBalls[countRed].position.y *= rBalls[countRed].vy;
+            console.log(rBalls[countRed].vx);
           }
           if (launchState === true) {
             yBalls[count].position.x += yBalls[count].vx;
