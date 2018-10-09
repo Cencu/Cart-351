@@ -58,27 +58,29 @@
           let id = PIXI.loader.resources["images/gameSprites.json"].textures;
 
           //Create an array of balls
-          let noOfYellowBalls = 1,
+          let noOfYellowBalls = 5,
           speed = 2,
           direction = 1,
           //Create the array of yellow balls
           yBalls = [];
 
           //create a for loop to call the balls
-          for (let i = 0; i < noOfYellowBalls; i++) {
+          for (let i = 0; i < 2; i++) {
             //Call the ID to use the picture
-          let yellowBall = new Sprite(id["yellowball.png"]);
-          let x = 500;
-          let y = 500;
-          let width = 50;
-          let height = 50;
+           yellowBall = new Sprite(id["yellowball.png"]);
+          //let x = 500;
+          //let y = 500;
+        //  let width = 50;
+        //  let height = 50;
             //X and Y position
-            yellowBall.x = x;
-            yellowBall.y = y;
-            yellowBall.width = width;
-            yellowBall.height = height;
+          //  yellowBall.x = 500;
+            yellowBall.y = 500;
+            yellowBall.width = 50;
+            yellowBall.height = 50;
+            //yellowBall.vX = 0;
+
             //Velocity
-            //yellowBall.vY = 5;
+          //  yellowBall.vY = 0;
             direction *= -1;
 
             //Push the balls into the array
@@ -98,7 +100,6 @@
             yellowBall.on('mousemove', onDragMove)
             yellowBall.on('touchmove', onDragMove);
 
-            yBalls.push(yellowBall);
             //Add the ball into the gamescene
             gameScene.addChild(yellowBall);
           }
@@ -147,7 +148,7 @@
           //the anchor by default of any image is the top left corner
           //however you can change the sprites anchor by using .anchor.x and/or y (values 0 to 1 representing the dimension of the image)
 
-          yellowBall.anchor.set(0.5, 0.5);
+          yellowBall.anchor.set(0.0);
           blueBall.anchor.set(0.5, 0.5);
           redBall.anchor.set(0.5, 0.5);
 
@@ -157,7 +158,6 @@
           //let containerYellow = new PIXI.Container();
           //Set it as interactive, so when the mouse hovers over, the mouse changes style to the grabber
 
-          //containerYellow.addChild(yellowBall);
           //the stage is the container of everything you want to display
           //here we add to the stage on setup the sprite we just loaded
           //you can remove any sprite from the stage by using stage.removeChild method. (another way is to set visibility of sprite to false)
@@ -174,19 +174,25 @@
         }
 
         function gameLoop(delta){
-          yellowBall.y += .1;
           state(delta);
 
         }
 
         function play(delta) {
-          yellowBall.forEach(function(yellowBall){
-          });
+            yellowBall.vX = 3;
+            yellowBall.x += yellowBall.vX;
         }
       function missed(sprite, container) {
-
+        //Leave the function undefined if it has not collided with anything
         let noTarget = undefined;
+        //contain takes two arguments. The first is the sprite you want to keep contained
+        // The second is any object with x, y, width and height properties
+        //that define a rectangular area
+        //The function will check if the ball has left the area.
 
+        //We also check in the function if the sprite has collieded with
+        //Any other object, noTarget then changes based on which side
+        //The sprite has collided with.
         if (sprite.x < container.x+30) {
           sprite.x = container.x;
           noTarget = "left";
@@ -222,6 +228,9 @@
           // we want to track the movement of this particular touch
           this.data = event.data;
           this.dragging = true;
+          //Append the array to add another ball
+          app.stage.addChild(yellowBall);
+          console.log("added child");
       }
 
       function onDragEnd() {
@@ -233,6 +242,7 @@
         let newPosition = this.data.getLocalPosition(this.parent);
         this.position.x = newPosition.x;
         this.position.y = newPosition.y;
+
     }
 }
 
