@@ -72,17 +72,21 @@
           for (let i = 0; i < noOfYellowBalls; i++) {
             //Call the ID to use the picture
            yellowBall = new Sprite(id["yellowball.png"]);
+
+           //ball dimension is half of its original size
            yellowBall.scale.set(0.5,0.5);
+
+           //ball anchor point is the center
            yellowBall.anchor.set(0.5, 0.5);
-          //let x = 500;
-          //let y = 500;
-        //  let width = 50;
-        //  let height = 50;
-            //X and Y position
-            yellowBall.x = 500;
-            yellowBall.y = 500;
-            yellowBall.width = 50;
-            yellowBall.height = 50;
+
+           //X and Y position
+           yellowBall.position.set(renderViewW/2,renderViewH/2);
+
+            //yellowBall.vX = 0;
+
+            //Velocity
+          //  yellowBall.vY = 0;
+            direction *= -1;
 
             //Push the balls into the array
 
