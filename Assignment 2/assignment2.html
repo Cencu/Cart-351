@@ -71,7 +71,13 @@
           //create a for loop to call the balls
           for (let i = 0; i < noOfYellowBalls; i++) {
             //Call the ID to use the picture
-        let yellowBall = new Sprite(id["yellowball.png"]);
+           yellowBall = new Sprite(id["yellowball.png"]);
+           yellowBall.scale.set(0.5,0.5);
+           yellowBall.anchor.set(0.5, 0.5);
+          //let x = 500;
+          //let y = 500;
+        //  let width = 50;
+        //  let height = 50;
             //X and Y position
             yellowBall.x = 500;
             yellowBall.y = 500;
@@ -103,7 +109,14 @@
           //initialize sprite on set up
             //remember the order of things, if they do not exist first they won't be found
 
-            globalId = id;
+        //let globalId;
+        //initialize sprite on set up
+      //  function setup() {
+          //remember the order of things, if they do not exist first they won't be found
+        //  let id = PIXI.loader.resources["images/gameSprites.json"].textures;
+
+        //  globalId = id;
+
 
             let redBall = new Sprite(
               id["fireball.png"]
@@ -164,8 +177,8 @@
          yBalls.forEach(function(yellowBall) {
             yellowBall.vX = 3;
             yellowBall.x += yellowBall.vX;
-         });
-      }
+        });
+        }
       function missed(sprite, container) {
         //Leave the function undefined if it has not collided with anything
         let noTarget = undefined;
@@ -279,7 +292,8 @@
               //the target image will be random
               target = new Sprite(globalId[targetImages[getRandomInt(0,3)]]);
               //position target at 50,50 and display
-              target.position.set(50,50);
+              target.position.set(i*100 +20,50);
+              target.scale.set(0.75,0.75);
               app.stage.addChild(target);
               console.log("this is target "+i)
           }
