@@ -38,7 +38,7 @@
 
         //define an empty array for the targets
         let targetImages = ["redTarget.png","yellowTarget.png","blueTarget.png"],
-            numberOfTargets = 1;
+            numberOfTargets = 10;
 
 
         //use the loader to convert any image into a texture that webgl can render
@@ -159,7 +159,7 @@
         }
 
         function play(delta) {
-          
+
          yBalls.forEach(function(yellowBall) {
             yellowBall.vX = 3;
             yellowBall.x += yellowBall.vX;
@@ -255,18 +255,25 @@
               return Math.floor(Math.random()* (max - min)) + min;
             }
 
-            targetX = getRandomInt(0,renderViewW);
-            targetY = getRandomInt(0,renderViewH/2-50);
-
 
               //the target image will be random
               target = new Sprite(id[targetImages[getRandomInt(0,3)]]);
+
               //position target at 50,50 and display
+              targetX = getRandomInt(0,renderViewW);
+              targetY = getRandomInt(0,renderViewH/2-200);
+      
               target.position.set(targetX,targetY);
               target.scale.set(0.75,0.75);
               gameScene.addChild(target);
+
               console.log("this is target "+i)
+
           }
+
+
+
+
 
           /*--TARGET HANDLING ENDS--*/
         }
