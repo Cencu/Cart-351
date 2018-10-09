@@ -55,6 +55,28 @@
           gameScene = new Container();
           app.stage.addChild(gameScene);
 
+          let triangle = new Graphics();
+          triangle.beginFill(0xffff00);
+
+          //Use `drawPolygon` to define the triangle as
+          //a path array of x/y positions
+
+          triangle.drawPolygon([
+              -32, 64,             //First point
+              32, 64,              //Second point
+              0, 0                 //Third point
+          ]);
+
+          //Fill shape's color
+          triangle.endFill();
+
+          //Position the triangle after you've drawn it.
+          //The triangle's x/y position is anchored to its first point in the path
+          triangle.position.set(renderViewW/2,renderViewH/2-45);
+          triangle.pivot.set(0,0);
+          triangle.scale.set(.2,.2);
+          app.stage.addChild(triangle);
+
           //remember the order of things, if they do not exist first they won't be found
           id = PIXI.loader.resources["images/gameSprites.json"].textures;
 
@@ -110,7 +132,7 @@
             gameScene.addChild(yellowBall);
           }
 
-        
+
 
           state = play;
 
@@ -120,14 +142,15 @@
 
         function gameLoop(delta){
           state(delta);
-
+          yBalls.forEach(function(yellowBall) {
+             yellowBall.vX = 3;
+             yellowBall.x += yellowBall.vX;
+             trianlge.rotate +=.2;
+         });
         }
 
         function play(delta) {
-         yBalls.forEach(function(yellowBall) {
-            yellowBall.vX = 3;
-            yellowBall.x += yellowBall.vX;
-        });
+
         }
       function missed(sprite, container) {
         //Leave the function undefined if it has not collided with anything
@@ -191,31 +214,6 @@
 
     }
 }
-        function createTriangle(xPos, yPos, i){
-        let triangle = new PIXI.Graphics();
-
-        triangle.x = xPos;
-        triangle.y = yPos;
-
-        let triangleWidth = 100,
-            triangleHeight = triangleWidth,
-            triangleHalfway = triangleWidth/2;
-
-        // draw triangle
-        triangle.beginFill(0xFF0000, 1);
-        triangle.lineStyle(0, 0xFF0000, 1);
-        triangle.moveTo(triangleWidth, 0);
-        triangle.lineTo(triangleHalfway, triangleHeight);
-        triangle.lineTo(0, 0);
-        triangle.lineTo(triangleHalfway, 0);
-        triangle.endFill();
-
-        triangle.interactive = true;
-        triangle.buttonMode = true;
-        triangle.on("pointertap", function(e) {
-          console.log(i);
-        });
-      }
 
 
         //IMPORTANT
