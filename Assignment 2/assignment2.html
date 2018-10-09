@@ -58,29 +58,31 @@
           let id = PIXI.loader.resources["images/gameSprites.json"].textures;
 
           //Create an array of balls
-          let noOfYellowBalls = 1,
+          let noOfYellowBalls = 5,
           speed = 2,
           direction = 1,
           //Create the array of yellow balls
           yBalls = [];
 
           //create a for loop to call the balls
-          for (let i = 0; i < noOfYellowBalls; i++) {
+          for (let i = 0; i < 2; i++) {
             //Call the ID to use the picture
-          let yellowBall = new Sprite(id["yellowball.png"]);
-          let x = 500;
-          let y = 500;
-          yellowBall.scale.set(0.5,0.5);
-          yellowBall.anchor.set(0.5, 0.5);
-          // let width = 50;
-          // let height = 50;
+           yellowBall = new Sprite(id["yellowball.png"]);
+           yellowBall.scale.set(0.5,0.5);
+           yellowBall.anchor.set(0.5, 0.5);
+          //let x = 500;
+          //let y = 500;
+        //  let width = 50;
+        //  let height = 50;
             //X and Y position
-            yellowBall.x = x;
-            yellowBall.y = y;
-            // yellowBall.width = width;
-            // yellowBall.height = height;
+          //  yellowBall.x = 500;
+            yellowBall.y = 500;
+            yellowBall.width = 50;
+            yellowBall.height = 50;
+            //yellowBall.vX = 0;
+
             //Velocity
-            //yellowBall.vY = 5;
+          //  yellowBall.vY = 0;
             direction *= -1;
 
             //Push the balls into the array
@@ -100,13 +102,13 @@
             yellowBall.on('mousemove', onDragMove)
             yellowBall.on('touchmove', onDragMove);
 
-            yBalls.push(yellowBall);
             //Add the ball into the gamescene
             gameScene.addChild(yellowBall);
           }
 
 
         let globalId;
+<<<<<<< HEAD
 //         //initialize sprite on set up
 //         function setup() {
 //           //remember the order of things, if they do not exist first they won't be found
@@ -174,22 +176,96 @@
 //           //Start the game loop
 //           app.ticker.add(delta => gameLoop(delta));
 //         }
+=======
+        //initialize sprite on set up
+        function setup() {
+          //remember the order of things, if they do not exist first they won't be found
+          let id = PIXI.loader.resources["images/gameSprites.json"].textures;
+
+          globalId = id;
+
+          let yellowBall = new Sprite(
+            id["yellowball.png"]
+          );
+
+          let redBall = new Sprite(
+            id["fireball.png"]
+          );
+
+          let blueBall = new Sprite(
+            id["blueBall.png"]
+          );
+
+          //POSITION
+          //you coudl affect the images position like this
+
+          // fireball.x = 420;
+          // fireball.y = 300;
+
+          //or like this
+
+        //  yellowBall.position.set(renderViewW/2, renderViewH-200);
+          blueBall.position.set(renderViewW/3, renderViewH-200);
+          redBall.position.set(renderViewW/2+150, renderViewH-200);
+
+          //SCALE
+          //you could change the size of the image by using .width and .height or scale.x or scale.y following aboves format
+
+          //yellowBall.scale.set(0.2, 0.2);
+          blueBall.scale.set(0.5, 0.5);
+          redBall.scale.set(0.5, 0.5);
+
+          //ROTATION
+          //the anchor by default of any image is the top left corner
+          //however you can change the sprites anchor by using .anchor.x and/or y (values 0 to 1 representing the dimension of the image)
+
+          yellowBall.anchor.set(0.0);
+          blueBall.anchor.set(0.5, 0.5);
+          redBall.anchor.set(0.5, 0.5);
+
+          //you could also change the rotation center by using .pivot however pivot uses pixel data while anchor uses ratio
+
+          //Create a container for the balls, used to create more than one ball
+          //let containerYellow = new PIXI.Container();
+          //Set it as interactive, so when the mouse hovers over, the mouse changes style to the grabber
+
+          //the stage is the container of everything you want to display
+          //here we add to the stage on setup the sprite we just loaded
+          //you can remove any sprite from the stage by using stage.removeChild method. (another way is to set visibility of sprite to false)
+
+          app.stage.addChild(yellowBall);
+          app.stage.addChild(blueBall);
+          app.stage.addChild(redBall);
+
+//<<<<<<< HEAD
+          state = play;
+
+          //Start the game loop
+          app.ticker.add(delta => gameLoop(delta));
+        }
+>>>>>>> 66593046c4cb09edbb6a88b244be3aeecf83ccd6
 
         function gameLoop(delta){
-          yellowBall.y += .1;
           state(delta);
 
         }
 
         function play(delta) {
-          yellowBall.forEach(function(yellowBall){
-          });
+            yellowBall.vX = 3;
+            yellowBall.x += yellowBall.vX;
         }
 
       function missed(sprite, container) {
-
+        //Leave the function undefined if it has not collided with anything
         let noTarget = undefined;
+        //contain takes two arguments. The first is the sprite you want to keep contained
+        // The second is any object with x, y, width and height properties
+        //that define a rectangular area
+        //The function will check if the ball has left the area.
 
+        //We also check in the function if the sprite has collieded with
+        //Any other object, noTarget then changes based on which side
+        //The sprite has collided with.
         if (sprite.x < container.x+30) {
           sprite.x = container.x;
           noTarget = "left";
@@ -225,6 +301,9 @@
           // we want to track the movement of this particular touch
           this.data = event.data;
           this.dragging = true;
+          //Append the array to add another ball
+          app.stage.addChild(yellowBall);
+          console.log("added child");
       }
 
       function onDragEnd() {
@@ -236,6 +315,7 @@
         let newPosition = this.data.getLocalPosition(this.parent);
         this.position.x = newPosition.x;
         this.position.y = newPosition.y;
+
     }
 }
 
