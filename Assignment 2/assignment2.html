@@ -77,7 +77,7 @@
           triangle.position.set(renderViewW/2,renderViewH/2-45);
           triangle.pivot.set(0,0);
           triangle.scale.set(.2,.2);
-          app.stage.addChild(triangle);
+          gameScene.addChild(triangle);
 
           //remember the order of things, if they do not exist first they won't be found
           id = PIXI.loader.resources["images/gameSprites.json"].textures;
@@ -248,7 +248,8 @@
         //define target attributes to be global so they can be used elsewhere
         let target,
             targetX,
-            targetY;
+            targetY,
+            random;
 
         let targetSetup = function(){
 
@@ -267,20 +268,22 @@
                 targetSprites.push(target);
 
                 console.log("this is "+ targetSprites[i]);
-
                 //position target at 50,50 and display
                 targetX = getRandomInt(0,renderViewW);
                 targetY = getRandomInt(0,renderViewH/2-200);
                 target.position.set(targetX,targetY);
                 target.scale.set(0.65,0.65);
-                gameScene.addChild(target);
+
+
               }
 
-
+              gameScene.addChild(targetSprites[1]);
 
         }
 
         let targetUpdate = function(){
+
+
 
             if (target === targetImages[0]){
 
