@@ -15,6 +15,7 @@
             Container = PIXI.Container,
             loader = PIXI.loader,
             Sprite = PIXI.Sprite,
+            Graphics = PIXI.Graphics,
             resources = PIXI.loader.resources;
 
         //Create a Pixi Application (this replaces the initiaization of the canvas because it appends it below(this is our canvas now))
@@ -47,7 +48,7 @@
           //.add("images/anotherImage.png")
           .load(setup);
 
-        let state, yBalls, gameScene, id;
+        let state, yBalls, gameScene, id, triangle;
 
         //initialize sprite on set up
         function setup() {
@@ -56,32 +57,26 @@
 
           //remember the order of things, if they do not exist first they won't be found
           let id = PIXI.loader.resources["images/gameSprites.json"].textures;
+          let yellowBall = new Sprite(
+            id["yellowball.png"]
+          );
 
           //Create an array of balls
           let noOfYellowBalls = 5,
           speed = 2,
-          direction = 1,
+          direction = 1;
           //Create the array of yellow balls
           yBalls = [];
 
           //create a for loop to call the balls
-          for (let i = 0; i < 2; i++) {
+          for (let i = 0; i < noOfYellowBalls; i++) {
             //Call the ID to use the picture
-           yellowBall = new Sprite(id["yellowball.png"]);
-          //let x = 500;
-          //let y = 500;
-        //  let width = 50;
-        //  let height = 50;
+        let yellowBall = new Sprite(id["yellowball.png"]);
             //X and Y position
-          //  yellowBall.x = 500;
+            yellowBall.x = 500;
             yellowBall.y = 500;
             yellowBall.width = 50;
             yellowBall.height = 50;
-            //yellowBall.vX = 0;
-
-            //Velocity
-          //  yellowBall.vY = 0;
-            direction *= -1;
 
             //Push the balls into the array
 
@@ -104,42 +99,31 @@
             gameScene.addChild(yellowBall);
           }
 
+          let globalId;
+          //initialize sprite on set up
+            //remember the order of things, if they do not exist first they won't be found
 
-        let globalId;
-        //initialize sprite on set up
-        function setup() {
-          //remember the order of things, if they do not exist first they won't be found
-          let id = PIXI.loader.resources["images/gameSprites.json"].textures;
+            globalId = id;
 
-          globalId = id;
+            let redBall = new Sprite(
+              id["fireball.png"]
+            );
 
-          let yellowBall = new Sprite(
-            id["yellowball.png"]
-          );
-
-          let redBall = new Sprite(
-            id["fireball.png"]
-          );
-
-          let blueBall = new Sprite(
-            id["blueBall.png"]
-          );
+            let blueBall = new Sprite(
+              id["blueBall.png"]
+            );
 
           //POSITION
           //you coudl affect the images position like this
-
           // fireball.x = 420;
           // fireball.y = 300;
-
           //or like this
-
         //  yellowBall.position.set(renderViewW/2, renderViewH-200);
           blueBall.position.set(renderViewW/3, renderViewH-200);
           redBall.position.set(renderViewW/2+150, renderViewH-200);
 
           //SCALE
           //you could change the size of the image by using .width and .height or scale.x or scale.y following aboves format
-
           //yellowBall.scale.set(0.2, 0.2);
           blueBall.scale.set(0.5, 0.5);
           redBall.scale.set(0.5, 0.5);
@@ -147,13 +131,11 @@
           //ROTATION
           //the anchor by default of any image is the top left corner
           //however you can change the sprites anchor by using .anchor.x and/or y (values 0 to 1 representing the dimension of the image)
-
-          yellowBall.anchor.set(0.0);
+      //    yellowBall.anchor.set(0.5,0.5);
           blueBall.anchor.set(0.5, 0.5);
           redBall.anchor.set(0.5, 0.5);
 
           //you could also change the rotation center by using .pivot however pivot uses pixel data while anchor uses ratio
-
           //Create a container for the balls, used to create more than one ball
           //let containerYellow = new PIXI.Container();
           //Set it as interactive, so when the mouse hovers over, the mouse changes style to the grabber
@@ -165,8 +147,8 @@
           app.stage.addChild(yellowBall);
           app.stage.addChild(blueBall);
           app.stage.addChild(redBall);
+        //  app.stage.addChild(triangle);
 
-//<<<<<<< HEAD
           state = play;
 
           //Start the game loop
@@ -179,9 +161,11 @@
         }
 
         function play(delta) {
+         yBalls.forEach(function(yellowBall) {
             yellowBall.vX = 3;
             yellowBall.x += yellowBall.vX;
-        }
+         });
+      }
       function missed(sprite, container) {
         //Leave the function undefined if it has not collided with anything
         let noTarget = undefined;
@@ -221,15 +205,14 @@
 
       }
 
-      function onDragStart(event)
-      {
+      function onDragStart(event){
           // store a reference to the data
           // the reason for this is because of multitouch
           // we want to track the movement of this particular touch
           this.data = event.data;
           this.dragging = true;
           //Append the array to add another ball
-          app.stage.addChild(yellowBall);
+          gameScene.addChild(yellowBall);
           console.log("added child");
       }
 
@@ -238,13 +221,39 @@
       }
 
       function onDragMove(){
-    if (this.dragging){
+        if (this.dragging){
         let newPosition = this.data.getLocalPosition(this.parent);
         this.position.x = newPosition.x;
         this.position.y = newPosition.y;
 
     }
 }
+        function createTriangle(xPos, yPos, i){
+        let triangle = new PIXI.Graphics();
+
+        triangle.x = xPos;
+        triangle.y = yPos;
+
+        let triangleWidth = 100,
+            triangleHeight = triangleWidth,
+            triangleHalfway = triangleWidth/2;
+
+        // draw triangle
+        triangle.beginFill(0xFF0000, 1);
+        triangle.lineStyle(0, 0xFF0000, 1);
+        triangle.moveTo(triangleWidth, 0);
+        triangle.lineTo(triangleHalfway, triangleHeight);
+        triangle.lineTo(0, 0);
+        triangle.lineTo(triangleHalfway, 0);
+        triangle.endFill();
+
+        triangle.interactive = true;
+        triangle.buttonMode = true;
+        triangle.on("pointertap", function(e) {
+          console.log(i);
+        });
+      }
+
 
         //IMPORTANT
         //if you want to change the texture the sprite is displaying, use the texture property. Set it to any Texture object, like this:
@@ -266,14 +275,9 @@
               max = Math.floor(max);
 
               return Math.floor(Math.random()* (max - min)) + min;
-
             }
-
               //the target image will be random
               target = new Sprite(globalId[targetImages[getRandomInt(0,3)]]);
-
-
-
               //position target at 50,50 and display
               target.position.set(50,50);
               app.stage.addChild(target);
@@ -282,10 +286,6 @@
 
           /*--TARGET HANDLING ENDS--*/
         }
-      }
-
     </script>
-
   </body>
-
 </html>
