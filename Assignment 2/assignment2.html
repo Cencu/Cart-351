@@ -38,7 +38,7 @@
 
         //define an empty array for the targets
         let targetImages = ["redTarget.png","yellowTarget.png","blueTarget.png"],
-            numberOfTargets = 50;
+            numberOfTargets = 1;
 
 
         //use the loader to convert any image into a texture that webgl can render
@@ -52,8 +52,10 @@
 
         //initialize sprite on set up
         function setup() {
+
           gameScene = new Container();
           app.stage.addChild(gameScene);
+
 
           //remember the order of things, if they do not exist first they won't be found
           id = PIXI.loader.resources["images/gameSprites.json"].textures;
@@ -68,6 +70,8 @@
           direction = 1;
           //Create the array of yellow balls
           yBalls = [];
+
+          targetFunction();
 
           //create a for loop to call the balls
           for (let i = 0; i < noOfYellowBalls; i++) {
@@ -106,11 +110,18 @@
             yellowBall.on('mousemove', onDragMove)
             yellowBall.on('touchmove', onDragMove);
 
+
+
             //Add the ball into the gamescene
             gameScene.addChild(yellowBall);
+
+
+
           }
 
-        
+
+
+
 
           state = play;
 
@@ -119,6 +130,7 @@
         }
 
         function gameLoop(delta){
+
           state(delta);
 
         }
@@ -128,6 +140,7 @@
             yellowBall.vX = 3;
             yellowBall.x += yellowBall.vX;
         });
+
         }
       function missed(sprite, container) {
         //Leave the function undefined if it has not collided with anything
@@ -175,7 +188,8 @@
           this.data = event.data;
           this.dragging = true;
           //Append the array to add another ball
-          gameScene.addChild(yellowBall);
+          //gameScene.addChild(yellowBall);
+
           console.log("added child");
       }
 
@@ -223,10 +237,13 @@
         //anySprite.texture = PIXI.utils.TextureCache["anyTexture.png"];
         //targetFunction();
 
+        let target,
+            targetX,
+            targetY;
+
         let targetFunction = function(){
           /*-- TARGETS HANDLING STARTS--*/
           //define global target
-          let target;
 
           //as long as i is less than the number of targets
           for(let i = 0; i<numberOfTargets; i++){
@@ -239,12 +256,17 @@
 
               return Math.floor(Math.random()* (max - min)) + min;
             }
+
+            targetX = getRandomInt(0,renderViewW);
+            targetY = getRandomInt(0,renderViewH/2-50);
+
+
               //the target image will be random
               target = new Sprite(id[targetImages[getRandomInt(0,3)]]);
               //position target at 50,50 and display
-              target.position.set(i*100 +20,50);
+              target.position.set(targetX,targetY);
               target.scale.set(0.75,0.75);
-              app.stage.addChild(target);
+              gameScene.addChild(target);
               console.log("this is target "+i)
           }
 
