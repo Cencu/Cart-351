@@ -53,6 +53,7 @@
         let launchState = false;
         let launchStateRed = false;
         let count = 5;
+        let countRed = 5;
         let startTime = 0;
         //initialize sprite on set up
         function setup() {
@@ -99,7 +100,6 @@
           targetSetup();
 
 
-          //yellowBall = new Sprite(id["yellowball.png"]);
           //Create an array of balls
           let noOfYellowBalls = 5;
           //Create the array of yellow balls
@@ -108,8 +108,8 @@
           for (let i = 0; i < noOfYellowBalls; i++) {
             //Call the ID to use the picture
            yBalls[i] = new Sprite(id["yellowball.png"]);
-           yBalls[i].vx =1;
-           yBalls[i].vy =1;
+           yBalls[i].vx = 3;
+           yBalls[i].vy =3;
            //ball dimension is half of its original size
            yBalls[i].scale.set(0.5,0.5);
            //ball anchor point is the center
@@ -125,15 +125,14 @@
             gameScene.addChild(yBalls[i]);
           }
 
-          //redBall = new Sprite (id["fireball.png"]);
           let noOfRedBalls = 5;
           rBalls = [];
 
           for (let i = 0; i < noOfRedBalls; i++) {
 
             rBalls[i] = new Sprite(id["fireball.png"]);
-            rBalls[i].vx = 1;
-            rBalls[i].vy = 1;
+            rBalls[i].vx = 10;
+            rBalls[i].vy = 10;
             //ball dimension is half of its original size
             rBalls[i].scale.set(0.5,0.5);
             //ball anchor point is the center
@@ -169,18 +168,18 @@
           }
 
           for (let i = 0; i < rBalls.length; i++) {
-          rBalls[i].rotation =.03;
+          rBalls[i].rotation +=.03;
           }
 
           if (launchStateRed === true) {
-            console.log(countRed);
-            rBalls[countRed].position.x *= rBalls[countRed].vx;
-            rBalls[countRed].position.y *= rBalls[countRed].vy;
-            console.log(rBalls[countRed].vx);
+            rBalls[countRed].position.x += rBalls[countRed].vx;
+            rBalls[countRed].position.y += rBalls[countRed].vy;
+
           }
           if (launchState === true) {
             yBalls[count].position.x += yBalls[count].vx;
             yBalls[count].position.y += yBalls[count].vy;
+
           }
 
 
@@ -225,8 +224,8 @@
         let launch = function() {
         launchState = true;
         count--;
-         yBalls[count].vx = Math.cos(yBalls[count].rotation);
-         yBalls[count].vy = Math.sin(yBalls[count].rotation);
+         yBalls[count].vx = Math.cos(yBalls[count].rotation)*5;
+         yBalls[count].vy = Math.sin(yBalls[count].rotation)*5;
         }
 
         let launchRed = function() {
