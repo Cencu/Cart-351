@@ -38,7 +38,8 @@
 
         //define an empty array for the targets
         let targetImages = ["redTarget.png","yellowTarget.png","blueTarget.png"],
-            numberOfTargets = 10;
+            targetSprites = [];
+
 
 
         //use the loader to convert any image into a texture that webgl can render
@@ -48,7 +49,7 @@
           //.add("images/anotherImage.png")
           .load(setup);
 
-        let state, yBalls, gameScene, id, triangle;
+        let state, yBalls, gameScene, id, triangle, yellowBall;
 
         //initialize sprite on set up
         function setup() {
@@ -81,7 +82,10 @@
           //remember the order of things, if they do not exist first they won't be found
           id = PIXI.loader.resources["images/gameSprites.json"].textures;
 
-          let yellowBall = new Sprite(
+          targetSetup();
+
+
+          yellowBall = new Sprite(
             id["yellowball.png"]
           );
 
@@ -92,7 +96,7 @@
           //Create the array of yellow balls
           yBalls = [];
 
-          targetFunction();
+
 
           //create a for loop to call the balls
           for (let i = 0; i < noOfYellowBalls; i++) {
@@ -151,11 +155,14 @@
         function gameLoop(delta){
 
           state(delta);
+
           yBalls.forEach(function(yellowBall) {
              yellowBall.vX = 3;
              yellowBall.x += yellowBall.vX;
              trianlge.rotate +=.2;
          });
+
+
         }
 
         function play(delta) {
@@ -164,7 +171,7 @@
             yellowBall.vX = 3;
             yellowBall.x += yellowBall.vX;
         });
-
+          targetUpdate();
         }
       function missed(sprite, container) {
         //Leave the function undefined if it has not collided with anything
@@ -212,7 +219,7 @@
           this.data = event.data;
           this.dragging = true;
           //Append the array to add another ball
-          app.stage.addChild(yellowBall);
+          gameScene.addChild(yellowBall);
           console.log("added child");
       }
 
@@ -235,16 +242,14 @@
         //anySprite.texture = PIXI.utils.TextureCache["anyTexture.png"];
         //targetFunction();
 
+        /*-- TARGETS HANDLING STARTS--*/
+
+        //define target attributes to be global so they can be used elsewhere
         let target,
             targetX,
             targetY;
 
-        let targetFunction = function(){
-          /*-- TARGETS HANDLING STARTS--*/
-          //define global target
-
-          //as long as i is less than the number of targets
-          for(let i = 0; i<numberOfTargets; i++){
+        let targetSetup = function(){
 
             //get a random integer between 0 and 2
             function getRandomInt(min,max){
@@ -255,28 +260,49 @@
               return Math.floor(Math.random()* (max - min)) + min;
             }
 
+              for(let i = 0; i<=targetImages.length-1; i++){
 
-              //the target image will be random
-              target = new Sprite(id[targetImages[getRandomInt(0,3)]]);
+                target = new Sprite(id[targetImages[i]]);
+                targetSprites.push(target);
 
-              //position target at 50,50 and display
-              targetX = getRandomInt(0,renderViewW);
-              targetY = getRandomInt(0,renderViewH/2-200);
-      
-              target.position.set(targetX,targetY);
-              target.scale.set(0.75,0.75);
-              gameScene.addChild(target);
+                console.log("this is "+ targetSprites[i]);
 
-              console.log("this is target "+i)
-
-          }
-
+                //position target at 50,50 and display
+                targetX = getRandomInt(0,renderViewW);
+                targetY = getRandomInt(0,renderViewH/2-200);
+                target.position.set(targetX,targetY);
+                target.scale.set(0.65,0.65);
+                gameScene.addChild(target);
+              }
 
 
 
-
-          /*--TARGET HANDLING ENDS--*/
         }
+
+        let targetUpdate = function(){
+
+            if (target === targetImages[0]){
+
+              console.log("I'm the red target");
+
+            } else
+
+            if (target == "blueTarget.png"){
+
+              console.log("I'm the red target");
+
+            } else
+
+            if (target == "yellowTarget.png"){
+
+              console.log("I'm the red target");
+
+            }
+
+
+        }
+        /*--TARGET HANDLING ENDS--*/
+
     </script>
   </body>
 </html>
