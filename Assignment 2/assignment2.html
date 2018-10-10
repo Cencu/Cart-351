@@ -409,7 +409,7 @@
 
                 console.log("this is "+ targetSprites[i]+ i);
                 //position target at 50,50 and display
-                targetX = getRandomInt(0,renderViewW);
+                targetX = getRandomInt(0,renderViewW-120);
                 targetY = getRandomInt(0,renderViewH/2-200);
                 target.scale.set(0.65,0.65);
 
@@ -522,7 +522,7 @@
          return Math.floor(Math.random()* (max - min)) + min;
        }
        //position target at 50,50 and display
-       targetX = getRandomInt(0,renderViewW);
+       targetX = getRandomInt(0,renderViewW-120);
        targetY = getRandomInt(0,renderViewH/2-200);
        gameScene.removeChild(currentTarget);
        targetDisplaying.position.set(targetX,targetY);
