@@ -109,8 +109,8 @@
           for (let i = 0; i < noOfYellowBalls; i++) {
             //Call the ID to use the picture
            yBalls[i] = new Sprite(id["yellowball.png"]);
-           yBalls[i].vx =1;
-           yBalls[i].vy =1;
+           yBalls[i].vx = 1000;
+           yBalls[i].vy =1000;
            //ball dimension is half of its original size
            yBalls[i].scale.set(0.5,0.5);
            //ball anchor point is the center
@@ -120,7 +120,7 @@
             yBalls[i].interactive = true;
             yBalls[i].buttonMode = true;
 
-            yBalls[i].on('mousedown',launch);
+            yBalls[count].on('mousedown',launch);
 
             //Add the ball into the gamescene
             gameScene.addChild(yBalls[i]);
@@ -158,12 +158,14 @@
 
         function gameLoop(delta){
           state(delta);
+
         }
 
         function play(delta) {
           triangle.rotation +=.03;
           for (let i = 0; i < yBalls.length; i++) {
           yBalls[i].rotation +=.03;
+
           }
 
           for (let i = 0; i < rBalls.length; i++) {
@@ -178,6 +180,7 @@
           if (launchState === true) {
             yBalls[count].position.x += yBalls[count].vx;
             yBalls[count].position.y += yBalls[count].vy;
+
           }
 
           targetUpdate();
