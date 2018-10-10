@@ -99,10 +99,6 @@
 
           targetSetup();
 
-
-          yellowBall = new Sprite(
-            id["yellowball.png"]
-          );
           //Create an array of balls
           let noOfYellowBalls = 5;
           //Create the array of yellow balls
@@ -128,14 +124,13 @@
             gameScene.addChild(yBalls[i]);
           }
 
-          redBall = new Sprite (id["fireball.png"]);
           let noOfRedBalls = 5;
           rBalls = [];
 
           for (let i = 0; i < noOfRedBalls; i++) {
 
             rBalls[i] = new Sprite(id["fireball.png"]);
-            rBalls[i].vx = 1;
+            rBalls[i].vx = 10;
             rBalls[i].vy = 1;
             //ball dimension is half of its original size
             rBalls[i].scale.set(0.5,0.5);
@@ -169,7 +164,6 @@
           triangle.rotation +=.03;
           for (let i = 0; i < yBalls.length; i++) {
           yBalls[i].rotation +=.03;
-
           }
 
           for (let i = 0; i < rBalls.length; i++) {
