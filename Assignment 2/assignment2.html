@@ -49,7 +49,7 @@
           //.add("images/anotherImage.png")
           .load(setup);
 
-        let state, yBalls, gameScene, id, triangle, triangles, yellowBall, rBalls, redBall, noOfRedBalls;
+        let state, yBalls, gameScene, id, triangle, triangles, yellowBall, rBalls, redBall, noOfRedBalls, noOfYellowBalls;
         let launchState = false;
         let launchStateRed = false;
         let count = 5;
@@ -101,7 +101,7 @@
 
 
           //Create an array of balls
-          let noOfYellowBalls = 5;
+          noOfYellowBalls = 5;
           //Create the array of yellow balls
           yBalls = [];
           //create a for loop to call the balls
@@ -250,6 +250,8 @@
             random,
             targetDisplaying,
             currentTarget;
+        let redBallCollision = false,
+            yellowBallCollision = false;
 
 
         let targetSetup = function(){
@@ -355,24 +357,35 @@
           for (let i = 0; i < noOfRedBalls; i++){
 
             if(rBalls[i].position.x+rBalls[i].width >= targetDisplaying.position.x &&
-              rBalls[i].position.x <= targetDisplaying.position.x+targetDisplaying.width ){
+              rBalls[i].position.x <= targetDisplaying.position.x+targetDisplaying.width &&
+              rBalls[i].position.y >= targetDisplaying.position.y &&
+              rBalls[i].position.y <= targetDisplaying.position.y+targetDisplaying.height){
 
-
-                  console.log(targetDisplaying.position.x);
-                  console.log(rBalls[i].position.x);
-                  console.log(rBalls[i].width);
-                  console.log("colision working");
+                  console.log("red collision working");
                   //return redBallCollided;
 
+                  redBallCollision = true;
 
-            } else {
-              //console.log("has not collided");
+            }
+          }
+
+          for (let i = 0; i < noOfYellowBalls; i++){
+            if(yBalls[i].position.x+yBalls[i].width >= targetDisplaying.position.x &&
+              yBalls[i].position.x <= targetDisplaying.position.x+targetDisplaying.width &&
+              yBalls[i].position.y >= targetDisplaying.position.y &&
+              yBalls[i].position.y <= targetDisplaying.position.y+targetDisplaying.height) {
+
+              console.log("yellow collision working");
+              //return redBallCollided;
+
+              yellowBallCollision = true;
             }
 
           }
+      }
 
 
-        }
+
 
     </script>
   </body>
