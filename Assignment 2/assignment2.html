@@ -54,6 +54,7 @@
         let launchStateRed = false;
         let count = 5;
         let countRed = 5;
+        let startTime = 0;
         //initialize sprite on set up
         function setup() {
 
@@ -61,6 +62,7 @@
           //Lauch on click
           //lauch with triangle
 
+              startTime = new Date().getTime();
 
           gameScene = new Container();
           app.stage.addChild(gameScene);
@@ -109,8 +111,8 @@
           for (let i = 0; i < noOfYellowBalls; i++) {
             //Call the ID to use the picture
            yBalls[i] = new Sprite(id["yellowball.png"]);
-           yBalls[i].vx = 1000;
-           yBalls[i].vy =1000;
+           yBalls[i].vx = 3;
+           yBalls[i].vy =3;
            //ball dimension is half of its original size
            yBalls[i].scale.set(0.5,0.5);
            //ball anchor point is the center
@@ -120,7 +122,7 @@
             yBalls[i].interactive = true;
             yBalls[i].buttonMode = true;
 
-            yBalls[count].on('mousedown',launch);
+            yBalls[i].on('mousedown',launch);
 
             //Add the ball into the gamescene
             gameScene.addChild(yBalls[i]);
@@ -158,10 +160,12 @@
 
         function gameLoop(delta){
           state(delta);
-
+          targetUpdate();
         }
 
         function play(delta) {
+
+
           triangle.rotation +=.03;
           for (let i = 0; i < yBalls.length; i++) {
           yBalls[i].rotation +=.03;
@@ -173,9 +177,8 @@
           }
 
           if (launchStateRed === true) {
-            console.log(countRed);
-            rBalls[countRed].position.x *= rBalls[countRed].vx;
-            rBalls[countRed].position.y *= rBalls[countRed].vy;
+            rBalls[countRed].position.x += rBalls[countRed].vx;
+            rBalls[countRed].position.y += rBalls[countRed].vy;
           }
           if (launchState === true) {
             yBalls[count].position.x += yBalls[count].vx;
@@ -183,7 +186,7 @@
 
           }
 
-          targetUpdate();
+
         }
       function missed(sprite, container) {
         //Leave the function undefined if it has not collided with anything
@@ -248,7 +251,10 @@
         let target,
             targetX,
             targetY,
-            random;
+            random,
+            targetDisplaying,
+            currentTarget;
+
 
         let targetSetup = function(){
 
@@ -266,39 +272,77 @@
                 target = new Sprite(id[targetImages[i]]);
                 targetSprites.push(target);
 
-                console.log("this is "+ targetSprites[i]);
+                console.log("this is "+ targetSprites[i]+ i);
                 //position target at 50,50 and display
                 targetX = getRandomInt(0,renderViewW);
                 targetY = getRandomInt(0,renderViewH/2-200);
-                target.position.set(targetX,targetY);
+
                 target.scale.set(0.65,0.65);
 
 
               }
 
-              gameScene.addChild(targetSprites[getRandomInt(0,targetImages.length)]);
+              targetDisplaying = targetSprites[getRandomInt(0,targetImages.length)];
+
+              currentTarget = targetDisplaying;
+
+              target.position.set(targetX,targetY);
+              gameScene.addChild(currentTarget);
 
         }
 
+
         let targetUpdate = function(){
 
+          //get a random integer between 0 and 2
+          function getRandomInt(min,max){
+
+            min = Math.ceil(min);
+            max = Math.floor(max);
+
+            return Math.floor(Math.random()* (max - min)) + min;
+          }
+
+          //position target at 50,50 and display
+          targetX = getRandomInt(0,renderViewW);
+          targetY = getRandomInt(0,renderViewH/2-200);
 
 
-            if (target === targetImages[0]){
+            let timePassed = new Date().getTime() - startTime;
+
+            if (timePassed > 2000){
+
+              gameScene.removeChild(currentTarget);
+
+              targetDisplaying.position.set(targetX,targetY);
+              targetDisplaying.scale.set(0.65,0.65);
+
+              targetDisplaying = targetSprites[getRandomInt(0,targetImages.length)];
+
+              gameScene.addChild(targetDisplaying);
+
+              currentTarget = targetDisplaying;
+
+
+
+              startTime = new Date().getTime();
+            }
+
+            if (targetDisplaying === targetSprites[0]){
 
               console.log("I'm the red target");
 
             } else
 
-            if (target == "blueTarget.png"){
+            if (targetDisplaying === targetSprites[1]){
 
-              console.log("I'm the red target");
+              console.log("I'm yellow target");
 
             } else
 
-            if (target == "yellowTarget.png"){
+            if (targetDisplaying === targetSprites[2]){
 
-              console.log("I'm the red target");
+              console.log("I'm the blue target");
 
             }
 
