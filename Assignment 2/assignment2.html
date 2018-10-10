@@ -47,7 +47,7 @@
           .add("images/gameSprites.json")
           .load(setup);
 
-        let state, yBalls, gameScene, id, triangle, triangleRed, yellowBall, rBalls, redBall, noOfRedBalls, bBalls, blueBall, noOfBlueBalls,currentRedBall;
+        let state, gameScene, id, yBalls, triangle, triangleRed, rBalls, noOfRedBalls, bBalls, noOfBlueBalls,currentRedBall;
         let launchState = false;
         let launchStateRed = false;
         let launchStateBlue = false;
@@ -59,15 +59,13 @@
         //initialize sprite on set up
         function setup() {
 
-          //TO DO\\\\
-          //Lauch on click
-          //lauch with triangle
 
-              startTime = new Date().getTime();
+          startTime = new Date().getTime();
 
           gameScene = new Container();
           app.stage.addChild(gameScene);
 
+          /*--Yellow Triangle Starts--*/
           triangle = new Graphics();
           triangle.beginFill(0xffff00);
           //Use `drawPolygon` to define the triangle as
@@ -87,7 +85,7 @@
           triangle.position.set(renderViewW/2,renderViewH-75);
           triangle.pivot.set(0,250);
           triangle.scale.set(.2,.2);
-          triangle.rotation = -5.3
+          triangle.rotation = -5.3;
 
           //Push the balls into the array
 
@@ -96,7 +94,9 @@
 
           gameScene.addChild(triangle);
 
+          /*--Yellow Triangle Ends--*/
 
+          /*--Red Triangle Starts--*/
           triangleRed = new Graphics();
           triangleRed.beginFill(0xff0000);
           //Use `drawPolygon` to define the triangle as
@@ -113,10 +113,10 @@
 
           //Position the triangle after you've drawn it.
           //The triangle's x/y position is anchored to its first point in the path
-          triangleRed.position.set(renderViewW/3,renderViewH-75);
+          triangleRed.position.set(renderViewW/2 - 250,renderViewH-75);
           triangleRed.pivot.set(0,250);
           triangleRed.scale.set(.2,.2);
-          triangleRed.rotation = -5.3
+          triangleRed.rotation = -5.3;
 
           //Push the balls into the array
 
@@ -125,7 +125,9 @@
 
           gameScene.addChild(triangleRed);
 
+          /*--Red Triangle Ends--*/
 
+          /*--Blue Triangle Starts--*/
           triangleBlue = new Graphics();
           triangleBlue.beginFill(0x0000cc);
           //Use `drawPolygon` to define the triangle as
@@ -142,10 +144,10 @@
 
           //Position the triangle after you've drawn it.
           //The triangle's x/y position is anchored to its first point in the path
-          triangleBlue.position.set(renderViewW-550,renderViewH-75);
+          triangleBlue.position.set(renderViewW/2 +250,renderViewH-75);
           triangleBlue.pivot.set(0,250);
           triangleBlue.scale.set(.2,.2);
-          triangleBlue.rotation = -5.3
+          triangleBlue.rotation = -5.3;
 
           //Push the balls into the array
 
@@ -154,13 +156,16 @@
 
           gameScene.addChild(triangleBlue);
 
+          /*--Blue Triangle Ends--*/
+
 
           //remember the order of things, if they do not exist first they won't be found
           id = PIXI.loader.resources["images/gameSprites.json"].textures;
 
+          /*--Setup Begins--*/
           targetSetup();
 
-
+          /*--Yellow Balls Setup Starts--*/
           //Create an array of balls
           noOfYellowBalls = 5;
           //Create the array of yellow balls
@@ -186,8 +191,12 @@
             gameScene.addChild(yBalls[i]);
           }
 
+          /*--Yellow Balls Setup Ends--*/
+
+
+          /*--Blue Balls Setup Starts--*/
           //Create an array of balls
-          let noOfBlueBalls = 5;
+          noOfBlueBalls = 5;
           //Create the array of yellow balls
           bBalls = [];
           //create a for loop to call the balls
@@ -201,16 +210,18 @@
            //ball anchor point is the center
            bBalls[i].anchor.set(0.5, 0.5);
            //X and Y position
-           bBalls[i].position.set(renderViewW-550,renderViewH-75);
-            bBalls[i].interactive = true;
-            bBalls[i].buttonMode = true;
+           bBalls[i].position.set(renderViewW/2 + 250,renderViewH-75);
+           bBalls[i].interactive = true;
+           bBalls[i].buttonMode = true;
 
-            bBalls[i].on('mousedown',launchBlue);
+           bBalls[i].on('mousedown',launchBlue);
 
             //Add the ball into the gamescene
             gameScene.addChild(bBalls[i]);
           }
+          /*--Blue Balls Setup Ends--*/
 
+          /*--Red Balls Setup Starts--*/
           noOfRedBalls = 5;
           rBalls = [];
 
@@ -224,17 +235,19 @@
             //ball anchor point is the center
             rBalls[i].anchor.set(0.5, 0.5);
             //X and Y position
-            rBalls[i].position.set(renderViewW/3,renderViewH-75);
+            rBalls[i].position.set(renderViewW/2-250,renderViewH-75);
             rBalls[i].interactive = true;
             rBalls[i].buttonMode = true;
 
             rBalls[i].on('mousedown',launchRed);
 
-            currentRedBall = rBalls[i];
+
 
              //Add the ball into the gamescene
              gameScene.addChild(rBalls[i]);
           }
+
+          /*--Red Balls Setup Ends--*/
 
           state = play;
 
@@ -242,31 +255,43 @@
           app.ticker.add(delta => gameLoop(delta));
         }
 
+        /*--Setup Ends--*/
+
+        /*--Gameloop--*/
         function gameLoop(delta){
           state(delta);
-
         }
 
+        /*--Play Starts--*/
         function play(delta) {
+
+          //Update Target
           targetUpdate();
-          triangleBlue.rotation +=.07;
-          triangleRed.rotation +=.07;
-          triangle.rotation +=.07;
+
+          //rotate triangles
+          triangleBlue.rotation +=.05;
+          triangleRed.rotation +=.05;
+          triangle.rotation +=.05;
+
+          //rotate balls
           for (let i = 0; i < yBalls.length; i++) {
-          yBalls[i].rotation +=.07;
+          yBalls[i].rotation +=.05;
           }
           for (let i = 0; i < bBalls.length; i++) {
-          bBalls[i].rotation +=.07;
+          bBalls[i].rotation +=.05;
           }
 
           for (let i = 0; i < rBalls.length; i++) {
-          rBalls[i].rotation +=.07;
+          rBalls[i].rotation +=.05;
           }
 
+          //launch statement
+          //if true, launch the ball
           if (launchStateRed === true) {
             rBalls[countRed].position.x += rBalls[countRed].vx;
             rBalls[countRed].position.y += rBalls[countRed].vy;
-}
+          }
+
           if (launchState === true) {
             yBalls[count].position.x += yBalls[count].vx;
             yBalls[count].position.y += yBalls[count].vy;
@@ -275,9 +300,12 @@
           if (launchStateBlue === true) {
             bBalls[countBlue].position.x += bBalls[countBlue].vx;
             bBalls[countBlue].position.y += bBalls[countBlue].vy;
-            gameScene.removeChild(bBalls[count]);
+
           }
         }
+
+        /*--Play Ends--*/
+
       function missed(sprite, container) {
         //Leave the function undefined if it has not collided with anything
         let noTarget = undefined;
@@ -314,6 +342,7 @@
         return noTarget;
       }
 
+        //launch function definition
         let launch = function() {
         launchState = true;
         count--;
@@ -338,11 +367,6 @@
           rBalls[countRed].vy = Math.sin(rBalls[countRed].rotation)*20;
         }
 
-        //IMPORTANT
-        //if you want to change the texture the sprite is displaying, use the texture property. Set it to any Texture object, like this:
-        //anySprite.texture = PIXI.utils.TextureCache["anyTexture.png"];
-        //targetFunction();
-
         /*-- TARGETS HANDLING STARTS--*/
 
         //define target attributes to be global so they can be used elsewhere
@@ -352,16 +376,17 @@
             random,
             targetDisplaying,
             currentTarget;
-        let redBallCollision,
-            yellowBallCollision,
-            blueBallCollision;
 
-        let redPoints;
+        //define starting points
+        let redPoints = 0,
+            yellowPoints = 0,
+            bluePoints = 0;
+            score = 0;
 
 
         let targetSetup = function(){
 
-            //get a random integer between 0 and 2
+            //get a random integer between the numbers passed within
             function getRandomInt(min,max){
 
               min = Math.ceil(min);
@@ -370,6 +395,7 @@
               return Math.floor(Math.random()* (max - min)) + min;
             }
 
+              //setup the target sprites
               for(let i = 0; i<=targetImages.length-1; i++){
 
                 target = new Sprite(id[targetImages[i]]);
@@ -379,54 +405,37 @@
                 //position target at 50,50 and display
                 targetX = getRandomInt(0,renderViewW);
                 targetY = getRandomInt(0,renderViewH/2-200);
-
                 target.scale.set(0.65,0.65);
-
 
               }
 
+              //display a random target in a random position at the beginning
               targetDisplaying = targetSprites[getRandomInt(0,targetImages.length)];
-
               currentTarget = targetDisplaying;
-
               target.position.set(targetX,targetY);
               gameScene.addChild(currentTarget);
 
         }
 
-
+        //update Target Function definition
         let targetUpdate = function(){
 
-           let timePassed = new Date().getTime() - startTime;
-           checkCollision();
+          //if 10 seconds have passed update the target
+          let timePassed = new Date().getTime() - startTime;
+          if (timePassed > 10000){
+            collitionUpdate();
+          }
+          //then check collision
+          checkCollision();
 
-           if (timePassed > 10000){
-
-             collitionUpdate();
-
-             alert("the value of redColl is" + redBallCollision + " yellowCol is " + yellowBallCollision + " blueCol is" + blueBallCollision);
-
-           } else if (redBallCollision == 1){
-             collitionUpdate();
-           } else if (yellowBallCollision == 1){
-             collitionUpdate();
-           } else if (blueBallCollision == 1){
-             collitionUpdate();
-           }
-
-           if (targetDisplaying === targetSprites[0]){
-             console.log("I'm the red target");
-           } else
-           if (targetDisplaying === targetSprites[1]){
-             console.log("I'm yellow target");
-           } else
-           if (targetDisplaying === targetSprites[2]){
-             console.log("I'm the blue target");
-           }
        }
        /*--TARGET HANDLING ENDS--*/
+
        /*--Function Collision--*/
        let checkCollision = function(){
+
+         //if the red ball hits a target update the target
+         //if it was the red one then collect the points
          for (let i = 0; i < noOfRedBalls; i++){
            if(rBalls[i].position.x+rBalls[i].width >= targetDisplaying.position.x &&
              rBalls[i].position.x <= targetDisplaying.position.x+targetDisplaying.width &&
@@ -435,41 +444,55 @@
 
 
 
-                 redBallCollision = 1;
-                 alert("the value of redColl is" + redBallCollision);
-           }   else {
-             redBallCollision = 0;
+                 if(targetDisplaying === targetSprites[0]){
+                   redPoints += 100;
+                 }
+
+                 collitionUpdate();
+                 console.log(redPoints)
 
            }
          }
+
+         //if the yellow ball hits a target update the target
+         //if it was the yellow one then collect the points
          for (let i = 0; i < noOfYellowBalls; i++){
            if(yBalls[i].position.x+yBalls[i].width >= targetDisplaying.position.x &&
              yBalls[i].position.x <= targetDisplaying.position.x+targetDisplaying.width &&
              yBalls[i].position.y >= targetDisplaying.position.y &&
              yBalls[i].position.y <= targetDisplaying.position.y+targetDisplaying.height) {
-             console.log("yellow collision working");
-             //return redBallCollided;
-             yellowBallCollision = 1;
-              alert("the value of redColl is" + yellowBallCollision);
-           } else {
-             yellowBallCollision = 0;
+
+               if(targetDisplaying === targetSprites[1]){
+                 yellowPoints += 200;
+               }
+
+             collitionUpdate();
+             console.log(yellowPoints)
+
            }
          }
 
+         //if the blue ball hits a target update the target
+         //if it was the blue one then collect the points
          for (let i = 0; i < noOfBlueBalls; i++){
            if(bBalls[i].position.x+bBalls[i].width >= targetDisplaying.position.x &&
              bBalls[i].position.x <= targetDisplaying.position.x+targetDisplaying.width &&
              bBalls[i].position.y >= targetDisplaying.position.y &&
              bBalls[i].position.y <= targetDisplaying.position.y+targetDisplaying.height) {
-             console.log("blue collision working");
-             //return redBallCollided;
-             blueBallCollision = 1;
-             alert("the value of redColl is" + blueBallCollision);
+
+               if(targetDisplaying === targetSprites[2]){
+                 bluePoints += 500;
+               }
+
+             collitionUpdate();
+             console.log(bluePoints)
+
            }
-            blueBallCollision = 0;
+
          }
      }
 
+     //collitionUpdate displays a new target on another random position and hides the previous one
      let collitionUpdate = function(){
        //get a random integer between 0 and 2
        function getRandomInt(min,max){
@@ -480,15 +503,11 @@
        //position target at 50,50 and display
        targetX = getRandomInt(0,renderViewW);
        targetY = getRandomInt(0,renderViewH/2-200);
-
-       redBallCollision = 0;
-       blueBallCollision = 0;
-       yellowBallCollision = 0;
        gameScene.removeChild(currentTarget);
        targetDisplaying.position.set(targetX,targetY);
-       targetDisplaying.scale.set(0.65,0.65);
        targetDisplaying = targetSprites[getRandomInt(0,targetImages.length)];
-       gameScene.addChild(targetDisplaying);
+       currentTarget = targetDisplaying;
+       gameScene.addChild(currentTarget);
        currentTarget = targetDisplaying;
        startTime = new Date().getTime();
      }
