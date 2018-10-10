@@ -49,7 +49,7 @@
           //.add("images/anotherImage.png")
           .load(setup);
 
-        let state, yBalls, gameScene, id, triangle, triangles, yellowBall, rBalls, redBall;
+        let state, yBalls, gameScene, id, triangle, triangles, yellowBall, rBalls, redBall, noOfRedBalls;
         let launchState = false;
         let launchStateRed = false;
         let count = 5;
@@ -129,6 +129,7 @@
 
           targetSetup();
 
+
           //Create an array of balls
           let noOfYellowBalls = 5;
           //Create the array of yellow balls
@@ -154,22 +155,22 @@
             gameScene.addChild(yBalls[i]);
           }
 
-          let noOfRedBalls = 5;
+          noOfRedBalls = 5;
           rBalls = [];
 
           for (let i = 0; i < noOfRedBalls; i++) {
 
             rBalls[i] = new Sprite(id["fireball.png"]);
             rBalls[i].vx = 10;
-            rBalls[i].vy = 1;
+            rBalls[i].vy = 10;
             //ball dimension is half of its original size
             rBalls[i].scale.set(0.5,0.5);
             //ball anchor point is the center
             rBalls[i].anchor.set(0.5, 0.5);
             //X and Y position
             rBalls[i].position.set(renderViewW/3,renderViewH-75);
-             rBalls[i].interactive = true;
-             rBalls[i].buttonMode = true;
+            rBalls[i].interactive = true;
+            rBalls[i].buttonMode = true;
 
              rBalls[i].on('mousedown',launchRed);
 
@@ -203,6 +204,7 @@
           if (launchStateRed === true) {
             rBalls[countRed].position.x += rBalls[countRed].vx;
             rBalls[countRed].position.y += rBalls[countRed].vy;
+
           }
           if (launchState === true) {
             yBalls[count].position.x += yBalls[count].vx;
@@ -334,7 +336,7 @@
 
             let timePassed = new Date().getTime() - startTime;
 
-            if (timePassed > 2000){
+            if (timePassed > 10000){
 
               gameScene.removeChild(currentTarget);
 
@@ -351,6 +353,8 @@
 
               startTime = new Date().getTime();
             }
+
+            checkCollision();
 
             if (targetDisplaying === targetSprites[0]){
 
@@ -373,6 +377,32 @@
 
         }
         /*--TARGET HANDLING ENDS--*/
+
+        /*--Function Collision--*/
+
+        let checkCollision = function(){
+
+          for (let i = 0; i < noOfRedBalls; i++){
+
+            if(rBalls[i].position.x+rBalls[i].width >= targetDisplaying.position.x &&
+              rBalls[i].position.x <= targetDisplaying.position.x+targetDisplaying.width ){
+
+
+                  console.log(targetDisplaying.position.x);
+                  console.log(rBalls[i].position.x);
+                  console.log(rBalls[i].width);
+                  console.log("colision working");
+                  //return redBallCollided;
+
+
+            } else {
+              //console.log("has not collided");
+            }
+
+          }
+
+
+        }
 
     </script>
   </body>
