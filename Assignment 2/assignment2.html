@@ -94,6 +94,36 @@
 
           gameScene.addChild(triangle);
 
+
+          triangleRed = new Graphics();
+          triangleRed.beginFill(0xff0000);
+          //Use `drawPolygon` to define the triangle as
+          //a path array of x/y positions
+
+          triangleRed.drawPolygon([
+              -32, 64,             //First point
+              32, 64,              //Second point
+              0, 0                 //Third point
+          ]);
+
+          //Fill shape's color
+          triangleRed.endFill();
+
+          //Position the triangle after you've drawn it.
+          //The triangle's x/y position is anchored to its first point in the path
+          triangleRed.position.set(renderViewW/3,renderViewH-75);
+          triangleRed.pivot.set(0,250);
+          triangleRed.scale.set(.2,.2);
+          triangleRed.rotation = -5.3
+
+          //Push the balls into the array
+
+          triangleRed.interactive = true;
+          triangleRed.buttonMode = true;
+
+          gameScene.addChild(triangleRed);
+
+
           //remember the order of things, if they do not exist first they won't be found
           id = PIXI.loader.resources["images/gameSprites.json"].textures;
 
@@ -160,14 +190,14 @@
 
         function play(delta) {
 
-
-          triangle.rotation +=.05;
+          triangleRed.rotation +=.07;
+          triangle.rotation +=.07;
           for (let i = 0; i < yBalls.length; i++) {
-          yBalls[i].rotation +=.05;
+          yBalls[i].rotation +=.07;
           }
 
           for (let i = 0; i < rBalls.length; i++) {
-          rBalls[i].rotation +=.05;
+          rBalls[i].rotation +=.07;
           }
 
           if (launchStateRed === true) {
@@ -193,8 +223,7 @@
         //We also check in the function if the sprite has collieded with
         //Any other object, noTarget then changes based on which side
         //The sprite has collided with.
-        if (sprite.x < container.x+30) {
-          sprite.x = container.x;
+        if (sprite.x > container.x+30) {
           noTarget = "left";
         }
 
@@ -224,6 +253,7 @@
         count--;
          yBalls[count].vx = Math.cos(yBalls[count].rotation)*20;
          yBalls[count].vy = Math.sin(yBalls[count].rotation)*20;
+         app.stage.removeChild(yBalls[count].position.x);
         }
 
         let launchRed = function() {
