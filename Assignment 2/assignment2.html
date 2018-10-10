@@ -16,7 +16,8 @@
             loader = PIXI.loader,
             Sprite = PIXI.Sprite,
             Graphics = PIXI.Graphics,
-            resources = PIXI.loader.resources;
+            resources = PIXI.loader.resources,
+            Text = PIXI.Text;
 
 
         //Create a Pixi Application (this replaces the initiaization of the canvas because it appends it below(this is our canvas now))
@@ -47,13 +48,13 @@
           .add("images/gameSprites.json")
           .load(setup);
 
-        let state, gameScene, id, yBalls, triangle, triangleRed, rBalls, noOfRedBalls, bBalls, noOfBlueBalls,currentRedBall;
+        let state, gameScene, id, yBalls, triangle, triangleRed, rBalls, noOfRedBalls, bBalls, noOfBlueBalls,currentRedBall, message;
         let launchState = false;
         let launchStateRed = false;
         let launchStateBlue = false;
-        let count = 5;
-        let countRed = 5;
-        let countBlue = 5;
+        let count = 10;
+        let countRed = 10;
+        let countBlue = 10;
         let startTime = 0;
 
         //initialize sprite on set up
@@ -167,7 +168,7 @@
 
           /*--Yellow Balls Setup Starts--*/
           //Create an array of balls
-          noOfYellowBalls = 5;
+          noOfYellowBalls = 10;
           //Create the array of yellow balls
           yBalls = [];
           //create a for loop to call the balls
@@ -196,7 +197,7 @@
 
           /*--Blue Balls Setup Starts--*/
           //Create an array of balls
-          noOfBlueBalls = 5;
+          noOfBlueBalls = 10;
           //Create the array of yellow balls
           bBalls = [];
           //create a for loop to call the balls
@@ -222,7 +223,7 @@
           /*--Blue Balls Setup Ends--*/
 
           /*--Red Balls Setup Starts--*/
-          noOfRedBalls = 5;
+          noOfRedBalls = 10;
           rBalls = [];
 
           for (let i = 0; i < noOfRedBalls; i++) {
@@ -386,6 +387,11 @@
 
         let targetSetup = function(){
 
+          //score setup
+          message = new Text(0);
+          message.style = {fill: "white", font: "25px"};
+          //score set up ends
+
             //get a random integer between the numbers passed within
             function getRandomInt(min,max){
 
@@ -434,6 +440,8 @@
        /*--Function Collision--*/
        let checkCollision = function(){
 
+
+
          //if the red ball hits a target update the target
          //if it was the red one then collect the points
          for (let i = 0; i < noOfRedBalls; i++){
@@ -444,12 +452,14 @@
 
 
 
+
                  if(targetDisplaying === targetSprites[0]){
                    redPoints += 100;
                  }
-
+                 score += redPoints;
                  collitionUpdate();
                  console.log(redPoints)
+
 
            }
          }
@@ -465,6 +475,8 @@
                if(targetDisplaying === targetSprites[1]){
                  yellowPoints += 200;
                }
+
+             score += yellowPoints;
 
              collitionUpdate();
              console.log(yellowPoints)
@@ -484,12 +496,21 @@
                  bluePoints += 500;
                }
 
+             score += bluePoints;
              collitionUpdate();
              console.log(bluePoints)
 
            }
 
          }
+
+         //score update
+         message.text = score;
+         message.position.set(renderViewW/2, 20);
+         message.anchor.set(0.5,0.5);
+         gameScene.addChild(message);
+
+         console.log(score);
      }
 
      //collitionUpdate displays a new target on another random position and hides the previous one
