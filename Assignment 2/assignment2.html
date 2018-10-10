@@ -349,7 +349,9 @@
         count--;
          yBalls[count].vx = Math.cos(yBalls[count].rotation)*20;
          yBalls[count].vy = Math.sin(yBalls[count].rotation)*20;
-         app.stage.removeChild(yBalls[count].position.x);
+         if (count <=0){
+           gameScene.removeChild(triangle);
+         }
         }
 
         let launchBlue = function() {
@@ -358,6 +360,9 @@
          bBalls[countBlue].vx = Math.cos(bBalls[countBlue].rotation)*20;
          bBalls[countBlue].vy = Math.sin(bBalls[countBlue].rotation)*20;
          app.stage.removeChild(bBalls[countBlue].position.x);
+         if (countBlue <=0){
+           gameScene.removeChild(triangleBlue);
+         }
         }
 
         let launchRed = function() {
@@ -366,6 +371,9 @@
           countRed--;
           rBalls[countRed].vx = Math.cos(rBalls[countRed].rotation)*20;
           rBalls[countRed].vy = Math.sin(rBalls[countRed].rotation)*20;
+          if (countRed <=0){
+            gameScene.removeChild(triangleRed);
+          }
         }
 
         /*-- TARGETS HANDLING STARTS--*/
