@@ -18,6 +18,7 @@
             Graphics = PIXI.Graphics,
             resources = PIXI.loader.resources;
 
+
         //Create a Pixi Application (this replaces the initiaization of the canvas because it appends it below(this is our canvas now))
         //whatever is in between the  {} are the options object, you can add as many as you want
         //instead of using # for color, use 0x---
@@ -40,21 +41,21 @@
         let targetImages = ["redTarget.png","yellowTarget.png","blueTarget.png"],
             targetSprites = [];
 
-
-
         //use the loader to convert any image into a texture that webgl can render
         //you can load multiple images by adding more .add methods and array of .add images or json files
         loader
           .add("images/gameSprites.json")
-          //.add("images/anotherImage.png")
           .load(setup);
 
-        let state, yBalls, gameScene, id, triangle, triangles, yellowBall, rBalls, redBall, noOfRedBalls;
+        let state, yBalls, gameScene, id, triangle, triangleRed, yellowBall, rBalls, redBall, noOfRedBalls, bBalls, blueBall, noOfBlueBalls;
         let launchState = false;
         let launchStateRed = false;
+        let launchStateBlue = false;
         let count = 5;
         let countRed = 5;
+        let countBlue = 5;
         let startTime = 0;
+
         //initialize sprite on set up
         function setup() {
 
@@ -66,6 +67,7 @@
 
           gameScene = new Container();
           app.stage.addChild(gameScene);
+
           triangle = new Graphics();
           triangle.beginFill(0xffff00);
           //Use `drawPolygon` to define the triangle as
@@ -124,6 +126,35 @@
           gameScene.addChild(triangleRed);
 
 
+          triangleBlue = new Graphics();
+          triangleBlue.beginFill(0x0000cc);
+          //Use `drawPolygon` to define the triangle as
+          //a path array of x/y positions
+
+          triangleBlue.drawPolygon([
+              -32, 64,             //First point
+              32, 64,              //Second point
+              0, 0                 //Third point
+          ]);
+
+          //Fill shape's color
+          triangleBlue.endFill();
+
+          //Position the triangle after you've drawn it.
+          //The triangle's x/y position is anchored to its first point in the path
+          triangleBlue.position.set(renderViewW-550,renderViewH-75);
+          triangleBlue.pivot.set(0,250);
+          triangleBlue.scale.set(.2,.2);
+          triangleBlue.rotation = -5.3
+
+          //Push the balls into the array
+
+          triangleBlue.interactive = true;
+          triangleBlue.buttonMode = true;
+
+          gameScene.addChild(triangleBlue);
+
+
           //remember the order of things, if they do not exist first they won't be found
           id = PIXI.loader.resources["images/gameSprites.json"].textures;
 
@@ -153,6 +184,31 @@
 
             //Add the ball into the gamescene
             gameScene.addChild(yBalls[i]);
+          }
+
+          //Create an array of balls
+          let noOfBlueBalls = 5;
+          //Create the array of yellow balls
+          bBalls = [];
+          //create a for loop to call the balls
+          for (let i = 0; i < noOfBlueBalls; i++) {
+            //Call the ID to use the picture
+           bBalls[i] = new Sprite(id["blueBall.png"]);
+           bBalls[i].vx = 3;
+           bBalls[i].vy =3;
+           //ball dimension is half of its original size
+           bBalls[i].scale.set(0.5,0.5);
+           //ball anchor point is the center
+           bBalls[i].anchor.set(0.5, 0.5);
+           //X and Y position
+           bBalls[i].position.set(renderViewW-550,renderViewH-75);
+            bBalls[i].interactive = true;
+            bBalls[i].buttonMode = true;
+
+            bBalls[i].on('mousedown',launchBlue);
+
+            //Add the ball into the gamescene
+            gameScene.addChild(bBalls[i]);
           }
 
           noOfRedBalls = 5;
@@ -190,11 +246,14 @@
         }
 
         function play(delta) {
-
+          triangleBlue.rotation +=.07;
           triangleRed.rotation +=.07;
           triangle.rotation +=.07;
           for (let i = 0; i < yBalls.length; i++) {
           yBalls[i].rotation +=.07;
+          }
+          for (let i = 0; i < bBalls.length; i++) {
+          bBalls[i].rotation +=.07;
           }
 
           for (let i = 0; i < rBalls.length; i++) {
@@ -204,15 +263,17 @@
           if (launchStateRed === true) {
             rBalls[countRed].position.x += rBalls[countRed].vx;
             rBalls[countRed].position.y += rBalls[countRed].vy;
-
-          }
+}
           if (launchState === true) {
             yBalls[count].position.x += yBalls[count].vx;
             yBalls[count].position.y += yBalls[count].vy;
 
           }
-
-
+          if (launchStateBlue === true) {
+            bBalls[countBlue].position.x += bBalls[countBlue].vx;
+            bBalls[countBlue].position.y += bBalls[countBlue].vy;
+            gameScene.removeChild(bBalls[count]);
+          }
         }
       function missed(sprite, container) {
         //Leave the function undefined if it has not collided with anything
@@ -256,6 +317,14 @@
          yBalls[count].vx = Math.cos(yBalls[count].rotation)*20;
          yBalls[count].vy = Math.sin(yBalls[count].rotation)*20;
          app.stage.removeChild(yBalls[count].position.x);
+        }
+
+        let launchBlue = function() {
+        launchStateBlue = true;
+        countBlue--;
+         bBalls[countBlue].vx = Math.cos(bBalls[countBlue].rotation)*20;
+         bBalls[countBlue].vy = Math.sin(bBalls[countBlue].rotation)*20;
+         app.stage.removeChild(bBalls[countBlue].position.x);
         }
 
         let launchRed = function() {
