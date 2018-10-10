@@ -53,8 +53,8 @@
         let launchStateRed = false;
         let launchStateBlue = false;
         let count = 10;
-        let countRed = 10;
-        let countBlue = 10;
+        let countRed = 15;
+        let countBlue = 5;
         let startTime = 0;
 
         //initialize sprite on set up
@@ -65,6 +65,7 @@
 
           gameScene = new Container();
           app.stage.addChild(gameScene);
+
 
           /*--Yellow Triangle Starts--*/
           triangle = new Graphics();
@@ -197,7 +198,7 @@
 
           /*--Blue Balls Setup Starts--*/
           //Create an array of balls
-          noOfBlueBalls = 10;
+          noOfBlueBalls = 5;
           //Create the array of yellow balls
           bBalls = [];
           //create a for loop to call the balls
@@ -223,7 +224,7 @@
           /*--Blue Balls Setup Ends--*/
 
           /*--Red Balls Setup Starts--*/
-          noOfRedBalls = 10;
+          noOfRedBalls = 15;
           rBalls = [];
 
           for (let i = 0; i < noOfRedBalls; i++) {
@@ -249,6 +250,10 @@
           }
 
           /*--Red Balls Setup Ends--*/
+
+          gameOverScene = new Container();
+          app.stage.addChild(gameOverScene);
+
 
           state = play;
 
@@ -303,45 +308,26 @@
             bBalls[countBlue].position.y += bBalls[countBlue].vy;
 
           }
+
+          if (count == 0 && countRed == 0 && countBlue == 0){
+            state = end;
+          }
         }
 
         /*--Play Ends--*/
 
-      function missed(sprite, container) {
-        //Leave the function undefined if it has not collided with anything
-        let noTarget = undefined;
-        //contain takes two arguments. The first is the sprite you want to keep contained
-        // The second is any object with x, y, width and height properties
-        //that define a rectangular area
-        //The function will check if the ball has left the area.
+        function end() {
 
-        //We also check in the function if the sprite has collieded with
-        //Any other object, noTarget then changes based on which side
-        //The sprite has collided with.
-        if (sprite.x > container.x+30) {
-          noTarget = "left";
-        }
+          message.style = {fill: "white", font: "60px"};
+          message.text = "  GAME OVER \n Your Score Is " + score + "!";
+          message.position.set(renderViewW/2, renderViewH/2);
+          message.anchor.set(0.5,0.5);
+          gameOverScene.addChild(message);
+          app.renderer.backgroundColor = 0x007d84;
 
-        //Top
-        if (sprite.y < container.y) {
-          sprite.y = container.y;
-          noTarget = "top";
+          gameScene.visible = false;
+          gameOverScene.visible = true;
         }
-
-        //Right
-        if (sprite.x + sprite.width > container.width) {
-          sprite.x = container.width - sprite.width;
-          noTarget = "right";
-        }
-
-        //Bottom
-        if (sprite.y + sprite.height > container.height) {
-          sprite.y = container.height - sprite.height;
-          noTarget = "bottom";
-        }
-        //Return the `collision` value
-        return noTarget;
-      }
 
         //launch function definition
         let launch = function() {
@@ -513,12 +499,12 @@
          }
 
          //score update
-         message.text = score;
+         message.text = "Score: " + score;
          message.position.set(renderViewW/2, 20);
          message.anchor.set(0.5,0.5);
          gameScene.addChild(message);
 
-         console.log(score);
+         console.log("Score: " + score);
      }
 
      //collitionUpdate displays a new target on another random position and hides the previous one
