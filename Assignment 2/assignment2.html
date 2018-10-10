@@ -161,13 +161,13 @@
         function play(delta) {
 
 
-          triangle.rotation +=.03;
+          triangle.rotation +=.05;
           for (let i = 0; i < yBalls.length; i++) {
-          yBalls[i].rotation +=.03;
+          yBalls[i].rotation +=.05;
           }
 
           for (let i = 0; i < rBalls.length; i++) {
-          rBalls[i].rotation +=.03;
+          rBalls[i].rotation +=.05;
           }
 
           if (launchStateRed === true) {
@@ -222,16 +222,16 @@
         let launch = function() {
         launchState = true;
         count--;
-         yBalls[count].vx = Math.cos(yBalls[count].rotation);
-         yBalls[count].vy = Math.sin(yBalls[count].rotation);
+         yBalls[count].vx = Math.cos(yBalls[count].rotation)*20;
+         yBalls[count].vy = Math.sin(yBalls[count].rotation)*20;
         }
 
         let launchRed = function() {
           launchStateRed = true;
           console.log(countRed);
           countRed--;
-          rBalls[countRed].vx = Math.cos(rBalls[countRed].rotation);
-          rBalls[countRed].vy = Math.sin(rBalls[countRed].rotation);
+          rBalls[countRed].vx = Math.cos(rBalls[countRed].rotation)*20;
+          rBalls[countRed].vy = Math.sin(rBalls[countRed].rotation)*20;
         }
 
         //IMPORTANT
