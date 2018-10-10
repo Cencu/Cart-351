@@ -329,42 +329,6 @@
           gameOverScene.visible = true;
         }
 
-      function missed(sprite, container) {
-        //Leave the function undefined if it has not collided with anything
-        let noTarget = undefined;
-        //contain takes two arguments. The first is the sprite you want to keep contained
-        // The second is any object with x, y, width and height properties
-        //that define a rectangular area
-        //The function will check if the ball has left the area.
-
-        //We also check in the function if the sprite has collieded with
-        //Any other object, noTarget then changes based on which side
-        //The sprite has collided with.
-        if (sprite.x > container.x+30) {
-          noTarget = "left";
-        }
-
-        //Top
-        if (sprite.y < container.y) {
-          sprite.y = container.y;
-          noTarget = "top";
-        }
-
-        //Right
-        if (sprite.x + sprite.width > container.width) {
-          sprite.x = container.width - sprite.width;
-          noTarget = "right";
-        }
-
-        //Bottom
-        if (sprite.y + sprite.height > container.height) {
-          sprite.y = container.height - sprite.height;
-          noTarget = "bottom";
-        }
-        //Return the `collision` value
-        return noTarget;
-      }
-
         //launch function definition
         let launch = function() {
         launchState = true;
