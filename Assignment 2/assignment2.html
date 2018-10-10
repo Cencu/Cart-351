@@ -49,7 +49,7 @@
           //.add("images/anotherImage.png")
           .load(setup);
 
-        let state, yBalls, gameScene, id, triangle, triangles, yellowBall, rBalls, redBall;
+        let state, yBalls, gameScene, id, triangle, triangles, yellowBall, rBalls, redBall, noOfRedBalls;
         let launchState = false;
         let launchStateRed = false;
         let count = 5;
@@ -125,7 +125,7 @@
             gameScene.addChild(yBalls[i]);
           }
 
-          let noOfRedBalls = 5;
+          noOfRedBalls = 5;
           rBalls = [];
 
           for (let i = 0; i < noOfRedBalls; i++) {
@@ -162,9 +162,9 @@
         function play(delta) {
 
 
-          triangle.rotation +=.05;
+          triangle.rotation +=.07;
           for (let i = 0; i < yBalls.length; i++) {
-          yBalls[i].rotation +=.05;
+          yBalls[i].rotation +=.07;
           }
 
           for (let i = 0; i < rBalls.length; i++) {
@@ -306,7 +306,7 @@
 
             let timePassed = new Date().getTime() - startTime;
 
-            if (timePassed > 2000){
+            if (timePassed > 10000){
 
               gameScene.removeChild(currentTarget);
 
@@ -323,6 +323,8 @@
 
               startTime = new Date().getTime();
             }
+
+            checkCollision();
 
             if (targetDisplaying === targetSprites[0]){
 
@@ -345,6 +347,32 @@
 
         }
         /*--TARGET HANDLING ENDS--*/
+
+        /*--Function Collision--*/
+
+        let checkCollision = function(){
+
+          for (let i = 0; i < noOfRedBalls; i++){
+
+            if(rBalls[i].position.x+rBalls[i].width >= targetDisplaying.position.x &&
+              rBalls[i].position.x <= targetDisplaying.position.x+targetDisplaying.width ){
+
+
+                  console.log(targetDisplaying.position.x);
+                  console.log(rBalls[i].position.x);
+                  console.log(rBalls[i].width);
+                  console.log("colision working");
+                  //return redBallCollided;
+
+
+            } else {
+              //console.log("has not collided");
+            }
+
+          }
+
+
+        }
 
     </script>
   </body>
