@@ -47,7 +47,7 @@
           .add("images/gameSprites.json")
           .load(setup);
 
-        let state, yBalls, gameScene, id, triangle, triangleRed, yellowBall, rBalls, redBall, noOfRedBalls, bBalls, blueBall, noOfBlueBalls;
+        let state, yBalls, gameScene, id, triangle, triangleRed, yellowBall, rBalls, redBall, noOfRedBalls, bBalls, blueBall, noOfBlueBalls,currentRedBall;
         let launchState = false;
         let launchStateRed = false;
         let launchStateBlue = false;
@@ -228,7 +228,9 @@
             rBalls[i].interactive = true;
             rBalls[i].buttonMode = true;
 
-             rBalls[i].on('mousedown',launchRed);
+            rBalls[i].on('mousedown',launchRed);
+
+            currentRedBall = rBalls[i];
 
              //Add the ball into the gamescene
              gameScene.addChild(rBalls[i]);
@@ -242,10 +244,11 @@
 
         function gameLoop(delta){
           state(delta);
-          targetUpdate();
+
         }
 
         function play(delta) {
+          targetUpdate();
           triangleBlue.rotation +=.07;
           triangleRed.rotation +=.07;
           triangle.rotation +=.07;
@@ -350,13 +353,13 @@
             targetDisplaying,
             currentTarget;
         let redBallCollision,
-            yellowBallCollision;
+            yellowBallCollision,
+            blueBallCollision;
+
+        let redPoints;
 
 
         let targetSetup = function(){
-
-            redBallCollision = false,
-            yellowBallCollision = false;
 
             //get a random integer between 0 and 2
             function getRandomInt(min,max){
@@ -394,98 +397,103 @@
 
         let targetUpdate = function(){
 
-          let timePassed = new Date().getTime() - startTime;
+           let timePassed = new Date().getTime() - startTime;
+           checkCollision();
 
-          //get a random integer between 0 and 2
-          function getRandomInt(min,max){
+           if (timePassed > 10000){
 
-            min = Math.ceil(min);
-            max = Math.floor(max);
+             collitionUpdate();
 
-            return Math.floor(Math.random()* (max - min)) + min;
-          }
+             alert("the value of redColl is" + redBallCollision + " yellowCol is " + yellowBallCollision + " blueCol is" + blueBallCollision);
 
-            //position target at 50,50 and display
-            targetX = getRandomInt(0,renderViewW);
-            targetY = getRandomInt(0,renderViewH/2-200);
+           } else if (redBallCollision == 1){
+             collitionUpdate();
+           } else if (yellowBallCollision == 1){
+             collitionUpdate();
+           } else if (blueBallCollision == 1){
+             collitionUpdate();
+           }
 
-
-
-
-            if (redBallCollision ==true || yellowBallCollision == true || timePassed > 10000 ){
-
-              gameScene.removeChild(currentTarget);
-
-
-              targetDisplaying.position.set(targetX,targetY);
-              targetDisplaying.scale.set(0.65,0.65);
-
-              targetDisplaying = targetSprites[getRandomInt(0,targetImages.length)];
-
-              gameScene.addChild(targetDisplaying);
-
-              currentTarget = targetDisplaying;
-
-
-
-              startTime = new Date().getTime();
-              console.log("gets executed with yellowCollision too");
-              console.log("gets executed with redCollision too");
+           if (targetDisplaying === targetSprites[0]){
+             console.log("I'm the red target");
+           } else
+           if (targetDisplaying === targetSprites[1]){
+             console.log("I'm yellow target");
+           } else
+           if (targetDisplaying === targetSprites[2]){
+             console.log("I'm the blue target");
+           }
+       }
+       /*--TARGET HANDLING ENDS--*/
+       /*--Function Collision--*/
+       let checkCollision = function(){
+         for (let i = 0; i < noOfRedBalls; i++){
+           if(rBalls[i].position.x+rBalls[i].width >= targetDisplaying.position.x &&
+             rBalls[i].position.x <= targetDisplaying.position.x+targetDisplaying.width &&
+             rBalls[i].position.y >= targetDisplaying.position.y &&
+             rBalls[i].position.y <= targetDisplaying.position.y+targetDisplaying.height){
 
 
-            }
 
-            checkCollision();
+                 redBallCollision = 1;
+                 alert("the value of redColl is" + redBallCollision);
+           }   else {
+             redBallCollision = 0;
 
-            if (targetDisplaying === targetSprites[0]){
+           }
+         }
+         for (let i = 0; i < noOfYellowBalls; i++){
+           if(yBalls[i].position.x+yBalls[i].width >= targetDisplaying.position.x &&
+             yBalls[i].position.x <= targetDisplaying.position.x+targetDisplaying.width &&
+             yBalls[i].position.y >= targetDisplaying.position.y &&
+             yBalls[i].position.y <= targetDisplaying.position.y+targetDisplaying.height) {
+             console.log("yellow collision working");
+             //return redBallCollided;
+             yellowBallCollision = 1;
+              alert("the value of redColl is" + yellowBallCollision);
+           } else {
+             yellowBallCollision = 0;
+           }
+         }
 
-              console.log("I'm the red target");
+         for (let i = 0; i < noOfBlueBalls; i++){
+           if(bBalls[i].position.x+bBalls[i].width >= targetDisplaying.position.x &&
+             bBalls[i].position.x <= targetDisplaying.position.x+targetDisplaying.width &&
+             bBalls[i].position.y >= targetDisplaying.position.y &&
+             bBalls[i].position.y <= targetDisplaying.position.y+targetDisplaying.height) {
+             console.log("blue collision working");
+             //return redBallCollided;
+             blueBallCollision = 1;
+             alert("the value of redColl is" + blueBallCollision);
+           }
+            blueBallCollision = 0;
+         }
+     }
 
-            } else
+     let collitionUpdate = function(){
+       //get a random integer between 0 and 2
+       function getRandomInt(min,max){
+         min = Math.ceil(min);
+         max = Math.floor(max);
+         return Math.floor(Math.random()* (max - min)) + min;
+       }
+       //position target at 50,50 and display
+       targetX = getRandomInt(0,renderViewW);
+       targetY = getRandomInt(0,renderViewH/2-200);
 
-            if (targetDisplaying === targetSprites[1]){
+       redBallCollision = 0;
+       blueBallCollision = 0;
+       yellowBallCollision = 0;
+       gameScene.removeChild(currentTarget);
+       targetDisplaying.position.set(targetX,targetY);
+       targetDisplaying.scale.set(0.65,0.65);
+       targetDisplaying = targetSprites[getRandomInt(0,targetImages.length)];
+       gameScene.addChild(targetDisplaying);
+       currentTarget = targetDisplaying;
+       startTime = new Date().getTime();
+     }
 
-              console.log("I'm yellow target");
-
-            } else
-
-            if (targetDisplaying === targetSprites[2]){
-
-              console.log("I'm the blue target");
-
-            }
-
-
-        }
         /*--TARGET HANDLING ENDS--*/
-
-        /*--Function Collision--*/
-        let checkCollision = function(){
-          for (let i = 0; i < noOfRedBalls; i++){
-            if(rBalls[i].position.x+rBalls[i].width >= targetDisplaying.position.x &&
-              rBalls[i].position.x <= targetDisplaying.position.x+targetDisplaying.width &&
-              rBalls[i].position.y >= targetDisplaying.position.y &&
-              rBalls[i].position.y <= targetDisplaying.position.y+targetDisplaying.height){
-                  console.log("red collision working");
-                  //return redBallCollided;
-                  redBallCollision = true;
-            } else {
-                  redBallCollision = false;
-            }
-          }
-          for (let i = 0; i < noOfYellowBalls; i++){
-            if(yBalls[i].position.x+yBalls[i].width >= targetDisplaying.position.x &&
-              yBalls[i].position.x <= targetDisplaying.position.x+targetDisplaying.width &&
-              yBalls[i].position.y >= targetDisplaying.position.y &&
-              yBalls[i].position.y <= targetDisplaying.position.y+targetDisplaying.height) {
-              console.log("yellow collision working");
-              //return redBallCollided;
-              yellowBallCollision = true;
-            } else{
-              yellowBallCollision = false;
-            }
-          }
-        }
 
 
 
