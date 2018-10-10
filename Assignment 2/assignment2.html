@@ -280,11 +280,14 @@
             random,
             targetDisplaying,
             currentTarget;
-        let redBallCollision = false,
-            yellowBallCollision = false;
+        let redBallCollision,
+            yellowBallCollision;
 
 
         let targetSetup = function(){
+
+            redBallCollision = false,
+            yellowBallCollision = false;
 
             //get a random integer between 0 and 2
             function getRandomInt(min,max){
@@ -322,6 +325,8 @@
 
         let targetUpdate = function(){
 
+          let timePassed = new Date().getTime() - startTime;
+
           //get a random integer between 0 and 2
           function getRandomInt(min,max){
 
@@ -331,16 +336,17 @@
             return Math.floor(Math.random()* (max - min)) + min;
           }
 
-          //position target at 50,50 and display
-          targetX = getRandomInt(0,renderViewW);
-          targetY = getRandomInt(0,renderViewH/2-200);
+            //position target at 50,50 and display
+            targetX = getRandomInt(0,renderViewW);
+            targetY = getRandomInt(0,renderViewH/2-200);
 
 
-            let timePassed = new Date().getTime() - startTime;
 
-            if (timePassed > 10000){
+
+            if (redBallCollision ==true || yellowBallCollision == true || timePassed > 10000 ){
 
               gameScene.removeChild(currentTarget);
+
 
               targetDisplaying.position.set(targetX,targetY);
               targetDisplaying.scale.set(0.65,0.65);
@@ -354,6 +360,10 @@
 
 
               startTime = new Date().getTime();
+              console.log("gets executed with yellowCollision too");
+              console.log("gets executed with redCollision too");
+
+
             }
 
             checkCollision();
@@ -381,38 +391,32 @@
         /*--TARGET HANDLING ENDS--*/
 
         /*--Function Collision--*/
-
         let checkCollision = function(){
-
           for (let i = 0; i < noOfRedBalls; i++){
-
             if(rBalls[i].position.x+rBalls[i].width >= targetDisplaying.position.x &&
               rBalls[i].position.x <= targetDisplaying.position.x+targetDisplaying.width &&
               rBalls[i].position.y >= targetDisplaying.position.y &&
               rBalls[i].position.y <= targetDisplaying.position.y+targetDisplaying.height){
-
                   console.log("red collision working");
                   //return redBallCollided;
-
                   redBallCollision = true;
-
+            } else {
+                  redBallCollision = false;
             }
           }
-
           for (let i = 0; i < noOfYellowBalls; i++){
             if(yBalls[i].position.x+yBalls[i].width >= targetDisplaying.position.x &&
               yBalls[i].position.x <= targetDisplaying.position.x+targetDisplaying.width &&
               yBalls[i].position.y >= targetDisplaying.position.y &&
               yBalls[i].position.y <= targetDisplaying.position.y+targetDisplaying.height) {
-
               console.log("yellow collision working");
               //return redBallCollided;
-
               yellowBallCollision = true;
+            } else{
+              yellowBallCollision = false;
             }
-
           }
-      }
+        }
 
 
 
