@@ -1,0 +1,302 @@
+@font-face {
+	font-family: HelveticaNeueLTCom-Md;
+	src:url(HelveticaNeueLTCom-Md.ttf);
+}
+@font-face {
+	font-family: HelveticaNeueLTCom-Blk;
+	src:url(HelveticaNeueLTCom-Blk.ttf);
+}
+html {
+	margin:0px;
+}
+
+body {
+	margin: 0px;
+	background-color: #262626;
+}
+
+.logo {
+	position: fixed;
+	left: 63%;
+	top: 250px;
+	width: 350px;
+	padding-top: 5px;
+	margin: 0;
+	-webkit-animation: fadein 4s;
+	opacity: .2;
+}
+.logo:hover {
+	cursor: pointer;
+}
+
+.portfolio {
+	text-decoration: none;
+	color: #7a7a7a;
+	position: fixed;
+	font-size: 70px;
+	left: 87.5px;
+	top: -15px;
+	font-family: HelveticaNeueLTCom-Blk;
+	z-index: -1;
+}
+.Home {
+	text-decoration: none;
+	position: fixed;
+	font-size: 20px;
+	color:#7a7a7a;
+	left: 820px;
+	top: 105px;
+	font-family: HelveticaNeueLTCom-Md;
+	letter-spacing: 1px;
+
+}
+
+.Home:hover {
+	color:white;
+	 transition:1s;
+
+}
+
+.cart351 {
+	text-decoration: none;
+	position: fixed;
+	font-size: 20px;
+	color:white;
+	left: 910px;
+	top: 105px;
+	font-family: HelveticaNeueLTCom-Md;
+	letter-spacing: 1px;
+}
+
+.cart351:hover {
+  color:white;
+  transition:1s;
+}
+
+
+.design {
+	text-decoration: none;
+	position: fixed;
+	font-size: 20px;
+	color:#7a7a7a;
+	left: 1030px;
+	top: 105px;
+	font-family: HelveticaNeueLTCom-Md;
+	letter-spacing: 1px;
+
+}
+
+.design:hover {
+	color:white;
+	 transition:1s;
+}
+
+.visualarts {
+	text-decoration: none;
+	position: fixed;
+	font-size: 20px;
+	color:#7a7a7a;
+	left: 1148px;
+	top: 105px;
+	font-family: HelveticaNeueLTCom-Md;
+	letter-spacing: 1px;
+
+}
+
+.visualarts:hover {
+	color:white;
+	 transition:1s;
+
+}
+
+.contact {
+	text-decoration: none;
+	position: fixed;
+	font-size: 20px;
+	color:#7a7a7a;
+	left: 1300px;
+	top: 105px;
+	font-family: HelveticaNeueLTCom-Md;
+	letter-spacing: 1px;
+
+}
+
+.contact:hover {
+	color:white;
+	 transition:1s;
+
+}
+
+.Subtitle {
+	text-decoration: bold;
+	position: absolute;
+	font-size: 70px;
+	color:white;
+	left: 87px;
+	top: 40px;
+	letter-spacing: 3px;
+	font-family: HelveticaNeueLTCom-Blk;
+
+}
+
+.logo {
+	position: fixed;
+	left: 63%;
+	top: 250px;
+	width: 350px;
+	padding-top: 5px;
+	margin: 0;
+	-webkit-animation: fadein 4s;
+	opacity: .2;
+}
+.logo:hover {
+	cursor: pointer;
+}
+
+.assign2 {
+	text-decoration: none;
+	position: fixed;
+	font-size: 20px;
+	color:#7a7a7a;
+	left: 87.5px;
+	top: 205px;
+	font-family: HelveticaNeueLTCom-Md;
+	letter-spacing: 1px;
+}
+
+.assign2:hover {
+	cursor: pointer;
+	color:white;
+	 transition:1s;
+}
+
+.assign3 {
+	text-decoration: none;
+	position: fixed;
+	font-size: 20px;
+	color:#7a7a7a;
+	left: 277.5px;
+	top: 205px;
+	font-family: HelveticaNeueLTCom-Md;
+	letter-spacing: 1px;
+}
+
+.assign3:hover {
+	cursor: pointer;
+	color:white;
+	 transition:1s;
+}
+
+.proposal {
+	text-decoration: none;
+	position: fixed;
+	font-size: 20px;
+	color:#7a7a7a;
+	left: 467.5px;
+	top: 205px;
+	font-family: HelveticaNeueLTCom-Md;
+	letter-spacing: 1px;
+}
+
+.proposal:hover {
+	cursor: pointer;
+	color:white;
+	 transition:1s;
+}
+
+.prototype {
+	text-decoration: none;
+	position: fixed;
+	font-size: 20px;
+	color:#7a7a7a;
+	left: 607.5px;
+	top: 205px;
+	font-family: HelveticaNeueLTCom-Md;
+	letter-spacing: 1px;
+}
+
+.prototype:hover {
+	cursor: pointer;
+	color:white;
+	 transition:1s;
+}
+
+.projectFinal {
+	text-decoration: none;
+	position: fixed;
+	font-size: 20px;
+	color:#7a7a7a;
+	left: 837.5px;
+	top: 205px;
+	font-family: HelveticaNeueLTCom-Md;
+	letter-spacing: 1px;
+}
+
+.projectFinal:hover {
+	cursor: pointer;
+	color:white;
+	 transition:1s;
+}
+
+.refelctions {
+	text-decoration: none;
+	position: fixed;
+	font-size: 20px;
+	color:#7a7a7a;
+	left: 1017.5px;
+	top: 205px;
+	font-family: HelveticaNeueLTCom-Md;
+	letter-spacing: 1px;
+}
+
+.refelctions:hover {
+	cursor: pointer;
+	color:white;
+	 transition:1s;
+}
+
+.presentation {
+	text-decoration: none;
+	position: fixed;
+	font-size: 20px;
+	color:#7a7a7a;
+	left: 1197.5px;
+	top: 205px;
+	font-family: HelveticaNeueLTCom-Md;
+	letter-spacing: 1px;
+}
+
+.presentation:hover {
+	cursor: pointer;
+	color:white;
+	 transition:1s;
+}
+
+.gitLink {
+	text-decoration: none;
+	position: fixed;
+	font-size: 20px;
+	color:#7a7a7a;
+	left: 87.5px;
+	top: 255px;
+	font-family: HelveticaNeueLTCom-Md;
+	letter-spacing: 1px;
+}
+
+.gitLink:hover {
+	cursor: pointer;
+	color:white;
+	 transition:1s;
+}
+
+
+
+.contactinfo {
+	position: absolute;
+	text-decoration: none;
+	font-size: 33px;
+	color: #7a7a7a;
+	top: 160px;
+	line-height: 10px;
+	left: 87px;
+}
