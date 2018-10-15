@@ -1,36 +1,38 @@
-[{
-"Day": "1",
+[
+  {
+  "Day": "One",
 "Body Part": "Legs",
 "Exercises": "6",
 "Sets and Repetitions": "4 Sets of 8 Repetitions",
 "Training Time": "One Hour",
 "Rest Time": "25 Minutes",
-"Exercising Time": "35 Minutes",
+"Exercising Time": "35 Minutes"
 },
 {
-  "Day": "2",
+  "Day": "Two",
 "Body Part": "Chest And Triceps",
 "Exercises": "7",
 "Sets and Repetitions": "4 Sets of 8 Repetitions",
 "Training Time": "One Hour Fifteen Minutes",
 "Rest Time": "28 Minutes",
-"Exercising Time": "47 Minutes",
+"Exercising Time": "47 Minutes"
 },
 {
-  "Day": "3",
+  "Day": "Three",
 "Body Part": "Back And Biceps",
 "Exercises": "9",
 "Sets and Repetitions": "4 Sets of 8 Repetitions",
 "Training Time": "One Hour Thirty Minutes",
 "Rest Time": "36 Minutes",
-"Exercising Time": "54 Minutes",
+"Exercising Time": "54 Minutes"
 },
 {
-  "Day": "4",
+  "Day": "Four",
 "Body Part": "Shoulders",
 "Exercises": "6",
 "Sets and Repetitions": "4 Sets of 8 Repetitions",
 "Training Time": "One Hour",
 "Rest Time": "25 Minutes",
-"Exercising Time": "35 Minutes",
-}]
+"Exercising Time": "35 Minutes"
+}
+]
