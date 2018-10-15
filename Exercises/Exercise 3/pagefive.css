@@ -27,3 +27,16 @@ body {
 	font-family: HelveticaNeueLTCom-Blk;
 
 }
+.searchCrit{
+		position: absolute;
+     width: 20%;
+		 top:250px;
+		 left: 87px;
+     padding: 10px;
+     background: #2196F3;
+     color: white;
+     font-size: 17px;
+     border: 1px solid grey;
+     border-left: none;
+     cursor: pointer;
+}
