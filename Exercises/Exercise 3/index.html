@@ -13,9 +13,14 @@
 <script>
 $(document).ready(function() {
    // do stuff when DOM is ready
-$.getJSON('data.json',function(data) {
-	console.log(data);
-})
+
+$("#searchButton").click(searchResults);
+function searchResults(){
+	$.getJSON('data.json',function(data) {
+		console.log(data);
+	})
+}
+
  });
 
 </script>
