@@ -1,19 +1,17 @@
-
-
-{  "DayOne": [ {
+{
+  "DayOne": [{
 "Body_Part": "Legs",
 "Exercises": "6",
-"Sets _and_Repetitions": "4 Sets of 8 Repetitions",
+"Sets_and_Repetitions": "4 Sets of 8 Repetitions",
 "Training_Time": "One Hour",
 "Rest_Time": "25 Minutes",
 "Exercising_Time": "35 Minutes"
-
 }],
 
   "DayTwo": [{
 "Body_Part": "Chest And Triceps",
 "Exercises": "7",
-"Sets _and_Repetitions": "4 Sets of 8 Repetitions",
+"Sets_and_Repetitions": "4 Sets of 8 Repetitions",
 "Training_Time": "One Hour Fifteen Minutes",
 "Rest_Time": "28 Minutes",
 "Exercising_Time": "47 Minutes"
@@ -22,7 +20,7 @@
   "DayThree": [{
 "Body_Part": "Back And Biceps",
 "Exercises": "9",
-"Sets _and_Repetitions": "4 Sets of 8 Repetitions",
+"Sets_and_Repetitions": "4 Sets of 8 Repetitions",
 "Training_Time": "One Hour Thirty Minutes",
 "Rest_Time": "36 Minutes",
 "Exercising_Time": "54 Minutes"
@@ -31,7 +29,7 @@
   "DayFour": [{
 "Body_Part": "Shoulders",
 "Exercises": "6",
-"Sets _and_Repetitions": "4 Sets of 8 Repetitions",
+"Sets_and_Repetitions": "4 Sets of 8 Repetitions",
 "Training_Time": "One Hour",
 "Rest_Time": "25 Minutes",
 "Exercising_Time": "35 Minutes"

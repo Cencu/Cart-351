@@ -6,8 +6,25 @@
 	<script type="text/javascript" src="data.json"></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 </head>
-<body>
+<style>
+#resultsHere {
 
+			position: absolute;
+	     width: 20%;
+			 top:250px;
+			 left: 87px;
+	     padding: 10px;
+	     color: white;
+	     font-size: 17px;
+	     border-left: none;
+	     cursor: pointer;
+	font-family: HelveticaNeueLTCom-Blk;
+
+}
+
+</style>
+
+<body>
 </a>
 <h2 class="Subtitle">CART 351</h2>
 <script>
@@ -18,8 +35,23 @@ $("#searchButton").click(searchResults);
 function searchResults(){
 	$.getJSON('data.json',function(data) {
 		console.log(data);
-	})
+		$("#resultsHere").load("data.json");
+		let searchItem = $("#resultSearch").val();
+		console.log(searchItem)
+
+			})
+		}
+		//search parameters
+		//let searchPara =
+		//Display Results
+		function displaySearch(data) {
+		let results = data["DayOne"];
+		for(let i = 0; i< results.length; i++) {
+
+		}
 }
+
+
 
  });
 
@@ -32,8 +64,7 @@ function searchResults(){
 	<input type = "button" value = "Search!" id = "searchButton" />
 </div>
 
-
-
+<div class ="resultsHere" id="resultsHere"></div>
 
 </body>
 </html>
