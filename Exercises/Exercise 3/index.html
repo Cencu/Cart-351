@@ -7,11 +7,19 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 </head>
 <style>
+.aCell {
+  overflow: hidden;
+    background:#9e66b4;
+    max-width:450px;
+    margin-bottom:2%;
+    margin-left:25%;
+
+}
 #resultsHere {
 
 			position: absolute;
-	     width: 20%;
-			 top:250px;
+	     width: 35%;
+			 top:320px;
 			 left: 87px;
 	     padding: 10px;
 	     color: white;
@@ -31,27 +39,32 @@
 $(document).ready(function() {
    // do stuff when DOM is ready
 
-$("#searchButton").click(searchResults);
-function searchResults(){
+$("#searchButton").click(displaySearch);
+
 	$.getJSON('data.json',function(data) {
 		console.log(data);
-		$("#resultsHere").load("data.json");
-		let searchItem = $("#resultSearch").val();
-		console.log(searchItem)
-
+//		let obj = JSON.parse("data");
 			})
-		}
 		//search parameters
 		//let searchPara =
 		//Display Results
 		function displaySearch(data) {
-		let results = data["DayOne"];
-		for(let i = 0; i< results.length; i++) {
-
-		}
+		$("#resultsHere").empty();
+		let searchThrough = $("#resultSearch").val();
+		console.log(searchThrough);
+		let dataLink = "data.json";
+		$.getJSON(dataLink, {tags: searchThrough,tagmode: "any",format: "json"}, displayR)
 }
 
+function displayR(results) {
+console.log(results);
+for(let i=0; i< results.items.length; i++){
+let item = results.items[i];
+console.log(item.media.m);
+$('<div>').attr("id","container"+i).appendTo("#images");
 
+}
+}
 
  });
 
