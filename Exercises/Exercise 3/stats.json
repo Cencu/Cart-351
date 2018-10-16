@@ -1,4 +1,4 @@
-{
+{ "AllDays": [{
   "DayOne": [{
 "Body_Part": "Legs",
 "Exercises": "6",
@@ -33,5 +33,6 @@
 "Training_Time": "One Hour",
 "Rest_Time": "25 Minutes",
 "Exercising_Time": "35 Minutes"
+}]
 }]
 }

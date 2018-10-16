@@ -3,9 +3,96 @@
 <head>
 	<title>CART 351</title>
 	<link rel="stylesheet" href="pagefive.css">
-	<script type="text/javascript" src="data.json"></script>
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<!-- <script type="text/javascript" src="stats.json"></script> -->
+	<script src = "jquery/jquery-3.3.1.min.js"></script>
+<body>
+</a>
+<h2 class="Subtitle">CART 351</h2>
+<script>
+$(document).ready(function() {
+   // do stuff when DOM is ready
+	 let header = $('header');
+	 let section = $('section');
+	 let loaded=false;
+	 //step 2: display header on html page
+	 populateHeader(data);
+	 //step 3: display the books ....
+	 showBooks(data);
+
+//$("#searchButton").click(displaySearch);
+
+	$.getJSON('stats.json',function(data) {
+		console.log(data);
+		loaded=true;
+
+//		let obj = JSON.parse("data");
+})
+		//search parameters
+		//let searchPara =
+		//Display Results
+
+		function populateHeader(data) {
+			let sampleHeader = $("<h1>");
+      $(sampleHeader).text(data.AllDays);
+      $(sampleHeader).appendTo(header);
+
+
+      let samplePara = $("<p>");
+      console.log(data.DayOne);
+      $(samplePara).text(data.DayOne);
+      $(samplePara).appendTo(header);
+		}
+
+		function showGymStats(data) {
+			let gym = data['DayOne'];
+			for (let i =0; i < gym.length; i++) {
+				let gymDayAll = $('<article>');
+				let gymDay = ('<h1>');
+				let gymStat1 = $("<p>");
+				let gymStat2 = $("<p>");
+				let gymStat3 = $("<p>");
+				let gymStat4 = $("<p>");
+				let gymStat5 = $("<p>");
+				let gymStat6 = $("<p>");
+
+				$(gymStat1).text(gym[i].Body_Part);
+				$(gymStat2).text(gym[i].Exercises);
+				$(gymStat3).text(gym[i].Sets_and_Repetitions);
+				$(gymStat4).text(gym[i].Training_Time);
+				$(gymStat5).text(gym[i].Rest_Time);
+				$(gymStat6).text(gym[i].Exercising_Time);
+
+				$(gymDay).appendTo(gymDayAll);
+				$(gymStat1).appendTo(gymDayAll);
+				$(gymStat2).appendTo(gymDayAll);
+				$(gymStat3).appendTo(gymDayAll);
+				$(gymStat4).appendTo(gymDayAll);
+				$(gymStat5).appendTo(gymDayAll);
+				$(gymStat6).appendTo(gymDayAll);
+
+				$(section).append(gymDayAll);
+			}
+		}
+	});
+
+/*		function displaySearch(data) {
+		$("#resultsHere").empty();
+		let searchThrough = $("#resultSearch").val();
+		console.log(searchThrough);
+		let dataLink = "data.json";
+		$.getJSON(dataLink, {tags: searchThrough,tagmode: "any",format: "json"}, displayR)
+}
+
+function displayR() {
+let jData = $.parse("data.json");
+for (var x in jData);
+}
+
+});*/
+
+</script>
 </head>
+
 <style>
 .aCell {
   overflow: hidden;
@@ -29,52 +116,52 @@
 	font-family: HelveticaNeueLTCom-Blk;
 
 }
+header p {
+  font-weight: bold;
+  margin-left:30vw;
+}
+section{
+  margin-left:25vw;
+}
+
+/* section styles */
+
+section article {
+  margin-left:2%;
+  margin-right:20%;
+  margin-bottom:2%;
+  background:#b4e4f6;
+  padding:2%;
+}
+
+section p {
+  font-size:1em;
+  font-weight: bold;
+}
+
+section ul {
+  margin-top: 0;
+  font-size:1em;
+}
+
+h2 {
+  font-size: 2.5rem;
+  letter-spacing: -5px;
+  margin-bottom: 10px;
+}
+#getData{
+  background:orange;
+  width:100px;
+  margin:2%;
+}
 
 </style>
-
-<body>
-</a>
-<h2 class="Subtitle">CART 351</h2>
-<script>
-$(document).ready(function() {
-   // do stuff when DOM is ready
-
-$("#searchButton").click(displaySearch);
-
-	$.getJSON('data.json',function(data) {
-		console.log(data);
-//		let obj = JSON.parse("data");
-			})
-		//search parameters
-		//let searchPara =
-		//Display Results
-		function displaySearch(data) {
-		$("#resultsHere").empty();
-		let searchThrough = $("#resultSearch").val();
-		console.log(searchThrough);
-		let dataLink = "data.json";
-		$.getJSON(dataLink, {tags: searchThrough,tagmode: "any",format: "json"}, displayR)
-}
-
-function displayR(results) {
-console.log(results);
-for(let i=0; i< results.items.length; i++){
-let item = results.items[i];
-console.log(item.media.m);
-$('<div>').attr("id","container"+i).appendTo("#images");
-
-}
-}
-
- });
-
-</script>
 
 <!-- create a search button -->
 <div class="searchCrit">
 <form class="search">
 	<input type = "text" id="resultSearch" value="Search..."/>
-	<input type = "button" value = "Search!" id = "searchButton" />
+	<input type = "button" value = "Load Data" id = "getData" />
 </div>
 
 <div class ="resultsHere" id="resultsHere"></div>
