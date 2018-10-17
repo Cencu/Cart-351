@@ -10,23 +10,23 @@
 <h2 class="Subtitle">CART 351</h2>
 <script>
 $(document).ready(function() {
+	$.getJSON('stats.json',function(stats) {
+		console.log(data);
+		loaded=true;
+
+//		let obj = JSON.parse("data");
+})
    // do stuff when DOM is ready
 	 let header = $('header');
 	 let section = $('section');
 	 let loaded=false;
 	 //step 2: display header on html page
 	 populateHeader(data);
-	 //step 3: display the books ....
-	 showBooks(data);
+	 showGymStats(data);
 
 //$("#searchButton").click(displaySearch);
 
-	$.getJSON('stats.json',function(data) {
-		console.log(data);
-		loaded=true;
 
-//		let obj = JSON.parse("data");
-})
 		//search parameters
 		//let searchPara =
 		//Display Results
