@@ -1,8 +1,10 @@
 <?php
 
-// Currently: the x and y position of the rectangle is the data that is being sent to the PHP script every time one clicks on it.
-// Add new elements (at least two) to the canvas and send at least 3 properties of the element that was clicked on to the PHP script. (REMOVE the initial rectangle)
-
+// You will have at least 3 different inputs (2 from the canvas and 1 from the button).
+//Button: Spawns shapes of various size,
+//Shapes will spin in an oval
+//Canvas: one shape will cause the words to stretch and compress
+//Canvas: one shape will remove letters from the words
 
 
 //check if there has been something posted to the server to be processed
