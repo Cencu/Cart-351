@@ -4,17 +4,17 @@
 	<title>CART 351</title>
 	<link rel="stylesheet" href="pagefive.css">
 	<!-- <script type="text/javascript" src="stats.json"></script> -->
-	<script src = "jquery/jquery-3.3.1.min.js"></script>
+	<script src = "https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <body>
 </a>
 <h2 class="Subtitle">CART 351</h2>
 <script>
 $(document).ready(function() {
-	$.getJSON('stats.json',function(stats) {
+	$.getJSON('stats.json',function(data) {
 		console.log(data);
 		loaded=true;
 
-//		let obj = JSON.parse("data");
+		let obj = JSON.parse("data");
 })
    // do stuff when DOM is ready
 	 let header = $('header');
@@ -24,7 +24,7 @@ $(document).ready(function() {
 	 populateHeader(data);
 	 showGymStats(data);
 
-//$("#searchButton").click(displaySearch);
+$("#searchButton").click(displaySearch);
 
 
 		//search parameters
@@ -75,20 +75,20 @@ $(document).ready(function() {
 		}
 	});
 
-/*		function displaySearch(data) {
+		function displaySearch(data) {
 		$("#resultsHere").empty();
 		let searchThrough = $("#resultSearch").val();
 		console.log(searchThrough);
-		let dataLink = "data.json";
+		let dataLink = "stats.json";
 		$.getJSON(dataLink, {tags: searchThrough,tagmode: "any",format: "json"}, displayR)
 }
 
 function displayR() {
-let jData = $.parse("data.json");
+let jData = $.parse("stats.json");
 for (var x in jData);
 }
 
-});*/
+//});
 
 </script>
 </head>
