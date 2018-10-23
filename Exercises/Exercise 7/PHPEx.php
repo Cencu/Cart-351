@@ -73,6 +73,8 @@ $(document).ready (function(){
   //declare some global vars ...
   let x =10;
   let y =10;
+  let xSize = Math.random()*50;
+  let ySize = Math.random()*50;;
   let theWord = "";
   let theWord2 = "";
   //start ani
@@ -85,6 +87,8 @@ $(document).ready (function(){
     if(truth ===true){
       //our function for sending data
       sendData("theCanvas");
+
+
     }
   });
   // if we click on the button other stuff happens ...
@@ -93,6 +97,8 @@ $(document).ready (function(){
        event.preventDefault();
        console.log("button clicked");
        sendData("theButton");
+       Math.random()*xSize;
+       Math.random()*ySize;
 
      });
 
@@ -131,6 +137,11 @@ $(document).ready (function(){
        });
      } //end sendData
 
+     function changeSize() {
+
+
+     }
+
     function goAni(){
       let canvas = document.getElementById('myCanvas');
       let canvasContext = canvas.getContext('2d');
@@ -143,7 +154,7 @@ $(document).ready (function(){
      // clear the canvas ...
      canvasContext.clearRect(0, 0, canvas.width, canvas.height);
      canvasContext.fillStyle = "#33B2FF";
-     canvasContext.fillRect(x,y,20,20);
+     canvasContext.fillRect(x,y,xSize,ySize);
      canvasContext.fillStyle = "#FFFFFF";
      canvasContext.fillRect(x,y,1,1);
      x+=0.2;
@@ -164,6 +175,7 @@ $(document).ready (function(){
      if(x>event.clientX-20 && x<event.clientX+20 && y >(event.clientY-domRect.top)-20 && y<((event.clientY-domRect.top)+20))
     {
       return true;
+
     }
     return false;
   }
