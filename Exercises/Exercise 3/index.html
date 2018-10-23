@@ -3,29 +3,33 @@
 <head>
 	<title>CART 351</title>
 	<link rel="stylesheet" href="pagefive.css">
-	<!-- <script type="text/javascript" src="stats.json"></script> -->
+	<!--<script type="text/javascript" src="stats.json"></script> -->
 	<script src = "https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <body>
 </a>
 <h2 class="Subtitle">CART 351</h2>
 <script>
 $(document).ready(function() {
+	let loaded=false;
 	$.getJSON('stats.json',function(data) {
 		console.log(data);
-		loaded=true;
 
-		let obj = JSON.parse("data");
-})
+	//	let obj = JSON.parse("data");
+
    // do stuff when DOM is ready
 	 let header = $('header');
-	 let section = $('section');
-	 let loaded=false;
+	 loaded=true;
 	 //step 2: display header on html page
-	 populateHeader(data);
-	 showGymStats(data);
+	// populateHeader(data);
+	// showGymStats(data);
+	 $("#getData").click(function() {
+	 	displaySearch(data);
+	 });
+$("#removeData").click(function(){
+	clearSearch(data);
+});
 
-$("#searchButton").click(displaySearch);
-
+})
 
 		//search parameters
 		//let searchPara =
@@ -43,9 +47,14 @@ $("#searchButton").click(displaySearch);
       $(samplePara).appendTo(header);
 		}
 
-		function showGymStats(data) {
-			let gym = data['DayOne'];
+		function showGymStats(data,searchThrough) {
+
+			let gym = data.AllDays;
 			for (let i =0; i < gym.length; i++) {
+				console.log(gym[i].Day);
+
+				if (gym[i].Day.includes(searchThrough)) {
+				let section = $('<section>');
 				let gymDayAll = $('<article>');
 				let gymDay = ('<h1>');
 				let gymStat1 = $("<p>");
@@ -54,6 +63,7 @@ $("#searchButton").click(displaySearch);
 				let gymStat4 = $("<p>");
 				let gymStat5 = $("<p>");
 				let gymStat6 = $("<p>");
+
 
 				$(gymStat1).text(gym[i].Body_Part);
 				$(gymStat2).text(gym[i].Exercises);
@@ -71,17 +81,26 @@ $("#searchButton").click(displaySearch);
 				$(gymStat6).appendTo(gymDayAll);
 
 				$(section).append(gymDayAll);
+				$(section).appendTo("body");
+			}
 			}
 		}
-	});
-
 		function displaySearch(data) {
 		$("#resultsHere").empty();
 		let searchThrough = $("#resultSearch").val();
 		console.log(searchThrough);
-		let dataLink = "stats.json";
-		$.getJSON(dataLink, {tags: searchThrough,tagmode: "any",format: "json"}, displayR)
+		showGymStats(data,searchThrough);
+		//let dataLink = "stats.json";
+		//$.getJSON(dataLink, {tags: searchThrough,tagmode: "any",format: "json"}, displayR)
 }
+
+function clearSearch(data) {
+	$("section").empty();
+
+}
+	});
+
+
 
 function displayR() {
 let jData = $.parse("stats.json");
@@ -122,6 +141,7 @@ header p {
 }
 section{
   margin-left:25vw;
+	color: white;
 }
 
 /* section styles */
@@ -162,6 +182,7 @@ h2 {
 <form class="search">
 	<input type = "text" id="resultSearch" value="Search..."/>
 	<input type = "button" value = "Load Data" id = "getData" />
+	<input type = "button" value = "Clear" id = "removeData" />
 </div>
 
 <div class ="resultsHere" id="resultsHere"></div>

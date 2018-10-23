@@ -70,16 +70,20 @@ canvas{
 <!-- here we put our JQUERY -->
 <script>
 $(document).ready (function(){
+
   //declare some global vars ...
-  let x =10;
-  let y =10;
-  let xSize = Math.random()*50;
-  let ySize = Math.random()*50;
+  let x = 10;
+  let y = 300;
+
   let theWord = "";
   let theWord2 = "";
   //start ani
   goAni();
   // when we click on the canvas somewhere and the collision detection returns true ...
+  let xSize = Math.random()*50;
+  let ySize = Math.random()*50;
+
+
 
   $('#myCanvas').on("mousedown",function(event){
   //  console.log("mouseover on canvas");
@@ -91,14 +95,15 @@ $(document).ready (function(){
 
     }
   });
+
+
   // if we click on the button other stuff happens ...
     $( "#b" ).click(function( event ) {
       //stop submit the form, we will post it manually. PREVENT THE DEFAULT behaviour ...
        event.preventDefault();
        console.log("button clicked");
        sendData("theButton");
-       Math.random()*xSize;
-       Math.random()*ySize;
+
 
      });
 
@@ -125,6 +130,7 @@ $(document).ready (function(){
              console.log(parsedJSON);
              if(typeOfClick ==="theButton"){
              theWord = parsedJSON.word;
+
            }
            else {
               theWord2 = parsedJSON.word;
@@ -137,10 +143,6 @@ $(document).ready (function(){
        });
      } //end sendData
 
-     function changeSize() {
-
-
-     }
 
     function goAni(){
       let canvas = document.getElementById('myCanvas');
@@ -157,16 +159,41 @@ $(document).ready (function(){
      canvasContext.fillRect(x,y,xSize,ySize);
      canvasContext.fillStyle = "#FFFFFF";
      canvasContext.fillRect(x,y,1,1);
-     x+=0.2;
-     y+=0.2;
+     //x+=1;
+     //y+=0.2;
+     console.log(x);
+
      canvasContext.font = "40px Arial";
      canvasContext.fillStyle = "#B533FF";
      canvasContext.fillText(theWord,canvas.width/2 - (theWord.length/2*20),canvas.height/2);
-
+     //x+=1;
 
      canvasContext.fillStyle = "#FF9033";
      canvasContext.fillText(theWord2,canvas.width/2 - (theWord2.length/2*20),canvas.height/4);
+     spin();
+     returnBorders();
      requestAnimationFrame(runAni);
+   }
+
+   function spin(event) {
+     if (x >15 && x <20) {
+       xSize++;
+       ySize++;
+     }
+     if (x > 115 && x <120) {
+       xSize--;
+       ySize--;
+     }
+   }
+
+   function returnBorders (event){
+
+     if (x <= 11 ) {
+       x +=1;
+     }
+     if (x >= 120) {
+       x -= 1;
+     }
    }
 
   }
