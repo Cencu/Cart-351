@@ -72,8 +72,8 @@ canvas{
 $(document).ready (function(){
 
   //declare some global vars ...
-  let x = 10;
-  let y = 300;
+  let x = 250;
+  let y = 250;
 
   let theWord = "";
   let theWord2 = "";
@@ -159,19 +159,16 @@ $(document).ready (function(){
      canvasContext.fillRect(x,y,xSize,ySize);
      canvasContext.fillStyle = "#FFFFFF";
      canvasContext.fillRect(x,y,1,1);
-     //x+=1;
-     //y+=0.2;
-     console.log(x);
+    // x+=1;
 
      canvasContext.font = "40px Arial";
      canvasContext.fillStyle = "#B533FF";
      canvasContext.fillText(theWord,canvas.width/2 - (theWord.length/2*20),canvas.height/2);
-     //x+=1;
 
      canvasContext.fillStyle = "#FF9033";
      canvasContext.fillText(theWord2,canvas.width/2 - (theWord2.length/2*20),canvas.height/4);
-     spin();
-     returnBorders();
+    // spin();
+    // returnBorders();
      requestAnimationFrame(runAni);
    }
 
@@ -180,7 +177,7 @@ $(document).ready (function(){
        xSize++;
        ySize++;
      }
-     if (x > 115 && x <120) {
+     if (x > 110 && x <115) {
        xSize--;
        ySize--;
      }
@@ -191,9 +188,10 @@ $(document).ready (function(){
      if (x <= 11 ) {
        x +=1;
      }
-     if (x >= 120) {
-       x -= 1;
+     if (x > 120 ) {
+       x -= 2;
      }
+
    }
 
   }
