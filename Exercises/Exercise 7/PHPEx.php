@@ -24,7 +24,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST')
  $dataToSend =  $sampleDataAsIfInAFile[$newPos%count($sampleDataAsIfInAFile)];
 }
 else{
-  $dataToSend =$sampleDataAsIfInAFile2[$newPos%count($sampleDataAsIfInAFile2)];;
+  $dataToSend =$sampleDataAsIfInAFile2[$newPos%count($sampleDataAsIfInAFile2)];
 }
 
     //package the data and echo back...
@@ -74,7 +74,7 @@ $(document).ready (function(){
   let x =10;
   let y =10;
   let xSize = Math.random()*50;
-  let ySize = Math.random()*50;;
+  let ySize = Math.random()*50;
   let theWord = "";
   let theWord2 = "";
   //start ani
