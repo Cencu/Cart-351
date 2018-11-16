@@ -86,27 +86,53 @@ function stringToGeoPoints(geo) {
   return latLngLine;
 }
 //array of colors from really cold to really hot
-let colorTemp = [];
-let color = '#';
-
+//-30 -25 PURPLE, -25 -20 LIGHT PURPLE, -20 -15 BLUE, -15 -10 MID BLUE, -10 -5 LIGHT BLUE, -5 0 (WHITE).
+//0 5 LIGHT GREEN, 5 10 GREEN, 10 15 LIGHT YELLOW, 15 20 YELLOW, 20 25 ORANGE, 25 30 DARK ORANGE
+let colorHash = ['#f43fd9','#f4b7eb', '#2c02fc', '#5d73d8','#35d2dd','#ffffff','#69fc67', '#09fc05','#e1f968','#fcef00','#fcb400','#fc6900'];
+let colorTemp = colorHash.length;
+let colorChosen = '#69fc67';
   function changeLineColor() {
     //Create variables to change the lines colors
-    for(let i = -30; i < 30; i++) {
-      if (colorTemp[i] < -25) {
-        $('#tempe').val(points.join(','));
-        color += 'af70b5';
+    // for(let i = 0; i < colorTemp; i++) {
+      if ($('#tempe') >= 25) {
+        colorChosen = colorHash[11];
+      } if ($('#tempe') <= 24 && $('#tempe') >=20) {
+        colorChosen =  colorHash[10];
+      }if ($('#tempe') <= 19 && $('#tempe') >=15) {
+        colorChosen =  colorHash[9];
+      }if ($('#tempe') <= 14 && $('#tempe') >=10) {
+          colorChosen =colorHash[8];
+      }if ($('#tempe') <= 9 && $('#tempe') >=5) {
+          colorChosen =colorHash[7];
+      }if ($('#tempe') <= 4 && $('#tempe') >=0) {
+        colorChosen =  colorHash[6];
+      }if ($('#tempe') <= 0 && $('#tempe') >=-5) {
+        colorChosen =  colorHash[5];
+      }if ($('#tempe') <= -6 && $('#tempe') >=-10) {
+        colorChosen =  colorHash[4];
+      }if ($('#tempe') <= -11 && $('#tempe') >=-15) {
+        colorChosen =  colorHash[3];
+      }if ($('#tempe') <= -16 && $('#tempe') >=-20) {
+        colorChosen =  colorHash[2];
+      }if ($('#tempe') <= -21 && $('#tempe') >=-25) {
+        colorChosen =  colorHash[1];
+      }if ($('#tempe') <= -26) {
+        colorChosen =  colorHash[0];
       }
-    }
+//    }
 
   }
 function addLocation() {
   for (let i=0; i<locations.length; i++) {
+    changeLineColor();
+      console.log(colorChosen);
     let polyline = L.polyline(stringToGeoPoints(locations[i]['geolocations']), {
-      color:colorTemp}).addTo(map);
-      console.log(color);
+      color:colorChosen}).addTo(map);
 
       polyline.bindPopup("<b>" + locations[i]['name']);
-  }
+    }
+
+
 }
 
 let locations = JSON.parse('<?php echo json_encode($locations)?>');
