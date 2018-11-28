@@ -4,7 +4,6 @@
    <meta charset="utf-8">
    <title>Leaflet</title>
    <script src="leaflet.hotline.js"></script>
-
    <link rel="stylesheet" href="pageone.css">
    <script src="jquery-3.3.1.min.js"></script>
 
@@ -17,35 +16,39 @@
   integrity="sha512-nMMmRyTVoLYqjP9hrbed9S+FzjZHW5gY1TWCHA5ckwXZBadntCNs8kEqAWdrb9O7rxbCaA4lKTIWjDXZxflOcA=="
   crossorigin="">
 </script>
+<script src="http://maps.google.com/maps/api/js?key=AIzaSyBbCxEsdcXzR884-ABo1cp58ZfNDnhX8nE"></script>
+<link rel="stylesheet" href="https://ppete2.github.io/Leaflet.PolylineMeasure/Leaflet.PolylineMeasure.css" />
+<script src="https://ppete2.github.io/Leaflet.PolylineMeasure/Leaflet.PolylineMeasure.js"></script>
  </head>
  <body>
    <div id="map" style="width:1200px; height:700px"></div><br/>
 
-    <h1>Add a new Location</h1>
+    <!-- <h1 id="titles2">Add a new Location</h1> -->
     <!-- Two buttons, one to draw the street and the other to clear the map -->
-    <input type="button" onclick="drawLocation();" value="Draw a location"/>
-    <input type="button" onclick="resetLocation();" value = "Clear location"/><br/>
-    <p>To add a location, point and click on the map. To remove the location, point and click again</p>
+    <input id="drawloc" type="button" onclick="drawLocation();" value="Draw a location"/>
+    <input id="drawloc" type="button" onclick="resetLocation();" value = "Clear location"/><br/>
+
+    <p id="titles2">To add a location, point and click on the map. To remove the location, point and click again</p>
 <!-- this form collects points from the map -->
-      <form action="addlocationdb.php" method="post">
-        <h1>Location Specifics</h1>
-        <tr align="left" valign="top">
-          <td align="left" valign="top">Time Travelling</td>
-          <td align="left" valign="top"><textarea name="tTravel"></textarea></td>
+      <form  action="addlocationdb.php" method="post">
+        <!-- <h1 id="titles">Location Specifics</h1> -->
+        <tr>
+          <p id="ttextD" >Distance:</p>
+          <td><textarea id="tboxtextD" name="tTravel"></textarea></td>
         </tr>
-        <tr align="left" valign="top">
-          <td align="left" valign="top">Temperature</td>
-          <td align="left" valign="top"><textarea name="tempe"></textarea></td>
+        <tr>
+          <p id="ttextT">Temperature</p>
+          <td ><textarea id="tboxtextT" name="tempe"></textarea></td>
         </tr>
-        <tr align="left" valign="top">
-          <td align="left" valign="top">Light or Dark Area</td>
-          <td align="left" valign="top"><textarea name="lOrD"></textarea></td>
+        <tr >
+          <p id="ttextL">Light or Dark Area</p>
+          <td ><textarea id="tboxtextL" name="lOrD"></textarea></td>
         </tr>
 
 
 
-        <h1>Add a new location</h1>
-        <table cellpadding = "5" cellspacing="0" border="0">
+        <h1 id="titles">Add a new location</h1>
+        <table id="write" cellpadding = "5" cellspacing="0" border="0">
           <tbody>
             <tr align="left" valign="top">
               <td align="left" valign="top">Geographic Locations</td>
@@ -71,6 +74,7 @@
 
    <script>
    var map = L.map('map').setView([45.49698739, -73.57880769], 18);
+   map.locate({setView: true, maxZoom: 16});
    //polyline will hold the lines we draw on the map
    var polyLine;
    //This array will hold all the draggable locations, every location has a latitide and
@@ -79,13 +83,12 @@
    //let hotlineLayer = L.hotline(points, options).addTo(map);
 
   // let lineColor = {"type" };
-
-   L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
+   L.tileLayer('https://api.tiles.mapbox.com/v4/mapbox.streets/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoibW9vc2hlciIsImEiOiJjam80c3pvamIwM2d0M3FxbXFqcmtkaGowIn0.Xq0Sqda765iioS8nU7nQDg', {
        attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
        minZoom: 12,
        maxZoom: 18,
-       id: 'mapbox.streets',
-       accessToken: 'pk.eyJ1IjoibW9vc2hlciIsImEiOiJjam80c3pvamIwM2d0M3FxbXFqcmtkaGowIn0.Xq0Sqda765iioS8nU7nQDg'
+      // id: 'mapbox.streets',
+    //   accessToken: 'pk.eyJ1IjoibW9vc2hlciIsImEiOiJjam80c3pvamIwM2d0M3FxbXFqcmtkaGowIn0.Xq0Sqda765iioS8nU7nQDg'
    }).addTo(map);
    //This function clears all the points we have put on the map
    //it checks if there were any polylines put on the map and removes them
@@ -110,40 +113,7 @@
      });
      draggableLocMarkers.push(locMarker);
    }
-   let colorHash = ['#f43fd9','#f4b7eb', '#2c02fc', '#5d73d8','#35d2dd','#ffffff','#69fc67', '#09fc05','#e1f968','#fcef00','#fcb400','#fc6900'];
-   let colorTemp = colorHash.length;
-   let colorChosen = '#69fc67';
-     function changeLineColor() {
-       //Create variables to change the lines colors
-       // for(let i = 0; i < colorTemp; i++) {
-         if ($('#tempe') >= 25) {
-           colorChosen = colorHash[11];
-         } if ($('#tempe') <= 24 && $('#tempe') >=20) {
-           colorChosen =  colorHash[10];
-         }if ($('#tempe') <= 19 && $('#tempe') >=15) {
-           colorChosen =  colorHash[9];
-         }if ($('#tempe') <= 14 && $('#tempe') >=10) {
-             colorChosen =colorHash[8];
-         }if ($('#tempe') <= 9 && $('#tempe') >=5) {
-             colorChosen =colorHash[7];
-         }if ($('#tempe') <= 4 && $('#tempe') >=0) {
-           colorChosen =  colorHash[6];
-         }if ($('#tempe') <= 0 && $('#tempe') >=-5) {
-           colorChosen =  colorHash[5];
-         }if ($('#tempe') <= -6 && $('#tempe') >=-10) {
-           colorChosen =  colorHash[4];
-         }if ($('#tempe') <= -11 && $('#tempe') >=-15) {
-           colorChosen =  colorHash[3];
-         }if ($('#tempe') <= -16 && $('#tempe') >=-20) {
-           colorChosen =  colorHash[2];
-         }if ($('#tempe') <= -21 && $('#tempe') >=-25) {
-           colorChosen =  colorHash[1];
-         }if ($('#tempe') <= -26) {
-           colorChosen =  colorHash[0];
-         }
-   //    }
 
-     }
    //We draw a line through the points of a location we want to create
    function drawLocation() {
      //we remove overlapping polylines with this function
@@ -164,11 +134,12 @@
 
    //If we have more than one point on the map then we can draw a line
    if (latLngLoc.length>1){
-     changeLineColor();
-       console.log(colorChosen);
+    // changeLineColor();
      //create a red polyline from an array of latLng points
-     polyLine=L.polyline(latLngLoc,{color:colorChosen}).addTo(map);
+     polyLine=L.polyline(latLngLoc,{color:style}).addTo(map);
    }
+
+
    //if the line is succesfully created then we zoom to the lines location
    if(polyLine != null){
      //zoom the map to the polyLine
@@ -190,6 +161,7 @@
    }
    $('#geo').val(points.join(','));
  }
+
  $(document).ready(function() {
    map.on('click',function(e){
      addMarkersLocPoint(e.latlng);

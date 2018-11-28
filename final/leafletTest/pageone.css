@@ -1,5 +1,97 @@
 #map {
   position: relative;
+  top:50px;
   height: 700px;
   width: 1200px;
+  left: 160px;
+  margin-bottom: 50px;
+}
+#statwalks{
+  position: relative;
+  margin: none;
+  left:160px;
+}
+#preface {
+  position: relative;
+  margin: none;
+  left: 160px;
+   line-height:22px;
+}
+#drawloc{
+  position: relative;
+border-radius: 12px;
+background-color: #e7e7e7; color: black;
+cursor: pointer;
+font-size: 15px;
+left: 640px;
+top:500px;
+}
+
+#titles2 {
+  position: relative;
+  text-align: center;
+}
+#ttextD{
+  position: absolute;
+  padding-top: 10px;
+  left:600px;
+}
+#ttextT{
+  position: absolute;
+  padding-top: 15px;
+  top:950px;
+  left:600px;
+}
+#ttextL{
+  position: absolute;
+  padding-top: 15px;
+  top:1050px;
+
+  left:600px;
+}
+#tboxtextD{
+  position: absolute;
+  left: 600px;
+  border:1px solid #DADADA;
+  margin-top:50px;
+margin-bottom:10px;
+width:310px;
+height:30px;
+font-size:14px;
+box-shadow:0 0 10px;
+-webkit-box-shadow:0 0 10px;
+}
+#tboxtextT{
+  position: absolute;
+  left: 600px;
+  border:1px solid #DADADA;
+  margin-top:150px;
+margin-bottom:10px;
+width:310px;
+height:30px;
+font-size:14px;
+box-shadow:0 0 10px;
+-webkit-box-shadow:0 0 10px;
+}
+#tboxtextL{
+  position: absolute;
+  left: 600px;
+  border:1px solid #DADADA;
+margin-top:250px;
+margin-bottom:10px;
+width:310px;
+height:30px;
+font-size:14px;
+box-shadow:0 0 10px;
+-webkit-box-shadow:0 0 10px;
+}
+#write{
+  position: relative;
+  text-align: center;
+  padding: 5px;
+
+}
+
+body {
+    background-color: lightblue;
 }
