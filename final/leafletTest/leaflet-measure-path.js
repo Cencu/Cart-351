@@ -27,6 +27,7 @@
             var inner = L.DomUtil.create('div', '', el);
             inner.title = this._title;
             inner.innerHTML = this._measurement;
+        
 
             map.on('zoomanim', this._animateZoom, this);
 
@@ -182,9 +183,9 @@
                 showDistances: true,
                 showArea: true,
                 lang: {
-                    totalLength: 'Total length',
-                    totalArea: 'Total area',
-                    segmentLength: 'Segment length'
+                    totalLength: 'Totallength',
+                    totalArea: 'Totalarea',
+                    segmentLength: 'Segmentlength'
                 }
             }, options || {});
 

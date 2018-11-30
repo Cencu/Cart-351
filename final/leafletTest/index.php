@@ -75,7 +75,6 @@ $(document).ready(function(){
   // });
   addLocation()
 
-
 });
 
 function stringToGeoPoints(geo) {
@@ -99,6 +98,25 @@ function stringToGeoPoints(geo) {
   return latLngLine;
 }
 
+function calcGeoDistance(latlon1,latlon2) {
+//console.log(latlon1);
+     var R = 6371; //earth radius in KM
+
+    //var R = 3959; // earth radius in Miles (default)
+
+    var dLat = (latlon1.lat-latlon2.lat) * (Math.PI / 180);
+    var dLon = (latlon1.lng-latlon2.lng) * (Math.PI / 180);
+    var a = Math.sin(dLat/2) * Math.sin(dLat/2) +
+            Math.cos(latlon1.lat * (Math.PI / 180)) * Math.cos(latlon2.lat * (Math.PI / 180)) *
+            Math.sin(dLon/2) * Math.sin(dLon/2);
+    var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+    var p = R * c;
+    //console.log(p);
+    return p;
+
+  }
+
+
 //array of colors from really cold to really hot
 //-30 -25 PURPLE, -25 -20 LIGHT PURPLE, -20 -15 BLUE, -15 -10 MID BLUE, -10 -5 LIGHT BLUE, -5 0 (WHITE).
 //0 5 LIGHT GREEN, 5 10 GREEN, 10 15 LIGHT YELLOW, 15 20 YELLOW, 20 25 ORANGE, 25 30 DARK ORANGE
@@ -121,24 +139,26 @@ let colorHash = ['#f43fd9','#f4b7eb', '#2c02fc', '#5d73d8','#35d2dd','#ffffff','
 
   }
 
-  function showMeasurements(g) {
-    return g > 0 ? "1" :
-           g > 50 ? "2" :
-           g > 100 ? "3" :
-           g > 150 ? "4" :
-           g > 200 ? "5" :
-           g > 250 ? "6" :
-           g > 300 ? "7" :
-           g > 350 ? "8" :
-           g > 400 ? "9" :
-           g > 450 ? "10" :
-           g > 500 ? "11" :
-                     "1" ;
+  function changeStroke(g) {
+    let multWeight = 5;
+    return g > 0.1 ? "10" :
+           g > .2 ? "3.5" :
+           g > .4 ? "4" :
+           g > 1 ? "4.5" :
+           g > 1.50 ? "5" :
+           g > 2.00 ? "5.5" :
+           g > 2.50 ? "6" :
+           g > 3.00 ? "7" :
+           g > 3.50 ? "8" :
+           g > 4.00 ? "9" :
+           g > 4.50 ? "10" :
+           g > 5.00 ? "11" :
+                     "3" ;
   }
 
-  function styleWeight(featureW) {
+  function styleWeight(feature) {
     return {
-      weight: changeLineWeight()
+      weight: changeStroke()
     };
   }
 
@@ -153,8 +173,21 @@ let colorHash = ['#f43fd9','#f4b7eb', '#2c02fc', '#5d73d8','#35d2dd','#ffffff','
 function addLocation() {
   for (let i=0; i<locations.length; i++) {
     let chosenColor = changeLineColor(locations[i]['tempe']);
-    let polyline = L.polyline(stringToGeoPoints(locations[i]['geolocations']),{color: chosenColor}).addTo(map)
+    let chosenWeight = changeStroke(locations[i]['geolocations']);
+    let latLongArr = stringToGeoPoints(locations[i]['geolocations']);
+      console.log(latLongArr[0]);
+
+    let d = calcGeoDistance(latLongArr[0],latLongArr[latLongArr.length-1]);
+
+    let polyline = L.polyline(stringToGeoPoints(locations[i]['geolocations']),{color: chosenColor, weight: d*5}).addTo(map)
     .showMeasurements();
+
+  //  console.log(chosenWeight);
+
+  //  console.log(stringToGeoPoints(locations[i]['geolocations']));
+  //  console.log(calcGeoDistance());
+    //console.log(polyline.showMeasurements());
+  //  console.log(document.getElementByTagName("Segmentlength"));
   //   var imageUrl = '  https://images.fineartamerica.com/images/artworkimages/mediumlarge/1/montreal-map-jazzberry-blue.jpg',
   //     imageBounds = [[40.712216, -74.22655], [40.773941, -74.12544]];
   // L.imageOverlay(imageUrl, imageBounds).addTo(map);
