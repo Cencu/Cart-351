@@ -25,7 +25,7 @@ $locations = $conn->getLocationList();
 
 </script>
 <script src="leaflet-measure-path.js"></script>
-
+<link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
 
 </head>
 <body>
@@ -47,41 +47,21 @@ L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={
     accessToken: 'pk.eyJ1IjoibW9vc2hlciIsImEiOiJjam80c3pvamIwM2d0M3FxbXFqcmtkaGowIn0.Xq0Sqda765iioS8nU7nQDg'
 //add the functions to the map
 }).addTo(map);
+https://{s}libcom.org/{z}/{x}/{y}files/images/library/black-square.jpg?{foo}
+L.tileLayer('https://www.markpack.org.uk/files/2015/02/Black-square.png', {foo: 'bar'}).addTo(map);
 
-//
 $(document).ready(function(){
-
-  // $('#searchBtn').click(function() {
-  //   $.ajax({
-  //   type: "GET",
-  //   url: "ajax.php?keyword="+$("#search").val()
-  //   }).done(function( data )
-  //   {
-  //   var jsonData = JSON.parse(data);
-  //   var jsonLength = jsonData.results.length;
-  //   var html = "<ul>";
-  //   for (var i = 0; i < jsonLength; i++) {
-  //     var result = jsonData.results[i];
-  //     html += '<li data-lat="' + result.latitude + '" data-lng="' + result.longitude + '" class="searchResultElement">' + result.name + '</li>';
-  //   }
-  //   html += '</ul>';
-  //   $('#searchresult').html(html);
-  //   $( 'li.searchResultElement' ).click( function() {
-  //     var lat = $(this).attr( "data-lat" );
-  //     var lng = $(this).attr( "data-lng" );
-  //     map.panTo( [lat,lng] );
-  //   });
-  //   });
-  // });
   addLocation()
-
 });
 
 function stringToGeoPoints(geo) {
+  //Takees in both coordinates and splits them with a comma
   let linesPin = geo.split(",");
+  //Separate latitude and longitude into two Separate arrays
   let linesLat = new Array();
   let linesLng = new Array();
 
+//loop through the array, for every second iteration, you push the latitude and longitude
   for (i=0; i < linesPin.length; i++) {
     if(i %2) {
       linesLat.push(linesPin[i]);
@@ -89,20 +69,20 @@ function stringToGeoPoints(geo) {
       linesLng.push(linesPin[i]);
     }
   }
+  //create a new array to store the two coordinates
   let latLngLine = new Array();
-
+//loop through the array and and push the coordinates
   for (i=0; i <linesLng.length;i++) {
     latLngLine.push(L.latLng(linesLat[i], linesLng[i]));
 
   }
   return latLngLine;
 }
-
+//function used to calculate Distance
+//Harversine formula from MIT
 function calcGeoDistance(latlon1,latlon2) {
-//console.log(latlon1);
      var R = 6371; //earth radius in KM
 
-    //var R = 3959; // earth radius in Miles (default)
 
     var dLat = (latlon1.lat-latlon2.lat) * (Math.PI / 180);
     var dLon = (latlon1.lng-latlon2.lng) * (Math.PI / 180);
@@ -111,11 +91,8 @@ function calcGeoDistance(latlon1,latlon2) {
             Math.sin(dLon/2) * Math.sin(dLon/2);
     var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
     var p = R * c;
-    //console.log(p);
     return p;
-
   }
-
 
 //array of colors from really cold to really hot
 //-30 -25 PURPLE, -25 -20 LIGHT PURPLE, -20 -15 BLUE, -15 -10 MID BLUE, -10 -5 LIGHT BLUE, -5 0 (WHITE).
@@ -138,9 +115,9 @@ let colorHash = ['#f43fd9','#f4b7eb', '#2c02fc', '#5d73d8','#35d2dd','#ffffff','
                      '#69fc67';
 
   }
-
+//Function to change the stroke of the line
+//used the distance formula to set the stroke weight
   function changeStroke(g) {
-    let multWeight = 5;
     return g > 0.1 ? "10" :
            g > .2 ? "3.5" :
            g > .4 ? "4" :
@@ -155,6 +132,19 @@ let colorHash = ['#f43fd9','#f4b7eb', '#2c02fc', '#5d73d8','#35d2dd','#ffffff','
            g > 5.00 ? "11" :
                      "3" ;
   }
+//Change if the user is in a light or dark Area
+//the user inputs a 1 for light and 0 for dark
+  function changeDash(c) {
+    return c < 1 ? "8" :
+           c > 1 ? "0" :
+                        "0";
+  }
+  //return the functions above and attribute it to the database
+  function styleDash(feature) {
+    return {
+      dashArray: changeDash(lOrD)
+    };
+  }
 
   function styleWeight(feature) {
     return {
@@ -162,44 +152,35 @@ let colorHash = ['#f43fd9','#f4b7eb', '#2c02fc', '#5d73d8','#35d2dd','#ffffff','
     };
   }
 
-
   function style(feature) {
     return {
       color: changeLineColor(tempe)
-
     };
   }
 
 function addLocation() {
+  //Adds the lines with its parameters
   for (let i=0; i<locations.length; i++) {
+
     let chosenColor = changeLineColor(locations[i]['tempe']);
+    let lightOrDark = changeDash(locations[i]['lOrD']);
     let chosenWeight = changeStroke(locations[i]['geolocations']);
     let latLongArr = stringToGeoPoints(locations[i]['geolocations']);
-      console.log(latLongArr[0]);
 
     let d = calcGeoDistance(latLongArr[0],latLongArr[latLongArr.length-1]);
 
-    let polyline = L.polyline(stringToGeoPoints(locations[i]['geolocations']),{color: chosenColor, weight: d*5}).addTo(map)
+    let polyline = L.polyline(stringToGeoPoints(locations[i]['geolocations']),{color: chosenColor, weight: d*5, dashArray:lightOrDark}).addTo(map)
     .showMeasurements();
 
-  //  console.log(chosenWeight);
-
-  //  console.log(stringToGeoPoints(locations[i]['geolocations']));
-  //  console.log(calcGeoDistance());
-    //console.log(polyline.showMeasurements());
-  //  console.log(document.getElementByTagName("Segmentlength"));
-  //   var imageUrl = '  https://images.fineartamerica.com/images/artworkimages/mediumlarge/1/montreal-map-jazzberry-blue.jpg',
-  //     imageBounds = [[40.712216, -74.22655], [40.773941, -74.12544]];
-  // L.imageOverlay(imageUrl, imageBounds).addTo(map);
-
-    //  console.log(locations[i]);
       polyline.bindPopup("<b>" + locations[i]['name']);
     }
-
-
 }
-
+//parse through the database table
 let locations = JSON.parse('<?php echo json_encode($locations)?>');
+
+//https://www.phpclasses.org/blog/post/284-Create-a-Google-Maps-alternative-with-PHP-and-MySQL-using-the-Leaflet-library.html
+//Code from this website was implemented
+
 </script>
 </body>
 </html>

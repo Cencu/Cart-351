@@ -1,6 +1,6 @@
 <?php
 
-
+//mysql database
 return [
 	"db" => [
 		"server" => "localhost",

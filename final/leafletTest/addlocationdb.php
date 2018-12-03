@@ -1,4 +1,5 @@
 <?php
+//where the data gets posted
 require_once("db.php");
 $locations = strip_tags( $_POST['locations'] );
 $geo = strip_tags( $_POST['geo'] );
@@ -15,6 +16,7 @@ $keywords = strip_tags( $_POST['keywords'] );
 <html>
  <head>
   <title>Location added</title>
+  <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
  </head>
  <body>
   <h1>Location has been added</h1>

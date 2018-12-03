@@ -19,6 +19,7 @@
 <script src="http://maps.google.com/maps/api/js?key=AIzaSyBbCxEsdcXzR884-ABo1cp58ZfNDnhX8nE"></script>
 <link rel="stylesheet" href="https://ppete2.github.io/Leaflet.PolylineMeasure/Leaflet.PolylineMeasure.css" />
 <script src="https://ppete2.github.io/Leaflet.PolylineMeasure/Leaflet.PolylineMeasure.js"></script>
+<link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
  </head>
  <body>
    <div id="map" style="width:1200px; height:700px"></div><br/>
@@ -28,15 +29,15 @@
     <input id="drawloc" type="button" onclick="drawLocation();" value="Draw a location"/>
     <input id="drawloc" type="button" onclick="resetLocation();" value = "Clear location"/><br/>
 
-    <p id="titles2">To add a location, point and click on the map. To remove the location, point and click again</p>
+    <p id="titles2">Input the parameters corresponding to your route.</p>
 <!-- this form collects points from the map -->
       <form  action="addlocationdb.php" method="post">
         <!-- <h1 id="titles">Location Specifics</h1> -->
-        <tr>
+        <!-- <tr>
           <p id="ttextD" >Distance:</p>
           <td><textarea id="tboxtextD" name="tTravel"></textarea></td>
         </tr>
-        <tr>
+        <tr> -->
           <p id="ttextT">Temperature</p>
           <td ><textarea id="tboxtextT" name="tempe"></textarea></td>
         </tr>
@@ -47,27 +48,27 @@
 
 
 
-        <h1 id="titles">Add a new location</h1>
-        <table id="write" cellpadding = "5" cellspacing="0" border="0">
+        <!-- <h1 id="titles">Add a new location</h1> -->
+        <table id="write" cellpadding = "5" cellspacing="0">
           <tbody>
-            <tr align="left" valign="top">
-              <td align="left" valign="top">Geographic Locations</td>
-              <td align="left" valign="top"><input type="text" name="location"/></td>
+            <tr >
+              <td id="geographicloc"  valign="top">Geographic Location</td>
+              <td ><input id="locationbox" type="text" name="location"/></td>
             </tr>
-            <tr align="left" valign="top">
-              <td align="left" valign="top">Geographic Locations</td>
-              <td align="left" valign="top">
+            <tr >
+              <td id="coordsfrom" align="left" valign="top">Coordinates (Extracted From Map)</td>
+              <td>
                 <textarea id="geo" name="geo"></textarea>
-                <br/><input type="button" onclick="getGeoPoints();" value="Collect points"/>
+                <br/><input id="geobutton" type="button" onclick="getGeoPoints();" value="Collect points"/>
               </td>
             </tr>
             <tr align="left" valign="top">
-              <td align="left" valign="top">Keywords</td>
-              <td align="left" valign="top"><textarea name="keywords"></textarea></td>
+              <td id="key" align="left" valign="top">Keywords</td>
+              <td  align="left" valign="top"><textarea id="keybox" name="keywords"></textarea></td>
             </tr>
             <tr align="left" valign="top">
               <td align="left" valign="top"></td>
-              <td align="left" valign="top"><input type="submit" value="Save"></td>
+              <td align="left" valign="top"><input id="savebox" type="submit" value="Save"></td>
           </tbody>
         </table>
       </form>

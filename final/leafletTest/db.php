@@ -2,19 +2,11 @@
 
 class connectToDB {
   private $conn;
-//   public function __construct(){
-//
-//     $config = include 'config.php';
-//     $this->conn = new connectToDB($config['db']['server'], $config['db']['user'],$config['db']['pass'],$config['db']['dbname']);
-//   }
-// function __destruct() {
-//   $this->conn.close();
-// }
+
 public function __construct(){
 
   $config = include 'config.php';
   $this->conn = mysqli_connect($config['db']['server'], $config['db']['user'],$config['db']['pass'],$config['db']['dbname']);
-  //echo($config['db']['dbname']);
   // Check connection
 if (mysqli_connect_errno())
 {
@@ -30,19 +22,15 @@ public function addLocation($locations, $geo, $tTravel, $tempe, $lOrD, $keywords
   $statement->execute();
   $statement->close();
 }
-// tTravel, temp, lOrD,
-//$tTravel, $tempe, $lOrD,
+
 
 public function getLocationList() {
   $arr = array();
   $statement = $this->conn->prepare("SELECT id, name, geolocations, tTravel, tempe, lOrD, keywords from location order by name ASC");
-  //tTravel, tempe, lOrD,
   $statement->execute();
   $statement->bind_result($id, $name, $geolocations, $tTravel, $tempe, $lOrD, $keywords);
-  //$tTravel, $tempe, $lOrD,
   while ($statement->fetch()) {
     $arr[] = ["id" => $id, "name" => $name, "geolocations" =>$geolocations, "tTravel" => $tTravel, "tempe" =>$tempe, "lOrD" =>$lOrD, "keywords => $keywords"];
-    //"tTravel" => $tTravel, "tempe" =>$tempe, "lOrD" =>$lOrD,
   }
     $statement->close();
 
@@ -54,7 +42,6 @@ $statement = $this->conn->prepare( "SELECT name, geolocations FROM `locations` w
 $statement->bind_param( 'ss', $keyword, $keyword);
 $statement->execute();
 $statement->bind_result( $name, $geolocations);
-//$tTravel, $tempe, $lOrD,
 while ($statement->fetch()) {
 $temp = explode(",",$geolocations);
 $arr[] = '{"name":"' . $name. '","latitude":"' . $temp[1]. '","longitude":"' . $temp[0]. '"}';
