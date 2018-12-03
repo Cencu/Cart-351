@@ -172,7 +172,7 @@ function addLocation() {
     let polyline = L.polyline(stringToGeoPoints(locations[i]['geolocations']),{color: chosenColor, weight: d*5, dashArray:lightOrDark}).addTo(map)
     .showMeasurements();
 
-      polyline.bindPopup("<b>" + locations[i]['name']);
+      polyline.bindPopup('<p>' + locations[i]['name'] + '</p>');
     }
 }
 //parse through the database table
