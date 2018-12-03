@@ -169,8 +169,7 @@ function addLocation() {
 
     let d = calcGeoDistance(latLongArr[0],latLongArr[latLongArr.length-1]);
 
-    let polyline = L.polyline(stringToGeoPoints(locations[i]['geolocations']),{color: chosenColor, weight: d*5, dashArray:lightOrDark}).addTo(map)
-    .showMeasurements();
+    let polyline = L.polyline(stringToGeoPoints(locations[i]['geolocations']),{color: chosenColor, weight: d*5, dashArray:lightOrDark}).addTo(map);
 
       polyline.bindPopup('<p>' + locations[i]['name'] + '</p>');
     }
